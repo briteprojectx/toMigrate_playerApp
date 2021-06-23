@@ -1,0 +1,16 @@
+{
+  "en":{
+    "SignIn": {
+      "username": "Email",
+      "password": "Password",
+      "login": "Login",
+      "mygolf-title": "myGolf2u",
+      "forgotpassword": "Forgot Password?",
+      "signup": "Join Now",
+      "SignIn": "Sign In",
+      "PasswordRequired": "Password is required",
+      "LoaderPleaseWait": "Please wait while initializing...",
+      "TapRetry": "Tap here to retry"
+    }
+  }
+}

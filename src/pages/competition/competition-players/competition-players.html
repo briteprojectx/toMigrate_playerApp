@@ -1,0 +1,121 @@
+<!--
+  Generated template for the CompetitionPlayersPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button icon-only (click) = "onHomeClick()">
+                <ion-icon name = "home"></ion-icon>
+            </button>
+            <button ion-button icon-only (click) = "onRefreshClick(false,null)">
+                <i class = "fa fa-lg fa-refresh"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{"CompetitionPlayersPage.title"|translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class = "mygolf-page-background">
+    <ion-refresher pullMin = "200" (ionRefresh) = "onRefreshClick(false,$event)">
+        <ion-refresher-content
+                pullingIcon = "arrow-down"
+                pullingText = "drag down to reload"
+                refreshingSpinner = "circles"
+                refreshingText = "Refreshing ...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list>
+        <ion-item class = "page-sub-title align-center">
+            <h3 style = "font-weight:bold">{{competition.competitionName}}</h3>
+            <h4>{{competition.clubName}}</h4>
+        </ion-item>
+        <ion-toolbar color = "light">
+            <ion-searchbar #searchBar [(ngModel)] = "searchQuery" debounce = "1500" (ionInput) = "onSearchInput($event)"
+                    dark
+                    (ionCancel) = "onSearchCancel()" [showCancelButton] = "true" class = "focusSearchBar">
+            </ion-searchbar>
+            <!-- !competition.teamEvent &&  -->
+
+
+            <button ion-button icon-right small outline
+            *ngIf="categories.length > 0 && checkScoringCategory()"
+            (click)="openCategory()"
+                    style="max-width:100%;min-width:100%">
+                {{showCategoryName}}
+                <!-- Category -->
+                <ion-icon primary name="arrow-down"></ion-icon>
+            </button>
+        </ion-toolbar>
+        <ion-card class="mygolf-table">
+            <ion-card-content no-padding>
+                <ion-grid no-padding>
+                    <ion-row class="mygolf-table-header align-left">
+                        <ion-col col-2></ion-col>
+                        <ion-col col-5 (click) = "toggleSortDisplay('name')">
+                            <div color="invert-text" [ngClass]="{'sort-ascending':sortBy==='name'}">
+                                {{"CompetitionPlayersPage.colPlayers"|translate}}
+                            </div>
+                        </ion-col>
+                        <ion-col col-1 class="align-center">
+                                <div color="invert-text">
+                                    Nat
+                                    <!-- {{"CompetitionPlayersPage.colNationality"|translate}} -->
+                                </div>
+                            </ion-col>
+                        <ion-col col-2 (click) = "toggleSortDisplay('handicap')" class="align-center">
+                            <div color="invert-text" [ngClass]="{'sort-ascending':sortBy==='handicap'}">
+                                {{"CompetitionPlayersPage.colHandicap"|translate}}
+                            </div>
+                        </ion-col>
+                        <ion-col col-2 class="align-center" >
+                            <div color="invert-text">
+                                Cat
+                                <!-- {{"CompetitionPlayersPage.colMemberAccNo"|translate}} -->
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngFor = "let p of filteredPlayers; let i = index; let e = even; let o = odd"
+                            [ngClass]="{'mygolf-table-row':e, 'mygolf-table-row-alt': o}">
+                        <ion-col style="align-self: center" col-2 class="vertical-align">
+                            <ion-avatar class = "rounded no-margin">
+                                <img src = "{{p.thumbnailURL?p.thumbnailURL:p.photoUrl}}"
+                                        onerror = "this.src='img/default_user.png'">
+                            </ion-avatar>
+                        </ion-col>
+                        <ion-col col-5 [class.logged-in-user]="loggedInUser==p.playerId"  class="vertical-align">
+                            <div class="player-name">{{p.playerName}}
+                                <!-- <span class="player-category" *ngIf="p.category"><br>[ {{p.category}} ]</span> -->
+                            </div>
+                        </ion-col>
+                        <ion-col col-1 class="vertical-align" style="align-self: center;"> 
+                                <ion-avatar class = "no-margin">
+                                        <!-- <img src = "{{p.thumbnailURL?p.thumbnailURL:p.photoUrl}}" -->
+                                        <!-- src = "img/flag/MAS.png"  -->
+                                                <img [src] = "getFlagUrl(p.nationalFlag)"
+                                                onerror = "this.src='img/flag/default_worldwide.png'" />
+                                                <!-- {{getFlagUrl(p.flagUrl)}} - {{p.flagUrl}} -->
+                                                
+                                    </ion-avatar>
+                        </ion-col>
+                        <ion-col style="align-self: center"  col-2 class="align-center vertical-align">
+                            <div>{{p.handicap}}</div>
+                        </ion-col>
+                        <ion-col style="align-self: center"  col-2 class="align-center vertical-align">
+                                <div>
+                                    <span class="player-category" *ngIf="p.category">{{p.category}}</span>
+                            <br *ngIf="p.category && p.memberAccount">
+                            <span class="player-category" *ngIf="p.memberAccount">[ {{p.memberAccount}} ]</span>
+                        </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+            </ion-card-content>
+            <ion-item *ngIf="!filteredPlayers.length">
+                <h3>{{"CompetitionPlayersPage.noDataFound" |translate}}</h3>
+            </ion-item>
+        </ion-card>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,60 @@
+.custom-input{
+	@include placeholder(#FFF);
+}
+
+.sign-in-page {
+	//#username input[placeholder]::-webkit-input-placeholder{color:black; opacity:0.8}
+	//#password input[placeholder]::-webkit-input-placeholder{color:black; opacity:0.8}
+
+	.signin-textfield {
+	  border: 1px solid $black !important;
+	  color: $black;
+	  border-radius: .6em !important;
+	  margin-bottom: 5px;
+	  height: 1.0em;
+	  min-height: 3.4rem;
+	  box-shadow: inset 1px 2px 4px rgba(0, 0, 0, .2);
+	  //background: transparent
+	  font-size: 1.4rem;
+	}
+	.signing-in{
+		vertical-align: middle;
+		h6{
+			vertical-align: middle;
+		}
+	}
+	.main-logo{
+		background: url(../css/img/logo-48x.png);
+		background-repeat: no-repeat !important;
+		background-position: center !important;
+		padding-top: 30px;
+		padding-bottom: 50px;
+		background-size:80px !important;
+        margin: 10px 5px;
+	}
+
+	.loading-logo{
+		background: url(../css/img/logo-48x.png);
+		background-repeat: no-repeat !important;
+		background-position: center !important;
+		padding-top: 150px;
+		padding-bottom: 50px;
+		background-size:160px !important;
+				margin: 10px 5px;
+	}
+
+
+	.list-sign-in{
+		.item:first-child {
+			border: none;
+		}
+	}
+
+	.loading {
+		vertical-align: middle;
+	}
+
+	.button-primary.activated {
+		color: $light;
+	}
+}

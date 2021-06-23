@@ -1,0 +1,856 @@
+<ion-header>
+    <ion-navbar [hideBackButton]="showLogout">
+        <ion-buttons end>
+            <button *ngIf="!hideHomeButton" ion-button icon-only (click)="onHomeClick()">
+                <ion-icon name="home"></ion-icon>
+            </button>
+            <button *ngIf="showLogout" ion-button icon-only (click)="logout()">
+                <ion-icon name="exit"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="onRefreshClick(null)">
+                <i class="fa fa-lg fa-refresh"></i>
+            </button>
+        </ion-buttons>
+        <ion-title>{{getTitle()}}</ion-title>
+    </ion-navbar>
+    <ion-toolbar color="light" *ngIf="visible">
+        <ion-searchbar [(ngModel)]="searchQuery" debounce="1500" (ionInput)="onSearchInput($event)"
+                       (ionCancel)="onSearchCancel()" [showCancelButton]="true">
+        </ion-searchbar>
+    </ion-toolbar>
+
+</ion-header>
+<ion-content class="mygolf-page-background leaderboard-page">
+    <ion-refresher pullMin="200" (ionRefresh)="onRefreshClick($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-down"
+                pullingText="drag down to reload"
+                refreshingSpinner="circles"
+                refreshingText="Refreshing ...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list>
+        <ion-item class="page-sub-title align-center">
+            <h3 style="font-weight:bold;word-wrap: break-word;white-space: normal;">
+                {{leagueScorecards?leagueScorecards.leagueRound.competitionName:competition.competitionName}}
+                <!-- {{competition.competitionName}} -->
+                <span *ngIf="competition.scoringFormat"> ({{competition.scoringFormat}})</span>
+            </h3>
+            <h4>
+                <span *ngIf="roundNo == 0">
+                  {{competition.clubName}}
+              </span>
+                <span *ngIf="roundNo > 0">{{leaderboards.firstNineCourseName}}
+                    <span *ngIf="leaderboards.secondNineCourseName">& {{leaderboards.secondNineCourseName}}</span>
+                </span>
+            </h4>
+        </ion-item>
+        <ion-row *ngIf="currentSeasonRound" class="page-sub-title align-center">
+            <ion-col *ngIf="currentSeasonRound.roundNo > 1" col-1 class="btn-back" (click)="prevRound()"></ion-col>
+            
+            <ion-col style="text-align:center;font-weight: bold;font-size: 1.5em;"> 
+                {{currentSeasonRound.seasonName}} (R{{currentSeasonRound.roundNo}})
+                        <!-- <ion-datetime (ionChange)="confirmDate()"
+                        displayFormat="DDD, DD MMM YYYY" 
+                        pickerFormat="DD-MM-YYYY" [(ngModel)]="currentDate" [min]="today"></ion-datetime> -->
+            </ion-col>
+            <ion-col *ngIf="leagueRounds && currentSeasonRound.roundNo < leagueRounds.length" col-1 class="btn-next" (click)="nextRound()"></ion-col>
+        </ion-row>
+        <ion-row *ngIf="0" style="background-color:white">
+            <ion-col col-3 style="padding-left:2px">
+                <button ion-button small icon-right outline (click)="openSortBy()" style="max-width:100%;">
+                    {{showSortBy}}
+                    <ion-icon primary name="arrow-down"></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-3 style="padding-left:0">
+                <button ion-button small icon-right outline *ngIf="competition.totalRounds > 1" (click)="openRound()"
+                        style="max-width:100%;">
+                    {{showRoundNo}}
+                    <ion-icon primary name="arrow-down"></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-4 style="text-align:left;padding-left:0">
+                <button ion-button icon-right small outline
+                        *ngIf="!competition.teamEvent && categories.length > 0 && checkScoringCategory()"
+                        (click)="openCategory()"
+                        style="max-width:100%;min-width:100%">
+                    {{showCategoryName}}
+                    <ion-icon primary name="arrow-down"></ion-icon>
+                </button>
+                <button ion-button icon-right small outline
+                        *ngIf="competition.teamEvent && compTeams && compTeams.totalItems > 0"
+                        style="max-width:100%;min-width:100%">
+                    {{showCategoryName}}
+                    <ion-icon primary name="arrow-down"></ion-icon>
+                </button>
+                <button ion-button icon-right small outline
+                        *ngIf="competition.teamEvent"
+                        (click)="toggleTeamEvent()" style="max-width:100%;min-width:100%">
+                    {{showEventMode}}
+                    <!-- <ion-icon primary name="arrow-down"></ion-icon> -->
+                </button>
+            </ion-col>
+            <ion-col col-2 style="text-align: right;padding-right: 2px">
+                <button ion-button icon-only color="primary" small outline (click)="toggleSearch()">
+                    <ion-icon name="search"></ion-icon>
+                </button>
+            </ion-col>
+            
+            <ion-col col-3>
+                <button ion-button small (click)="changeScorecardView(1)"  [color]="scorecardView===1?'danger':''">
+                    1
+                </button>
+                <button ion-button small (click)="changeScorecardView(2)" [color]="scorecardView===2?'danger':''">
+                    2
+                </button>
+                <button ion-button small (click)="changeScorecardView(3)"  [color]="scorecardView===3?'danger':''">
+                    3
+                </button>
+                <button ion-button small (click)="changeScorecardView(4)"  [color]="scorecardView===4?'danger':''">
+                    4
+                </button>
+            </ion-col>
+        </ion-row>
+        <ion-card *ngIf="0 && scorecardView === 1" class="mygolf-table flat-table">
+            <ion-grid no-padding>
+                <ion-row class="mygolf-table-header">
+                    <ion-col col-1 class="vertical-align align-center" no-padding>
+                        <div showWhen="portrait">{{"LeaderboardPage.positionP"|translate}}</div>
+                        <div showWhen="landscape">{{"LeaderboardPage.positionL"|translate}}</div>
+                    </ion-col>
+                    
+                    <ion-col col-4 class="align-left ">
+                        <div>{{"LeaderboardPage.players"|translate}}</div>
+                    </ion-col>
+                    <!-- <ion-col col-1>
+                        <div>&nbsp;</div>
+                    </ion-col> -->
+                    <ion-col *ngIf="!showTeam" col-2 class="align-center">
+                        <div showWhen="portrait">{{"LeaderboardPage.handicapP"|translate}}</div>
+                        <div showWhen="landscape">{{"LeaderboardPage.handicapL"|translate}}</div>
+                    </ion-col>
+                    <ion-col *ngIf="!showTeam" col-2 class="align-center">
+                        <div showWhen="portrait">HIdx</div>
+                        <div showWhen="landscape">Hcp Idx</div>
+                    </ion-col>
+                    <ion-col col-1 class="align-center">
+                        <div showWhen="portrait">T</div>
+                        <div showWhen="landscape">Tee</div>
+                    </ion-col>
+                    <!-- <ion-col col-1 class="align-center">
+                        <div>{{"LeaderboardPage.toPar"|translate}}</div>
+                    </ion-col> -->
+                    <ion-col col-1 class="align-center">
+                        <div showWhen="portrait">
+                            Tot
+                            <!-- {{"LeaderboardPage.grossP"|translate}} -->
+                        </div>
+                        <div showWhen="landscape">
+                            Total
+                            <!-- {{"LeaderboardPage.grossL"|translate}} -->
+                        </div>
+                    </ion-col>
+                    <ion-col col-1 class="align-center">
+                        <div showWhen="portrait">
+                            Adj.
+                            <!-- {{"LeaderboardPage.netP"|translate}} -->
+                        </div>
+                        <div showWhen="landscape">
+                            Adjusted
+                            <!-- {{"LeaderboardPage.netL"|translate}} -->
+                        </div>
+                    </ion-col>
+                    
+                    <ion-row col-12 class="vertical-align align-center">
+                        <ion-col *ngFor="let x of [1,2,3,4,5,6,7,8,9]">{{x}}</ion-col>
+                        <ion-col>O</ion-col>
+                        <ion-col *ngFor="let x of [10,11,12,13,14,15,16,17,18]">{{x}}</ion-col>
+                        <ion-col>I</ion-col>
+                    </ion-row>
+                </ion-row>
+                <ion-row *ngFor="let p of filteredPlayers;let i = index; let e = even; let o = odd"
+                        class="mygolf-table-row">
+                        <!-- [ngClass]="{'mygolf-table-row':e, 'mygolf-table-row-alt': o}" -->
+                    <ion-col col-1 class="vertical-align align-center">
+                        <div>{{p.position}}</div>
+                    </ion-col>
+                    
+                    <ion-col col-4 class="vertical-align align-left" style="overflow:hidden">
+                        <div [class.logged-in-user]="loggedInUser==p.playerId">
+                            <i *ngIf="!p.participating">{{p.playerName}} </i>
+                            <div *ngIf="p.participating">{{p.playerName}} </div>
+                            <span *ngIf="p.sportCode">({{p.sportCode}})</span></div>
+                    </ion-col>
+                    <!-- <ion-col col-1 style="padding-left:0px">
+                        <ion-avatar class="rounded no-margin">
+                            <img src="{{p.imageURL}}"
+                                    onerror="this.src='img/default_user.png'">
+                        </ion-avatar>
+                    </ion-col> -->
+                    <ion-col *ngIf="!showTeam" col-2 class="vertical-align align-center">
+                        <div>{{p.handicap}}</div>
+                    </ion-col>
+                    <ion-col *ngIf="!showTeam" col-2 class="vertical-align align-center">
+                        <div>{{p.handicap}}</div>
+                    </ion-col>
+                    <ion-col col-1 class="vertical-align align-center">
+                        <div>🚩</div>
+                    </ion-col>
+                    <ion-col col-1 class="vertical-align align-center">
+                        <div>{{p.totalGross}}</div>
+                    </ion-col>
+                    <ion-col col-1 class="vertical-align align-center">
+                        <div>
+                            <div>{{getAdjustedTotal(p)}}</div>
+                        </div>
+                        <!-- <div *ngIf="refreshedAttempt && searchCriteria.competitionLeaderboardSortBy == 2">
+                            <div>{{p.totalNet}}</div>
+                        </div>
+                        <div *ngIf="refreshedAttempt && searchCriteria.competitionLeaderboardSortBy > 2">
+                            <div *ngIf="p.modifiedTotalNet === p.totalNet || !p.modifiedTotalNet">
+                                <div>{{p.totalNet}}</div>
+                            </div>
+                            <div *ngIf="p.modifiedTotalNet && p.modifiedTotalNet != p.totalNet  && competition.status == 'Completed'">
+                                <div style="text-decoration: line-through;font-size:1rem">{{p.totalNet}}</div>
+                                <div>{{p.modifiedTotalNet}}</div>
+                            </div>
+                            <div *ngIf="p.modifiedTotalNet && p.modifiedTotalNet != p.totalNet  && competition.status != 'Completed'">
+                                <div>{{p.totalNet}}</div>
+                            </div>
+                        </div> -->
+                    </ion-col>
+                    <ion-row col-12 class="vertical-align align-center mygolf-table-row-alt">
+                        <ion-col *ngFor="let x of [1,2,3,4,5,6,7,8,9]">{{x}}</ion-col>
+                        <ion-col  style="background-color: black; color: white;">36</ion-col>
+                        <ion-col *ngFor="let x of [10,11,12,13,14,15,16,17,18]">{{x}}</ion-col>
+                        <ion-col  style="background-color: black; color: white;">35</ion-col>
+                    </ion-row>
+                </ion-row>
+            </ion-grid>
+        </ion-card>
+        <ion-card *ngIf="scorecardView === 2" class="mygolf-table flat-table">
+            <ion-card-content>
+            <ion-grid no-padding>
+                <ion-row class="mygolf-table-header" no-padding>
+                        <ion-col col-1 class="vertical-align align-center" no-padding>
+                            <ion-row no-padding>
+                                <ion-col no-padding>
+                                    
+                                    <div showWhen="portrait">{{"LeaderboardPage.positionP"|translate}}</div>
+                                    <div showWhen="landscape">{{"LeaderboardPage.positionL"|translate}}</div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row no-padding style="line-height: 1.5em;">
+                                <ion-col col-12>
+                                    <div>Hole</div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row no-padding style="line-height: 1.5em;">
+                                <ion-col col-12>
+                                    <div>&nbsp;</div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row no-padding class = "hole-par-row ">
+                                <ion-col col-12>
+                                    <div>Par</div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row no-padding class = "hole-par-row ">
+                                <ion-col col-12>
+                                    <div>&nbsp;</div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row no-padding class="hole-index-row">
+                                <ion-col col-12>
+                                    <div>Idx</div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row no-padding class="hole-index-row">
+                                <ion-col col-12>
+                                    <div>&nbsp;</div>
+                                </ion-col>
+                            </ion-row>
+                    </ion-col>
+                    <ion-col no-padding>
+
+                        <ion-row no-padding >
+                            <ion-row no-padding col-12 class="vertical-align align-center">
+                            <ion-col col-6 class="align-left ">
+                                <div>{{"LeaderboardPage.players"|translate}}</div>
+                            </ion-col>
+                            <!-- <ion-col col-1>
+                                <div>&nbsp;</div>
+                            </ion-col> -->
+                            <ion-col col-1 class="align-center">
+                                <div showWhen="portrait">T</div>
+                                <div showWhen="landscape">Tee</div>
+                            </ion-col>
+                            <ion-col *ngIf="!showTeam" class="align-center">
+                                <div showWhen="portrait">{{"LeaderboardPage.handicapP"|translate}}</div>
+                                <div showWhen="landscape">{{"LeaderboardPage.handicapL"|translate}}</div>
+                            </ion-col>
+                            <ion-col *ngIf="!showTeam" class="align-center">
+                                <div showWhen="portrait">HIdx</div>
+                                <div showWhen="landscape">Hcp Idx</div>
+                            </ion-col>
+                            <!-- <ion-col col-1 class="align-center">
+                                <div>{{"LeaderboardPage.toPar"|translate}}</div>
+                            </ion-col> -->
+                            <ion-col class="align-center">
+                                <div showWhen="portrait">
+                                    Tot
+                                    <!-- {{"LeaderboardPage.grossP"|translate}} -->
+                                </div>
+                                <div showWhen="landscape">
+                                    Total
+                                    <!-- {{"LeaderboardPage.grossL"|translate}} -->
+                                </div>
+                            </ion-col>
+                            <ion-col class="align-center">
+                                <div showWhen="portrait">
+                                    Adj.
+                                    <!-- {{"LeaderboardPage.netP"|translate}} -->
+                                </div>
+                                <div showWhen="landscape">
+                                    Adjusted
+                                    <!-- {{"LeaderboardPage.netL"|translate}} -->
+                                </div>
+                            </ion-col>
+                            </ion-row>
+                            <ion-row no-padding col-12 class="vertical-align align-center" style="line-height: 1.5em;">
+                                <ion-col  class="align-center" no-padding  *ngFor="let x of [1,2,3,4,5,6,7,8,9]">{{x}}</ion-col>
+                                <ion-col  class=" align-center" no-padding >Out</ion-col>
+                            </ion-row>
+                            <ion-row  no-padding col-12 class="vertical-align align-center" style="line-height: 1.5em;">
+                                <ion-col  class="align-center"  no-padding *ngFor="let x of [10,11,12,13,14,15,16,17,18]">{{x}}</ion-col>
+                                <ion-col  class="align-center" no-padding >In</ion-col>
+                            </ion-row>
+                            <ion-row no-padding col-12 class="hole-par-row"> 
+                                <ion-col  class="align-center" no-padding  *ngFor="let x of getScorecardHeader('holePar',1)">{{x}}</ion-col>
+                                <ion-col  class=" align-center" no-padding >&nbsp;</ion-col>
+                            </ion-row>
+                            <ion-row no-padding col-12 class="hole-par-row">
+                                <ion-col  class="align-center"  no-padding *ngFor="let x of getScorecardHeader('holePar',2)">{{x}}</ion-col>
+                                <ion-col  class=" align-center" no-padding >&nbsp;</ion-col>
+                            </ion-row>
+                            <ion-row no-padding col-12 class="hole-index-row"
+                            style="background-color: black; color:white;">
+                                <ion-col  class="align-center" no-padding  *ngFor="let x of getScorecardHeader('holeIndex',1)">{{x}}</ion-col>
+                                <ion-col  class=" align-center" no-padding >&nbsp;</ion-col>
+                            </ion-row>
+                            <ion-row no-padding col-12 class="hole-index-row"
+                            style="background-color: black; color:white;">
+                            <ion-col  class="align-center"  no-padding *ngFor="let x of getScorecardHeader('holeIndex',2)">{{x}}</ion-col>
+                            <ion-col  class=" align-center" no-padding >&nbsp;</ion-col>
+                            </ion-row>
+                        </ion-row>
+                    </ion-col>
+                </ion-row>
+                
+            </ion-grid>
+        </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="scorecardView === 2" class="mygolf-table flat-table">
+            <ion-card-content>
+            <ion-grid no-padding *ngIf="leagueScorecards">
+                
+                <ion-row no-padding *ngFor="let p of leagueScorecards.playerRounds ;let i = index; let e = even; let o = odd"
+                [ngClass]="{'mygolf-table-row':e, 'mygolf-table-row-alt': o}">
+                <ion-col col-1  no-padding class="align-center">
+                    <!-- class="vertical-align align-center" -->
+                    <ion-row col-12 no-padding style="line-height: 3em">
+                        <ion-col col-12 no-padding>
+                            <div style="font-size: medium; font-weight: bold;">{{p.position}}</div>
+                        </ion-col>
+                        
+                    </ion-row>
+                    <ion-row col-12 no-padding>
+                        <ion-col col-12 no-padding>
+                            <ion-avatar class="rounded no-margin">
+                                <img src="{{p.photo}}"
+                                        onerror="this.src='img/default_user.png'">
+                            </ion-avatar>
+                        </ion-col>
+                       
+                    </ion-row>
+                </ion-col>
+                <ion-col no-padding>
+                    <ion-row col-12 no-padding style="line-height: 3em">
+                        
+                                <!-- class="mygolf-table-row" -->
+                                
+                            <!-- <ion-col col-1 class="vertical-align align-center">
+                                <div>{{p.position}}</div>
+                            </ion-col> -->
+                            
+                            <ion-col col-6 class="vertical-align align-left" 
+                            style="overflow:hidden; white-space: nowrap; text-overflow: ellipsis;font-weight: bold;">
+                                <div [class.logged-in-user]="loggedInUser==p.playerId">{{p.playerName}} <span *ngIf="p.sportCode">({{p.sportCode}})</span></div>
+                            </ion-col>
+                            <!-- <ion-col col-1 style="padding-left:0px">
+                                <ion-avatar class="rounded no-margin">
+                                    <img src="{{p.imageURL}}"
+                                            onerror="this.src='img/default_user.png'">
+                                </ion-avatar>
+                            </ion-col> -->
+                            <ion-col col-1 class="vertical-align align-center">
+                                <button ion-button 
+                                    [ngClass]="getBtnTbox(p.teeBoxName)"
+                                    [color]="getTeeColor(p.teeBoxName)" small clear item-right>
+                                    <i class="fa fa-flag fa-fw"></i>
+                                </button>
+                                <!-- <div>{{p.teeBoxName}}</div> -->
+                            </ion-col>
+                            <ion-col style="font-weight: bold;" *ngIf="!showTeam" class="vertical-align align-center">
+                                <div>{{p.handicap}}</div>
+                            </ion-col>
+                            <ion-col style="font-weight: bold;" *ngIf="!showTeam" class="vertical-align align-center">
+                                <div>{{p.handicapIndex}}</div>
+                            </ion-col>
+                            <ion-col style="font-weight: bold;" class="vertical-align align-center">
+                                <div>{{p.totalGross}}</div>
+                            </ion-col>
+                            <ion-col style="font-weight: bold;" class="vertical-align align-center">
+                                <div *ngIf="refreshedAttempt && searchCriteria.competitionLeaderboardSortBy == 2">
+                                    <div>{{p.totalNetAdj}}</div>
+                                </div>
+                                <div *ngIf="refreshedAttempt && searchCriteria.competitionLeaderboardSortBy > 2">
+                                    <div *ngIf="p.modifiedTotalNet === p.totalNet || !p.modifiedTotalNet">
+                                        <div>{{p.totalNetAdj}}</div>
+                                    </div>
+                                    <div *ngIf="p.modifiedTotalNet && p.modifiedTotalNet != p.totalNet  && competition.status == 'Completed'">
+                                        <div style="text-decoration: line-through;font-size:1rem">{{p.totalNet}}</div>
+                                        <div>{{p.totalNetAdj}}</div>
+                                    </div>
+                                    <div *ngIf="p.modifiedTotalNet && p.modifiedTotalNet != p.totalNet  && competition.status != 'Completed'">
+                                        <div>{{p.totalNetAdj}}</div>
+                                    </div>
+                                </div>
+                            </ion-col>
+                            
+                    </ion-row> 
+                            <ion-row col-12 class="vertical-align align-center" 
+                            style="border-bottom: lightgray; border-bottom-style: solid; border-bottom-width: 1px; line-height: 1.5em"  
+                            no-padding >
+                                <ion-col class="align-center" [ngClass]="deriveClasses(p.playerScores, idx,1 )"  *ngFor="let x of getScorecardScores(p.playerScores,'gross',1); let idx = index">{{x.grossScore}}</ion-col>
+                                <ion-col class="align-center"  style="
+                                border: black;
+                                border-style: solid;
+                                border-width: 1px;" >{{p.totalGrossOut}}</ion-col>
+                                <!-- style="background-color: #424242; color: white;"  -->
+                            </ion-row>
+                            <ion-row col-12 class="vertical-align align-center"  no-padding style="line-height: 1.5em;">
+                                <ion-col class="align-center" [ngClass]="deriveClasses(p.playerScores, idx,2)"  *ngFor="let x of getScorecardScores(p.playerScores,'gross',2); let idx = index">{{x.grossScore}}</ion-col>
+                                <ion-col class="align-center" style="
+                                border: black;
+                                border-style: solid;
+                                border-width: 1px;" >{{p.totalGrossIn}}</ion-col>
+                            </ion-row>
+                            
+                       
+
+                </ion-col>
+            </ion-row>
+            </ion-grid>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card *ngIf="0 && scorecardView === 3" class="mygolf-table flat-table">
+            <ion-grid no-padding>
+                <ion-row class="mygolf-table-header" no-padding>
+                    <ion-col col-1 no-padding>
+                        <ion-row no-padding>
+
+                            <ion-col class="align-center" no-padding>
+                                <div showWhen="portrait">{{"LeaderboardPage.positionP"|translate}}</div>
+                                <div showWhen="landscape">{{"LeaderboardPage.positionL"|translate}}</div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-col>
+                    <ion-col col-5 no-padding>
+                        <ion-row col-12 no-padding>
+                        
+                        <ion-col class="align-left ">
+                            <div>{{"LeaderboardPage.players"|translate}}</div>
+                        </ion-col>
+                        <!-- <ion-col col-1>
+                            <div>&nbsp;</div>
+                        </ion-col> -->
+                        
+                    </ion-row>
+                    <ion-row no-padding>
+                        <ion-col *ngIf="!showTeam" class="align-center">
+                            <div showWhen="portrait">{{"LeaderboardPage.handicapP"|translate}}</div>
+                            <div showWhen="landscape">{{"LeaderboardPage.handicapL"|translate}}</div>
+                        </ion-col>
+                        <ion-col *ngIf="!showTeam" class="align-center">
+                            <div showWhen="portrait">HIdx</div>
+                            <div showWhen="landscape">Hcp Idx</div>
+                        </ion-col>
+                        <!-- <ion-col col-1 class="align-center">
+                            <div>{{"LeaderboardPage.toPar"|translate}}</div>
+                        </ion-col> -->
+                        <ion-col class="align-center">
+                            <div showWhen="portrait">
+                                Tot
+                                <!-- {{"LeaderboardPage.grossP"|translate}} -->
+                            </div>
+                            <div showWhen="landscape">
+                                Total
+                                <!-- {{"LeaderboardPage.grossL"|translate}} -->
+                            </div>
+                        </ion-col>
+                        <ion-col class="align-center">
+                            <div showWhen="portrait">
+                                Adj.
+                                <!-- {{"LeaderboardPage.netP"|translate}} -->
+                            </div>
+                            <div showWhen="landscape">
+                                Adjusted
+                                <!-- {{"LeaderboardPage.netL"|translate}} -->
+                            </div>
+                        </ion-col>
+                        
+                        
+                        <ion-col class="align-center">
+                            <div showWhen="portrait">T</div>
+                            <div showWhen="landscape">Tee</div>
+                        </ion-col>
+                    </ion-row>
+                    </ion-col>
+                    <ion-col  col-6 no-padding>
+                        <ion-row col-12 class="vertical-align align-center" no-padding>
+                            <ion-col class="align-center" *ngFor="let x of [1,2,3,4,5,6,7,8,9]">{{x}}</ion-col>
+                            <ion-col class="align-center" >O</ion-col>
+                        </ion-row>
+                        <ion-row col-12 class="vertical-align align-center" no-padding>
+                            <ion-col class="align-center"  *ngFor="let x of [10,11,12,13,14,15,16,17,18]">{{x}}</ion-col>
+                            <ion-col class="align-center" >I</ion-col>
+                        </ion-row>
+                    </ion-col>
+                    
+                    
+                    
+                </ion-row>
+                
+            </ion-grid>
+        </ion-card>
+        <ion-card *ngIf="0 && scorecardView === 3" class="mygolf-table flat-table">
+            <ion-grid no-padding>
+            <ion-row *ngFor="let p of filteredPlayers;let i = index; let e = even; let o = odd"
+            [ngClass]="{'mygolf-table-row':e, 'mygolf-table-row-alt': o}">
+                        <!-- class="mygolf-table-row" -->
+                        <ion-col col-1 no-padding class="vertical-align align-center">
+                            <div>{{p.position}}</div>
+                            <!-- <ion-row no-padding>
+                                <ion-col class="vertical-align align-center">
+                                    <div>{{p.position}}</div>
+                                </ion-col>
+                            </ion-row> -->
+                        </ion-col>
+                        <ion-col col-5 no-padding>
+                            <ion-row>
+                                
+                                <ion-col class="vertical-align align-left" style="
+                                overflow: hidden;
+                                white-space: nowrap;">
+                                    <div [class.logged-in-user]="loggedInUser==p.playerId">{{p.playerName}} <span *ngIf="p.sportCode">({{p.sportCode}})</span></div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col *ngIf="!showTeam" col-2 class="vertical-align align-center">
+                                    <div>{{p.handicap}}</div>
+                                </ion-col>
+                                <ion-col *ngIf="!showTeam" col-2 class="vertical-align align-center">
+                                    <div>{{p.handicap}}</div>
+                                </ion-col>
+                                <ion-col class="vertical-align align-center">
+                                    <div>{{p.totalGross}}</div>
+                                </ion-col>
+                                <ion-col class="vertical-align align-center">
+                                    <div *ngIf="refreshedAttempt && searchCriteria.competitionLeaderboardSortBy == 2">
+                                        <div>{{p.totalNet}}</div>
+                                    </div>
+                                    <div *ngIf="refreshedAttempt && searchCriteria.competitionLeaderboardSortBy > 2">
+                                        <div *ngIf="p.modifiedTotalNet === p.totalNet || !p.modifiedTotalNet">
+                                            <div>{{p.totalNet}}</div>
+                                        </div>
+                                        <div *ngIf="p.modifiedTotalNet && p.modifiedTotalNet != p.totalNet  && competition.status == 'Completed'">
+                                            <div style="text-decoration: line-through;font-size:1rem">{{p.totalNet}}</div>
+                                            <div>{{p.modifiedTotalNet}}</div>
+                                        </div>
+                                        <div *ngIf="p.modifiedTotalNet && p.modifiedTotalNet != p.totalNet  && competition.status != 'Completed'">
+                                            <div>{{p.totalNet}}</div>
+                                        </div>
+                                    </div>
+                                </ion-col>
+                                <ion-col col-1 class="vertical-align align-center">
+                                    <div>🚩</div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                        <ion-col col-6 no-padding>
+
+                            <ion-row col-12 class="vertical-align align-center" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom: lightgray;" no-padding>
+                                <ion-col class="align-center" *ngFor="let x of [1,2,3,4,5,6,7,8,9]">{{x}}</ion-col>
+                                <ion-col class="align-center" style="background-color: black; color: white;">36</ion-col>
+                            </ion-row>
+                            <ion-row col-12 class="vertical-align align-center" no-padding>
+                                <ion-col class="align-center" *ngFor="let x of [10,11,12,13,14,15,16,17,18]">{{x}}</ion-col>
+                                <ion-col class="align-center"  style="background-color: black; color: white;">35</ion-col>
+                            </ion-row>
+                        </ion-col>
+                        
+                    
+                    <!-- <ion-col col-1 style="padding-left:0px">
+                        <ion-avatar class="rounded no-margin">
+                            <img src="{{p.imageURL}}"
+                                    onerror="this.src='img/default_user.png'">
+                        </ion-avatar>
+                    </ion-col> -->
+                    
+                    
+                </ion-row>
+            </ion-grid>
+        </ion-card>
+        <ng-container *ngIf="0 && scorecardView === 4">
+            <ion-slides #scorecardSlider [pager]="false">
+                <ion-slide>
+                    <ion-card class="scorecard">
+                        <ion-card-content>
+                            <ion-grid no-padding>
+                                <ion-row class = "scorecard-header">
+                                    <ion-col class = "name-col" col-3>Hole</ion-col>
+                                    <ion-col col>H</ion-col>
+                                    <ion-col col
+                                            *ngFor = "let ch of [1,2,3,4,5,6,7,8,9];let j = index">{{ch}}
+                                    </ion-col>
+                                    <ion-col col>T</ion-col>
+                                </ion-row>
+                                <ion-row class = "hole-par-row ">
+                                    <ion-col class = "name-col" col-3>Par</ion-col>
+                                    <ion-col col></ion-col>
+                                    <ion-col col *ngFor = "let ch of [4,3,5,5,4,3,4,4,4];let j = index">{{ch}}</ion-col>
+                                    <ion-col col>36</ion-col>
+                                </ion-row>
+                                <ion-row class = "hole-index-row ">
+                                    <ion-col class = "name-col" col-3>Index</ion-col>
+                                    <ion-col col></ion-col>
+                                    <ion-col col
+                                            *ngFor = "let ch of [1,3,5,7,9,11,13,15,17];let j = index">
+                                            <div>{{ch}}</div>
+                                            <!-- <div *ngIf = "!c.indexToUse || c.indexToUse == 1">{{ch.holeIndex}}</div>
+                                            <div *ngIf = "c.indexToUse && c.indexToUse == 2">{{ch.holeIndexIn}}</div> -->
+                                    </ion-col>
+                                    <ion-col col></ion-col>
+                                </ion-row>
+                                
+                                <!-- *ngFor="let p of filteredPlayers;let i = index; let e = even; let o = odd" -->
+                                <!-- *ngFor = "let p of c.players"  -->
+                                <ion-row *ngFor="let p of filteredPlayers;let i = index; let e = even; let o = odd" class = " player-row">
+                                    <ion-col [class.logged-in-user] = "loggedInUser==p.playerId"
+                                            class = "name-col player-name " col-3>
+                                            <!-- <span *ngIf="getPlayerRoundStatus(p.playerRound)" style="color: red">({{getPlayerRoundStatus(p.playerRound)}})&nbsp;</span> -->
+                                            {{p.position}}
+                                            {{p.playerName}} <span *ngIf="p.sportCode">({{p.sportCode}})</span>
+                                    </ion-col>
+                                    <ion-col col style = "color:blue">{{p.handicap}}</ion-col>
+                                    <ion-col col *ngFor = "let ch of [1,2,3,4,5,6,7,8,9];let j = index">{{ch}}
+                                        <!-- {{getScoreToDisplay(s)}} -->
+                                    </ion-col>
+                                    <ion-col col>
+                                        36
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-card-content>
+
+                    </ion-card>
+                </ion-slide>
+                <ion-slide>
+                    <ion-card class="scorecard">
+                        <ion-card-content>
+                            <ion-grid no-padding>
+                                <ion-row class = "scorecard-header">
+                                    <ion-col class = "name-col" col-3>Hole</ion-col>
+                                    <ion-col col>H</ion-col>
+                                    <ion-col col
+                                            *ngFor = "let ch of [10,11,12,13,14,15,16,18];let j = index">{{ch}}
+                                    </ion-col>
+                                    <ion-col col>T</ion-col>
+                                </ion-row>
+                                <ion-row class = "hole-par-row ">
+                                    <ion-col class = "name-col" col-3>Par</ion-col>
+                                    <ion-col col></ion-col>
+                                    <ion-col col *ngFor = "let ch of [4,3,5,5,4,3,4,4,4];let j = index">{{ch}}</ion-col>
+                                    <ion-col col>36</ion-col>
+                                </ion-row>
+                                <ion-row class = "hole-index-row ">
+                                    <ion-col class = "name-col" col-3>Index</ion-col>
+                                    <ion-col col></ion-col>
+                                    <ion-col col
+                                            *ngFor = "let ch of [2,4,6,8,10,12,14,16,18];let j = index">
+                                            <div>{{ch}}</div>
+                                            <!-- <div *ngIf = "!c.indexToUse || c.indexToUse == 1">{{ch.holeIndex}}</div>
+                                            <div *ngIf = "c.indexToUse && c.indexToUse == 2">{{ch.holeIndexIn}}</div> -->
+                                    </ion-col>
+                                    <ion-col col></ion-col>
+                                </ion-row>
+                                <div *ngIf="0">
+                                <ion-row *ngFor="let p of filteredPlayers;let i = index; let e = even; let o = odd" class = " player-row">
+                                    <ion-col [class.logged-in-user] = "loggedInUser==p.playerId"
+                                            class = "name-col player-name " col-3>
+                                            <!-- <span *ngIf="getPlayerRoundStatus(p.playerRound)" style="color: red">({{getPlayerRoundStatus(p.playerRound)}})&nbsp;</span> -->
+                                            {{p.position}}
+                                            {{p.playerName}} <span *ngIf="p.sportCode">({{p.sportCode}})</span>
+                                    </ion-col>
+                                    <ion-col col style = "color:blue">{{p.handicap}}</ion-col>
+                                    <ion-col col *ngFor = "let ch of [1,2,3,4,5,6,7,8,9];let j = index">{{ch}}
+                                        <!-- {{getScoreToDisplay(s)}} -->
+                                    </ion-col>
+                                    <ion-col col>
+                                        36
+                                    </ion-col>
+                                </ion-row>
+                                </div>
+                            </ion-grid>
+                        </ion-card-content>
+
+                    </ion-card>
+                </ion-slide>
+            </ion-slides>
+        </ng-container>
+
+
+
+        <ion-card  *ngIf="0" class="mygolf-table flat-table"> <!-- old -->
+            <ion-grid no-padding>
+                <ion-row *ngIf="0" class="mygolf-table-header">
+                    <ion-col col-1 class="align-center">
+                        <div showWhen="portrait">{{"LeaderboardPage.positionP"|translate}}</div>
+                        <div showWhen="landscape">{{"LeaderboardPage.positionL"|translate}}</div>
+                    </ion-col>
+                    <ion-col col-1>
+                        <div>&nbsp;</div>
+                    </ion-col>
+                    <ion-col *ngIf="!showTeam" col-2 class="align-center">
+                        <div showWhen="portrait">{{"LeaderboardPage.handicapP"|translate}}</div>
+                        <div showWhen="landscape">{{"LeaderboardPage.handicapL"|translate}}</div>
+                    </ion-col>
+                    <ion-col col-4 class="align-left ">
+                        <div>{{"LeaderboardPage.players"|translate}}</div>
+                    </ion-col>
+                    <ion-col col-1 class="align-center">
+                        <div>{{"LeaderboardPage.onHole"|translate}}</div>
+                    </ion-col>
+                    <ion-col col-1 class="align-center">
+                        <div>{{"LeaderboardPage.toPar"|translate}}</div>
+                    </ion-col>
+                    <ion-col col-1 class="align-center">
+
+                        <div showWhen="portrait">
+
+                            {{"LeaderboardPage.grossP"|translate}}
+                        </div>
+                        <div showWhen="landscape">
+                            {{"LeaderboardPage.grossL"|translate}}
+                        </div>
+                    </ion-col>
+                    <ion-col col-1 class="align-center">
+                        <div showWhen="portrait">
+                            {{"LeaderboardPage.netP"|translate}}
+                        </div>
+                        <div showWhen="landscape">
+                            {{"LeaderboardPage.netL"|translate}}
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let p of filteredPlayers;let i = index; let e = even; let o = odd"
+                        [ngClass]="{'mygolf-table-row':e, 'mygolf-table-row-alt': o}">
+                    <ion-col col-1 class="vertical-align align-center">
+                        <div>{{p.position}}</div>
+                    </ion-col>
+                    <ion-col col-1 style="padding-left:0px">
+                        <ion-avatar class="rounded no-margin">
+                            <img src="{{p.imageURL}}"
+                                    onerror="this.src='img/default_user.png'">
+                        </ion-avatar>
+                    </ion-col>
+                    <ion-col *ngIf="!showTeam" col-2 class="vertical-align align-center">
+                        <div>{{p.handicap}}</div>
+                    </ion-col>
+                    <ion-col col-4 class="vertical-align align-left" style="overflow:hidden">
+                        <div [class.logged-in-user]="loggedInUser==p.playerId">{{p.playerName}} <span *ngIf="p.sportCode">({{p.sportCode}})</span></div>
+                    </ion-col>
+                    <ion-col col-1 class="vertical-align align-center">
+                        <div>{{p.onHole}}</div>
+                    </ion-col>
+                    <ion-col col-1 class="vertical-align align-center">
+                        <div *ngIf="refreshedAttempt && searchCriteria.competitionLeaderboardSortBy == 2">
+                            <div *ngIf="p.toPar > -1" style="color:black;">{{p.toPar}}
+                            </div>
+                            <div *ngIf="p.toPar < 0" style="color:red;">{{p.toPar}}</div>
+                        </div>
+
+                        <div *ngIf="refreshedAttempt && searchCriteria.competitionLeaderboardSortBy > 2">
+                            <div *ngIf="p.parCap == '' || p.parCap == null">
+                                <div *ngIf="p.toPar > -1" style="color:black;">{{p.toPar}}</div>
+                                <div *ngIf="p.toPar < 0" style="color:red;">{{p.toPar}}</div>
+                            </div>
+                            <div *ngIf="p.parCap != '' && p.parCap != null">
+                            <span *ngIf="p.toPar <= p.parCap && competition.status == 'Completed'">
+                                  <span style="text-decoration: line-through;color:red;font-size:1rem">
+                                {{p.toPar}}</span>
+                                             <div *ngIf="p.toPar > -1" style="color:black;">{{p.parCap}}</div>
+                            <div *ngIf="p.toPar < 0" style="color:red;">{{p.parCap}}</div>
+                            </span>
+                                <span *ngIf="p.toPar <= p.parCap && competition.status != 'Completed'">
+                                  <span style="color:red;font-size:1rem">
+                                {{p.toPar}}</span>
+                            </span>
+                                <span *ngIf="p.toPar > p.parCap">
+                                    <div *ngIf="p.toPar > -1" style="color:black;">{{p.toPar}}</div>
+                            <div *ngIf="p.toPar < 0" style="color:red;">{{p.toPar}}</div>
+                                </span>
+
+                            </div>
+                        </div>
+                    </ion-col>
+                    <ion-col col-1 class="vertical-align align-center">
+                        <div>{{p.totalGross}}</div>
+                    </ion-col>
+                    <ion-col col-1 class="vertical-align align-center">
+                        <div *ngIf="refreshedAttempt && searchCriteria.competitionLeaderboardSortBy == 2">
+                            <div>{{p.totalNet}}</div>
+                        </div>
+                        <div *ngIf="refreshedAttempt && searchCriteria.competitionLeaderboardSortBy > 2">
+                            <div *ngIf="p.modifiedTotalNet === p.totalNet || !p.modifiedTotalNet">
+                                <div>{{p.totalNet}}</div>
+                            </div>
+                            <div *ngIf="p.modifiedTotalNet && p.modifiedTotalNet != p.totalNet  && competition.status == 'Completed'">
+                                <div style="text-decoration: line-through;font-size:1rem">{{p.totalNet}}</div>
+                                <div>{{p.modifiedTotalNet}}</div>
+                            </div>
+                            <div *ngIf="p.modifiedTotalNet && p.modifiedTotalNet != p.totalNet  && competition.status != 'Completed'">
+                                <div>{{p.totalNet}}</div>
+                            </div>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card>
+        <ion-item class="item-wrap" *ngIf="!refreshedAttempt && !errorObj.success" style="text-align:center">
+            <span color="danger" padding *ngIf="doneRefresh && !errorObj.success">
+                <span *ngIf="roundNo == 0 || competition.totalRounds == 1">Competition has not started</span>
+                <span *ngIf="roundNo > 0 && competition.totalRounds > 1 ">Round {{roundNo}} has not started</span>
+            </span>
+            <span color="danger" no-padding *ngIf="!doneRefresh" style="white-space:normal">
+                <span no-padding>{{errorMsg}}</span>
+            </span>
+        </ion-item>
+
+    </ion-list>
+    <!-- <span>* List sorted by <span *ngIf="searchCriteria.competitionLeaderboardSortBy==2">GROSS</span><span
+            *ngIf="searchCriteria.competitionLeaderboardSortBy!=2">NET</span> scores</span> -->
+</ion-content>

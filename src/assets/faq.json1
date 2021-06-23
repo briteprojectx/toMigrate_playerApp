@@ -1,0 +1,159 @@
+[{
+    "groupTitle" : "Introductory Questions",
+"groupContent" : [{
+    "title": "What is myGolf2u?",
+    "content": "myGolf2u is an App that improves the entire golfing experience for players. From booking and registration in the new Covid-19 environment, to contactless scoring both for normal rounds and tournaments, immediate handicap results and a whole host of other features, players have all aspects of golfing innovation at their fingertips.",
+    "expand": true
+}, {
+    "title": "How do players access myGolf2u Features?",
+    "content": "Players can access myGolf2u by downloading it from Google’s Play Store or Apple’s App Store. There is also a version that can be run on any browser, mobile or desktop",
+    "expand": false
+
+},  {
+    "title": "How do I download myGolf2u?",
+    "content": "<p>There are 3 ways to use myGolf2u:</p><p>1.     Visit <strong>Google Play</strong> and search for mygolf2u</p><p>2.     Visit <strong>App Store</strong> and search for mygolf2u</p><p>3.     Simply go to m.mygolf2u.com and start using the app without downloading!</p>",
+    "expand": false
+
+}, {
+    "title": "What are the minimum supported Operating System (OS) version?",
+    "content": "<p>1.      Android - Version 10.0 (Android Q) and above</p><p>2.      iOS - 9.0 and above</p>",
+     "expand": false
+
+}, {
+    "title": "What is the difference between myGolf2u App and myGolf2u web?",
+    "content": "<p>The myGolf2u App can be downloaded and installed on your compatible mobile device, while myGolf2u web can be accessed by typing <a href='http://m.mygolf2u.com' target='_blank' class='url'>http://m.mygolf2u.com</a> in any browser, mobile or desktop, without downloading or installing the App.</p><p>Both of these have the same functionality, except certain features like accessing files or images on your device may not be available using myGolf2u web.</p><p>This can come in handy when some devices are not compatible, you do not have the latest versions of Android / IOS or you are using a company phone and are not allowed to download Apps on it. You can use the browser version instead.</p>",
+     "expand": false
+
+},{
+   "title": "How do Clubs and Organizers access myGolf2u",
+    "content": "<p>There are two websites that that are worth noting:</p><br><p>http://www.mygolf2u.com is for general customers who want to get information about mygolf2u. Player and club functions are not available on our general website.</p><br><p>http://portal.mygolf2u.com is used by clubs and organizers to manage tournaments, members, handicaps and so on. Golf clubs use this site to manage courses, define their tee times, peform booking and registration and so on.</p>",
+    "expand":false
+}]
+}, {
+    "groupTitle": "Electronic Scoring",
+    "groupContent": [{
+        "title": "How do I score electronically?",
+        "content": "<p>There are two areas where electronic scoring is available. </p><ol><li><p>Your normal rounds</p><p>Simply tap on the ‘New Game’ icon on the homepage of the App, select the club you want to play at, select the courses and playing partners and start scoring. At the end, when you submit your scores they will be stored and available to you for review thereafter, The scores are also used to calculate your handicap as well as provide you with statistical charts.</p></li><li><p>Tournaments</p><p>As a player, you do not need to create a tournament or even a round. The tournament icon will be highlighted in red if you are participating and upon tapping it will take you to the scoring page. See the Tournament section of these FAQs for more details.</p></li></ol><p>Both tournament and normal round scoring pages are the same and the information for both are stored and made available at all times.</p>",
+        "expand": false
+    },{
+        "title": "Do I need a physical scorecard?",
+        "content": "<p>For your normal rounds you do not need any physical scorecards to get your myGolf2u handicap. If you wish to submit your scorecard to the NHS (National Handicap System) then you can fill in your physical scorecards. myGolf2u does not deal with or require physical scorecards.</p>",
+        "expand": false
+    },{
+        "title": "Can I enter my scores after the game?",
+        "content": "Yes. There is no requirement for you to enter the scores during the game unless you are in a tournament and the organizer asks you to do so. For your normal rounds you can enter your scores after the game if you wish, however, you must make sure that the date and time of your flight are entered correctly.",
+        "expand": false
+    },{
+        "title": "Can I score for my flight mates?",
+        "content": "Yes. Anybody in a flight can score for all the flight members. After submission, all players will see the same scorecard in their account. All members will have their handicaps calculated immediately after submission.",
+        "expand": false
+    },{
+        "title": "Can I search for specific scorecards?",
+        "content": "<p>Yes. When scorecards are displayed there is a search field that you can use to find specific scorecards based on club, course and playing partners.</p><br><p>More search options such as clubs, dates, countries played in and so on are available in the Filters/Options area.</p><p>&nbsp;</p>",
+        "expand": false
+    }, {
+        "title": "How long will my scorecards be kept?",
+        "content": "Currently there is no limitation on the number of scorecards that you can keep. All scorecards are kept online on the cloud indefinitely.",
+        "expand": false
+    }]
+}, {
+    "groupTitle": "Handicaps",
+    "groupContent": [{
+        "title":"What is myGolf2u Handicap?",
+        "content":"<p>In 2019 myGol2u created a highly sophisticated handicapping system. This is because many players do not belong to a golf club but would like to calculate their handicaps. In addition, golfers who are new to the game can quickly have their handicaps generated after only a handful of rounds.</p><br><p>The myGolf2u handicap system adopts the latest USGA / WHS2020 rules and regulations. Part of these rules dictate that handicaps should be generated as quickly as possible, on the same day if possible. </p><br><p>With myGolf2u, as soon as you finish scoring your round, whether a normal round or tournament, it calculates your new handicap. This means that when you participate in tournaments you will always be playing with your current and latest handicap.</p>",
+        "expand": false
+    },{
+        "title": "How do I get a myGolf2u handicap?",
+        "content": "<p>All you need to do is submit 5 rounds using the myGolf2u scoring feature and your handicap index will be calculated and displayed at the top of the App.</p><br><p>To view details of the calculation or which of the last 20 rounds are used to derive your handicap index, you can simply click on the Handicap icon from the main menu and it will display all the details of your handicap.</p>",
+        "expand": false
+    },{
+        "title":"How do I use the myGolf2u Handicap?",
+        "content":"<p>Based on the golf club you’re playing at, myGolf2u will calculate your club handicap from the handicap index that is generated for you.</p><br><p>myGolf2u uses the club’s latest Slope Rating for each Tee Box and converts your handicap index to a course/club handicap for the game you are about to play. This considers the difficulty of the course, your latest handicap index, the Tee Box you are playing off and uses these to calculate your latest index after the round.</p>",
+        "expand": false
+    },{
+        "title": "Can I do a Peer Review or check anyone’s handicap?",
+        "content": "<p>Yes, when you click on the Handicap icon from the main menu, it initially shows you the details of your handicap. There is an option at the top of the screen which says <span class='red-text'>‘LOOKING FOR OTHER PLAYERS. TAP HERE.’</span> This allows you to look for any player and check their handicap details.</p>",
+        "expand": false
+    },{
+        "title": "Where else can I view my handicap?",
+        "content": "If you don’t have access to the App for some reason, you can always go to the myGolf2u website at www.mygolf2u.com. Click on the Handicap menu item and enter your myGolf2u ID or search for your name.",
+        "expand": false
+    },{
+        "title": "What is the difference between myGolf Handicap and my National Handicap System (NHS) Handicap?",
+        "content": "<p>In some countries your Golfing Association take responsibility for calculating your handicap. You generally have to submit your physical scorecard to your club and they will enter the scores into the NHS system. This can be an error prone process as it is manual. After a period of time, sometimes even a month, the Golfing Association sends physical handicap cards to your club which shows an individual’s handicap index, club handicap and the rounds player and used for the handicap calculation.</p><br><p>With myGolf2u everything is electronic. You do not need to submit any physical scorecards, rather you score your round using the myGolf2u App and as soon as you submit your scores your new handicap is calculated and displayed for you.</p><br><p>myGolf2u uses the latest USGA/WHS2020 rules, so it may be more advanced than the current handicap system used at the Golfing Association. However, generally speaking, if they also use the WHS2020 rules, there shouldn’t be much of a difference in terms of your handicap.</p><br><p>It basically boils down to how quickly you get your handicap and how much you pay for such a service.</p>",
+        "expand": false
+    }]
+}, {
+    "groupTitle": "Tournaments",
+    "groupContent": [{
+        "title":"How do I create a Tournament?",
+        "content":"<p>As a player, you will typically use the app to score in tournaments or in your own normal friendly rounds.</p><br><p>Organizers and clubs will typically create and manage tournaments. These features are available on http://portal.mygolf2u.com.</p><br><p>If you want to create and manage tournaments there are several options. You have to register yourself as one of the following on the website:</p><ol><li>Club - if you manage a golf club and would like all golf management features of the system</li><li>Social Club - if you manage tournaments and have social members.</li><li>Organizer - if you just manage tournaments.</li></ol>",
+        "expand": false
+    },{
+        "title": "How do I find Tournaments?",
+        "content": "As soon as an <b>Organizer</b> posts a tournament in myGolf2u, all players will see it on their myGolf2u App. As a player you can search and find any tournament and register and pay directly from your mobile, as long as the organizer allows electronic registration.",
+        "expand": false
+    },{
+        "title":"How do I use myGolf2u for Competition Scoring?",
+        "content":"<p>You do not need to create a &#39;game&#39; or &#39;round&#39; for competitions. You can simply tap the tournament icon and search for the desired tournament. Before the tournament starts, you can view your flight partners, starting hole, buggy etc. as well as all the information about the tournament. </p><p>When the competition starts the tournament icon turns red and when you tap on it you are presented with two options:</p><ol><li>To start scoring or viewing the details of the tournament you’re in.</li><li>To perform the normal function of exploring other tournaments.</li></ol><p>If you are a scorer, it will automatically take you to the relevant starting hole and it will enable scoring for the flight members that you are scoring for. Scorers are predetermined by the organizer.</p><p>When you are done with scoring all holes you can submit your scores through your phone and these scores will then be used to determine the winners. Before submitting though, it is essential that all players review and confirm their scores since players cannot update scores after submission. However, the organizer can still edit scores if you inform them.</p><p>At any point in time, you can use the App to view the scorecard or the live leaderboard.</p><p>Note that the scoring for a normal round and tournament are almost exactly the same and very simple to use, so if you have used the App to score any of your private rounds, you will already be familiar with scoring.</p>",
+        "expand": false
+    }]
+}, {
+    "groupTitle": "Booking & Registration",
+    "groupContent": [{
+        "title":"What is myGolf2u Booking & Registration?",
+        "content":"<p>To address the new normal of social distancing in the Covid-19 era, the myGolf2u team have come up with a highly innovative solution to allow players to book and self register using their phones. </p><p>From the comfort of your home, you can search and find slots at any participating clubs, book, define your playing partners, select caddies, buggies, seating arrangements and so on. </p><p>The final stage is to make payment from the App and check-in to the club, where you can completely skip the club registration process. The Caddy Master will have all your information, so you can just drop your bag, park your car and head to the Tee Box.</p><p>This promotes social distancing by minimizing interaction with club admin clerks, which protects players and club employees alike.</p>",
+        "expand": false
+    },{
+        "title": "Why should I use Booking & Registration?",
+        "content": "<p>It can become very frustrating when you are looking for a Sunday morning tee time and every club you call is either full, busy, not answering or simply too expensive.</p><p>With myGolf2u you do not have to call or go through such frustration. Simply select the date and time when you want to play and search all clubs nearby or just your favourites. You are immediately presented with those that have slots, the prices or promotions they are offering, minimum/maximum players per flight and so on. Click on ‘book’ and you have secured your slot. You will be sent an email to confirm your booking.</p><p>Later on, at your convenience, you go to ‘My Bookings’, select your playing partners, how many buggies and caddies you want, even book your favourite caddy and define your seating arrangement.</p><p>You then pay for your flight and check in an hour or 30 minutes before your flight. You simply proceed to the Caddy Master, avoid the reception area and the long queues on weekends and just go to your tee box.</p><p>As a bonus, you can start earning points which can later be redeemed for discounts or even free flights.</p>",
+        "expand": false
+    },{
+        "title":"How do I pay for my flight?",
+        "content":"<p>One of the steps of Booking and Registration is payment. You can either pay a deposit or the entire amount for the flight. The payment will go through a secure and standard payment gateway for your country.</p><p>You will receive an email confirmation of your payment and the App will always store the payments made.</p>",
+        "expand": false
+    },{
+        "title":"Can I pay for my bill only?",
+        "content":"Yes. Each of the payers can enter the App, select the flight they are invited to and pay for their own portion. Any number of payments can be made, as long as the total matches the bill total.",
+        "expand": false
+    },{
+        "title":"What does check-in mean?",
+        "content":"<p>In a similar way to airline processes, you find a flight, book it, select your trip companions, pay for the flight then check-in on the day.</p><p>Golf check-in is usually within an hour of your flight, or whatever number of hours the club allows. It is the final confirmation that you are actually on your way to the club, so the Caddy Master can prepare your buggies and caddies. You can only check-in if you have made full payment.</p>",
+        "expand": false
+    },{
+        "title":"Can I cancel my flight? Will I be charged?",
+        "content":"Each club will allow you to cancel up to a certain number of days before your flight. If you have not secured your flight by paying a deposit or making full payment, then you can cancel your flight without any penalties.",
+        "expand": false
+    },{
+        "title":"What if I want to change my flight after payment?",
+        "content":"Currently this is not allowed through the App. Any changes will be made at the club on the day of arrival. Alternatively, you can contact the club and they can change any of the booking details.",
+        "expand": false
+    },{
+        "title":"What is your Refund Policy?",
+        "content":"<p>At present we do not process refunds in myGolf2u. All refund requests must be communicated to the club directly.</p><p>In future, myGolf2u will have ‘Golf Credits’ which can be topped up when refunds are given. These in turn can be used to book flights in any club.</p>",
+        "expand": false
+    }]
+},{
+    "groupTitle": "General",
+    "groupContent": [{
+        "title":"Why should I use myGolf2u?",
+        "content":"<p>There are a whole host of reasons for using myGolf2u. First and foremost, it improves your overall golf experience as everything is at your fingertips and available to you at all times.</p><p>Booking &amp; Registration is set to create a trend in the market where players can self register and avoid queues and waiting times at the clubs. Handicapping, tournament searching and registering, electronic scoring, statistics are to name but a few.</p>",
+        "expand": false
+    },{
+        "title": "Why is my Club Membership still pending?",
+        "content": "<p>If the club adds you as a member, your membership is automatically active. However, if you add your membership through the App, it is created in a Pending status. The club has to approve it, otherwise anybody can define a membership and be able to play without paying green fees!</p><p>You have to wait for the Club Admin to approve your membership.</p>",
+        "expand": false
+    },{
+        "title":"How do I pay for my flight?",
+        "content":"<p>One of the steps of Booking and Registration is payment. You can either pay a deposit or the entire amount for the flight. The payment will go through a secure and standard payment gateway for your country.</p><p>You will receive an email confirmation of your payment and the App will always store the payments made.</p>",
+        "expand": false
+    }, {
+        "title":"What do I do if I have multiple accounts?",
+        "content":"<p>It is possible that you have been registered in myGolf2u by an organizer or a friend and at the same time you have registered yourself directly on the App. </p><p>Not to worry, just send an email to <a href='mailto:mygolf2u@britesoftcorp.com'>mygolf2u@britesoftcorp.com</a>, tell us your two accounts and which one you want to keep. We will happily merge your two accounts, keep the one you want and delete the unwanted account.</p><p>We may need to send an email to both accounts and get a confirmation before merging your accounts.</p>",
+        "expand": false
+    }, {
+        "title":"Do I have to buy the myGolf2u App?",
+        "content":"No. myGolf2u App is completely free to download and install. There are some features that require payment such as registering for a tournament, however, most standard features are free. ",
+        "expand": false
+    }]
+}]

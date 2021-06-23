@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title center>Active Competitions</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="competition-list">
+    <ion-list>
+        <ion-item *ngFor="let competition of activeCompetitions | async">
+            <div item-start>
+                <ion-avatar item-start>
+                    <img src="{{competition.thumbnail?competition.thumbnail:competition.imageUrl}}"
+                         onerror="this.src='img/default_competition.png'"/>
+                </ion-avatar>
+                <p item-end class="competition-name">{{competition.competitionName}}</p>
+                <p class="competition-details" >
+                                <span primary ><i danger class="fa fa-map-marker" ></i >
+                                    {{competition.clubTag}}
+                                </span >
+                    <span blue *ngIf="competition.scoringFormat" >|
+                                    <i class="fa fa-wpforms" ></i >
+                                    {{competition.scoringFormat}}
+                                </span >
+                </p >
+            </div>
+            <div item-end>
+                <button item-end ion-button color="primary" (click)="onSelect(competition)">Select this to View / Score</button>
+            </div>
+            
+        </ion-item>
+    </ion-list >
+</ion-content >

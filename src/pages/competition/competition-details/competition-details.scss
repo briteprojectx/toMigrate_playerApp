@@ -1,0 +1,93 @@
+competition-details-page {
+    .card-ios, card-md {
+        margin: 2px 2px;
+        width: calc(100% - 4px);
+    }
+    .item-block.item-md, .item-block.item-ios {
+        &.game-scoring{
+            i{
+                font-size: 2.4rem;
+                color: $inverse-text-color;
+            }
+        }
+        &.competition-cancelled {
+            @include linear-gradient(#424242, #212121);
+            width: 100%;
+            color: $inverse-text-color;
+            h2 {
+                color: $inverse-text-color;
+            }
+            i{
+                font-size: 2.4rem;
+                color: $inverse-text-color;
+            }
+        }
+        &.competition-upcoming {
+            @include linear-gradient($primary, #4ba65f);
+            ion-label {
+                margin-top: 2px;
+                margin-bottom: 2px;
+            }
+            h2 {
+                color: $inverse-text-color;
+            }
+            i{
+                font-size: 2.4rem;
+                color: $inverse-text-color;
+            }
+        }
+        &.competition-completed {
+            @include linear-gradient(#2196F3, #1976D2);
+            h2 {
+                color: $inverse-text-color;
+            }
+            i{
+                font-size: 2.4rem;
+                color: $inverse-text-color;
+            }
+        }
+        &.competition-not-started {
+            @include linear-gradient(#FDC676, #E08C0F);
+            h2 {
+                color: $inverse-text-color;
+            }
+            i{
+                font-size: 2.4rem;
+                color: $inverse-text-color;
+            }
+        }
+    }
+
+    .comp-main-info {
+        font-size: small;
+    }
+
+    .comp-reg-button {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .comp-reg-dates {
+        max-width: 70%;
+    }
+    .inline-text {
+        margin-left: 19%;
+        color: $inverse-text-color;
+    }
+
+    .list-header {
+        background-color: $par-color;
+    }
+
+
+    .mini-buttons {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .mdi-flag-triangle:before {
+        font-size: 2rem;
+    }
+}
+
+

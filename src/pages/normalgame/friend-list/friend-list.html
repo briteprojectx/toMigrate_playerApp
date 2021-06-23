@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title center>Select Player</ion-title>
+    </ion-navbar>
+    <ion-toolbar color="light">
+        <ion-segment [(ngModel)]="listMode">
+            <ion-segment-button value="friends">Friends</ion-segment-button>
+            <ion-segment-button value="others">All Players</ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="listMode==='friends'" color="light">
+        <ion-searchbar [(ngModel)]="searchQuery"
+                debounce="1000"
+                (ionInput)="onSearchInput()">
+
+        </ion-searchbar>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="listMode==='others'" color="light">
+        <!--<ion-label color="blue">To search for players type any part of their name</ion-label>-->
+        <ion-searchbar [(ngModel)]="searchPlayers" (ionInput)="onSearchPlayers()"
+                placeholder="To search for players, type any part of their name"
+                debounce="1000">
+        </ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="friend-list">
+    <!--<ion-list [virtualScroll]="friends" *ngIf="listMode==='friends'">-->
+    <ion-list *ngIf="listMode==='friends'">
+        <ion-list-header class="list-header">Friend List</ion-list-header>
+        <!--<button  ion-item *virtualItem="let friend" (click)="friendSelected(friend)">-->
+            <!--<ion-avatar style="height: 32px; width: 32px" item-left>-->
+                <!--<ion-img src="{{getImage(friend)}}" ></ion-img>-->
+            <!--</ion-avatar>-->
+            <!--<h2>{{friend.playerName}}</h2>-->
+            <!--<span item-right style="padding-right:10px;" *ngIf="friend.gender==='M'"><i class="fa fa-mars fa-2x"-->
+                                                                                        <!--aria-hidden="true"></i></span>-->
+            <!--<span item-right style="padding-right:10px;" *ngIf="friend.gender==='F'"><i class="fa fa-venus fa-2x" aria-hidden="true"></i></span>-->
+        <!--</button>-->
+        <button  ion-item *ngFor="let friend of friends" (click)="friendSelected(friend)">
+            <ion-avatar style="height: 32px; width: 32px" item-left>
+                <img src="{{getImage(friend)}}" >
+            </ion-avatar>
+            <h2>{{friend.playerName?friend.playerName:(friend.lastName?friend.firstName + " " + friend.lastName:friend.firstName)}}</h2>
+            <span item-right style="padding-right:10px;" *ngIf="friend.gender==='M'"><i class="fa fa-mars fa-2x"
+                    aria-hidden="true"></i></span>
+            <span item-right style="padding-right:10px;" *ngIf="friend.gender==='F'"><i class="fa fa-venus fa-2x" aria-hidden="true"></i></span>
+        </button>
+    </ion-list>
+    <ion-list *ngIf="listMode==='others'">
+        <ion-list-header class="list-header">Players</ion-list-header>
+        <button  ion-item *ngFor="let friend of players" (click)="friendSelected(friend)">
+            <ion-avatar style="height: 32px; width: 32px" item-left>
+                <img src="{{getImage(friend)}}" >
+            </ion-avatar>
+            <h2>{{friend.playerName?friend.playerName:(friend.lastName?friend.firstName + " " + friend.lastName:friend.firstName)}}</h2>
+            <span item-right style="padding-right:10px;" *ngIf="friend.gender==='M'"><i class="fa fa-mars fa-2x"
+                    aria-hidden="true"></i></span>
+            <span item-right style="padding-right:10px;" *ngIf="friend.gender==='F'"><i class="fa fa-venus fa-2x" aria-hidden="true"></i></span>
+        </button>
+        <ion-item *ngIf="searchPlayers && !players.length" color="danger">
+            No player with name matching search string
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar position="bottom" color="light" *ngIf="openedModal" style="text-align: center">
+        <button ion-button round color="secondary" (click)="newContact()">New Contact</button>
+        <button ion-button round color="danger" (click)="close()">Cancel</button>
+    </ion-toolbar>
+</ion-footer>

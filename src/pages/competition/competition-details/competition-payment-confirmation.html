@@ -1,0 +1,150 @@
+<ion-header>
+    <ion-toolbar>
+        <!-- <ion-buttons start>
+            <button ion-button icon-only (click)="close()">
+                <ion-icon name="close-circle" color="invert-text"></ion-icon>
+            </button>
+        </ion-buttons> -->
+        <ion-title>Competition Payment</ion-title>
+    </ion-toolbar>
+</ion-header>
+<!--ion-content class="has-header mygolf-page-background"-->
+<ion-content class = "competition-details player-performance">
+  <ion-card>
+    <ion-card-header>
+      {{competition.competitionName}}
+    </ion-card-header>
+    <ion-card-content>
+      <span *ngIf="details.paymentUrl">
+        For this tournament, the organizer has requested that you register directly on their website. <br><br>
+        Please tap on the link below or tap on the Register button to proceed. 
+        <button ion-button (click)="goRegister()">{{details.paymentUrl}}</button>
+      </span>
+      <span *ngIf="!details.paymentUrl">
+        For this tournament, the organizer / club has requested that you make payment online. <br><br>
+        Please tap on the pay button and once Payment Successful, tap on the Register button to proceed. 
+        <p>Payment status : {{paymentStatus?paymentStatus:''}}</p>
+        <button 
+ (click)="createBill(compCollectionId)" 
+ ion-button>Pay {{competition.fee?competition.fee:0}}</button>
+ <!-- <button 
+ (click)="createRemoteBill(compCollectionId)" 
+ ion-button>Remote Pay {{competition.fee?competition.fee:0}}</button> -->
+ <br><input type="text" [(ngModel)]="compCollectionId"/>
+      </span><br><br>
+<!-- <button ion-button (click)="toggleRegister = !toggleRegister">Toggle Register</button>
+<button ion-button (click)="onCompCollClick()">Get Comp Collection Id : {{compCollectionId?compCollectionId:''}}</button> -->
+
+
+
+ <!-- *ngIf="competition && compCollectionId" -->
+    </ion-card-content>
+  </ion-card>
+  <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. -->
+
+    <!-- <ion-list>
+        <ion-item class = "header-panel" style = 'background-color:#fadb4e;text-align:center;'>
+            <h3 class = "scorecard-name" style = "font-weight:bold">{{competition.competitionName}}</h3>
+            <h4>{{competition.clubName}}</h4>
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Competition Type
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.type}}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Club
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.clubName}}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Organizer
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.organizerName}}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Description
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            <div [innerHTML] = "competition.description | safe: 'html'"></div>
+            {{competition.description}}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Starts
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.startDate|date:"EEEE, d MMMM yyyy" }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Ends
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.endDate|date:"EEEE, d MMMM yyyy" }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Registration Opening Date
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.openDate|date:"EEEE, d MMMM yyyy" }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Registration Closing Date
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.closeDate|date:"EEEE, d MMMM yyyy" }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Scoring Format
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.scoringFormat }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            No. of Rounds
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.totalRounds}} ({{competition.totalHoles}}) holes
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Total Prize
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.totalPrize }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Entry Fee
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.fee }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Rules
+        </ion-item-divider>
+        <ion-item class="item-wrap">
+            <div [innerHTML] = "competition.rules | safe: 'html'">
+            </div>
+        </ion-item>
+    </ion-list> -->
+
+</ion-content>
+
+<!--<ion-footer>-->
+    <!--<button ion-button block color = "dark" (click) = "close()">-->
+        <!--Close-->
+    <!--</button>-->
+<!--</ion-footer>-->
+<ion-footer>
+  <ion-toolbar color="light" style="text-align:center">
+    <button *ngIf="details.paymentUrl" (click)="goRegister()" ion-button  color="primary" round >Register
+    </button >
+<button *ngIf="!details.paymentUrl" [disabled]="!toggleRegister" (click)="goPaidRegister()" ion-button  color="primary" round >Register
+</button >
+<button (click)="close()" ion-button color="danger" round>Cancel</button >
+</ion-toolbar>
+</ion-footer>

@@ -1,0 +1,42 @@
+{
+  "en": {
+    "PlayerHomePage": {
+      "title": "myGolf2u",
+      "noauthtitle": "No Authentication",
+      "noauthmessage": "You are not authenticated yet to get player stats",
+      "newround": "New Round",
+      "scorecards": "Scorecards",
+      "competitions": "Competitions",
+      "friends": "Friends",
+      "NormalGameScoring":"Game in progress. Click to edit",
+      "CompetitionScoring": "Go to scoring",
+      "clickHereScoring":"Click here for scoring",
+      "isInProgress":"is in progress",
+      "Performance":"Performance",
+      "playerJoined":"Joined",
+      "playerIndex":"Index",
+      "playerHandicap":"Handicap",
+      "m2uHandicap":"m2u Hcp Idx"
+    }
+  },
+  "my": {
+    "PlayerHomePage": {
+      "title": "myGolf2u",
+      "noauthtitle": "Takde Authentication",
+      "noauthmessage": "You are not authenticated yet to get player stats",
+      "newround": "Round Baru",
+      "scorecards": "Scorecards",
+      "competitions": "Competitions",
+      "friends": "Friends",
+      "NormalGameScoring":"Game in progress. Click to edit",
+      "CompetitionScoring": "Go to scoring",
+      "clickHereScoring":"Click here for scoring",
+      "isInProgress":"is in progress",
+      "Performance":"Performance",
+      "playerJoined":"Joined",
+      "playerIndex":"Index",
+      "playerHandicap":"Handicap",
+      "m2uHandicap":"m2u Hcp Idx"
+    }
+  }
+}

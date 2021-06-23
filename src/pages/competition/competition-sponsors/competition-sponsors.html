@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Sponsors</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="onHomeClick()" icon-only>
+                <ion-icon name="home"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content class="mygolf-page-background">
+    <ion-list>
+        <ion-item class="page-sub-title align-center">
+            <h3 style="font-weight:bold">{{competition.competitionName}}</h3>
+            <h4>{{competition.clubName}}</h4>
+        </ion-item>
+        <ion-card class="mygolf-table flat-table">
+            <ion-card-content>
+                <ion-row class="mygolf-table-header">
+                    <ion-col width-20 class="align-center">
+                        <div></div>
+                    </ion-col >
+                    <ion-col width-40 class="align-left">
+                        <div>Sponsor</div>
+                    </ion-col>
+                    <ion-col width-40 class="align-center">
+                        <div>Sponsorship</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let s of sponsors; let i = index" class="mygolf-table-row" center>
+                    <ion-col width-20 class="align-center">
+                        <ion-avatar class="rounded">
+                            <img src="{{s.imageUrl}}">
+                        </ion-avatar>
+                    </ion-col>
+                    <ion-col width-40 class="vertical-align align-left">
+                        <div>{{s.sponsor.name}}</div>
+                    </ion-col>
+                    <ion-col width-40 class="vertical-align align-center">
+                        <div>{{s.sponsorship}}</div>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
+        <!--<ion-list-header>-->
+            <!--<ion-row *ngIf="show">-->
+                <!--<ion-col class="sponsorLogo-col">-->
+                    <!--<div>Sponsor</div>-->
+                <!--</ion-col>-->
+                <!--<ion-col class="sponsorName-col">-->
+                    <!--<div></div>-->
+                <!--</ion-col>-->
+                <!--<ion-col class="sponsorship-col">-->
+                    <!--<div>Sponsorship</div>-->
+                <!--</ion-col>-->
+            <!--</ion-row>-->
+        <!--</ion-list-header>-->
+        <!--<ion-item style="background-color:white !important;padding-left:8px" *ngFor="let s of sponsors; let i = index">-->
+            <!--<ion-row center>-->
+                <!--<ion-col class="sponsorLogo-col">-->
+                    <!--<img src="{{s.imageUrl}}">-->
+                <!--</ion-col>-->
+                <!--<ion-col class="sponsorName-col sponsors-text">-->
+                    <!--<div>{{s.sponsor.name}}</div>-->
+                <!--</ion-col>-->
+                <!--<ion-col class="sponsorship-col sponsors-text">-->
+                    <!--<div>{{s.sponsorship}}</div>-->
+                <!--</ion-col>-->
+            <!--</ion-row>-->
+        <!--</ion-item>-->
+    </ion-list>
+</ion-content>

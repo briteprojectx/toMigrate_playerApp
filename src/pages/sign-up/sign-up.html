@@ -1,0 +1,126 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Join Now
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid fixed>
+    <form [formGroup]="signupForm">
+
+        <!-- First Name -->
+        <ion-item [class.error]="firstName.invalid && firstName.touched">
+            <ion-input type="text" value="" formControlName="firstName"
+                placeholder="{{'SignUpPage.firstname'|translate}}" maxLength="50"></ion-input>
+        </ion-item>
+        <div *ngIf="firstName.errors && firstName.errors['required'] && firstName.touched" class="error-box">
+            {{"SignUpPage.firstname-required"|translate}}
+        </div>
+        <div *ngIf="firstName.errors && firstName.errors['maxlength'] && firstName.touched" class="error-box">
+            {{"SignUpPage.firstname-maxlength"|translate}}
+        </div>
+        <ion-item [class.error]="lastName.invalid && lastName.touched">
+            <ion-input type="text" value="" formControlName="lastName" placeholder="{{'SignUpPage.lastname'|translate}}"
+                maxLength="50"></ion-input>
+        </ion-item>
+        <div *ngIf="lastName.errors && lastName.errors['maxlength'] && lastName.touched" class="error-box">
+            {{"SignUpPage.lastname-maxLength"|translate}}
+        </div>
+
+
+        <ion-item>
+            <ion-label item-left>Handicap<span primary padding>{{handicap.value}}</span></ion-label>
+            <ion-range min="1" max="36" pin="true" formControlName="handicap">
+                <ion-label range-left>1</ion-label>
+                <ion-label range-right>36</ion-label>
+            </ion-range>
+        </ion-item>
+        <div *ngIf="handicap.errors && handicap.errors['required'] && handicap.touched" class="error-box">
+            {{"SignUpPage.handicap-required"|translate}}
+        </div>
+
+        <ion-item [class.error]="email.invalid && email.touched">
+            <ion-input type="email" value="" formControlName="email" placeholder="{{'SignUpPage.email'|translate}}"
+                maxLength="50"></ion-input>
+        </ion-item>
+        <div *ngIf="email.errors && email.errors['required'] && email.touched" class="error-box">* Email is required
+        </div>
+
+        <ion-item [class.error]="password.invalid && password.touched">
+            <ion-input type="password" formControlName="password" placeholder="{{'SignUpPage.password'|translate}}"
+                maxLength="50"></ion-input>
+        </ion-item>
+        <div *ngIf="password.invalid && password.touched" class="error-box">
+            <span *ngIf="password.errors['required']">{{"SignUpPage.password-required"|translate}} Minimum length is
+                6.</span>
+            <span *ngIf="password.errors['minlength']">* Minimum password length is 6!</span>
+
+        </div>
+
+        <ion-item [class.error]="password2.invalid && password2.touched">
+            <ion-input type="password" formControlName="password2"
+                placeholder="{{'SignUpPage.re-enter-password'|translate}}" maxLength="50"></ion-input>
+        </ion-item>
+        <div *ngIf="password2.invalid && password2.touched" class="error-box">
+            <span *ngIf="password2.errors['required']">{{"SignUpPage.password-required"|translate}} Minimum length is
+                6.</span>
+            <span *ngIf="password2.errors['minlength']">* Minimum password length is 6!</span>
+
+        </div>
+        <ion-item>
+            <ion-label>Nationality</ion-label>
+            <ion-select interface="alert" formControlName="nationality">
+                <ion-option *ngFor="let country of countryList" [value]="country.id">{{country.name}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Residing In</ion-label>
+            <ion-select interface="alert" formControlName="country">
+                <ion-option *ngFor="let country of countryList" [value]="country.id">{{country.name}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Default Handicap System</ion-label>
+            <ion-select interface="alert" formControlName="handicapSystem">
+                <ion-option *ngFor="let hcpSystem of handicapSystems" [value]="hcpSystem.id">{{hcpSystem.name}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+
+        <!-- <ion-item [class.error]="country.invalid && country.touched" >
+            <ion-input type="text" value="" formControlName="country"
+                       placeholder="{{'SignUpPage.country'|translate}}" maxLength="3" ></ion-input >
+        </ion-item >
+        <div *ngIf="country.errors && country.errors['required'] && country.touched"
+             class="error-box" >{{"SignUpPage.country-required"|translate}}
+        </div >
+        <div *ngIf="country.errors && country.errors['maxlength'] && country.touched"
+             class="error-box" >{{"SignUpPage.country-maxlength"|translate}}
+        </div > -->
+ 
+        <ion-segment padding formControlName="teeoff">
+            <ion-label>T-Off</ion-label>
+            <ion-segment-button value="Black">Black</ion-segment-button>
+            <ion-segment-button value="Blue">Blue</ion-segment-button>
+            <ion-segment-button value="White">White</ion-segment-button>
+            <ion-segment-button value="Red">Red</ion-segment-button>
+        </ion-segment>
+        <ion-segment formControlName="gender" padding>
+            <ion-segment-button value="M">Male</ion-segment-button>
+            <ion-segment-button value="F">Female</ion-segment-button>
+        </ion-segment>
+        <!-- <ion-segment *ngFor="let country of countryList">
+            <ion-segment-button value="country.id" >{{country.id}} - {{country.name}}</ion-segment-button >
+                
+        </ion-segment > -->
+
+
+        <!-- <button ion-button (click)="getCountry()">Get Country List</button> -->
+        <button ion-button type="submit" [disabled]="!signupForm.valid" block color="primary"
+            (click)="onSubmit(signupForm.value)">Submit
+        </button>
+    </form>
+</ion-grid>
+</ion-content>

@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title center>Select Courses</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-item class="page-sub-title align-center">
+        <h3>{{gameInfo.club.clubName}}</h3 >
+    </ion-item >
+    <ion-card class="mygolf-table">
+        <ion-card-header class="mygolf-table-title">
+            Playing Nines
+        </ion-card-header>
+        <ion-card-content>
+            <ion-item class="mygolf-table-row" *ngFor="let course of gameInfo.courses;let i=index">
+                <h3 item-left>{{i+1}}</h3>
+                <h3>{{course.courseName}}</h3>
+                <button ion-button item-right clear large icon-only color="danger"
+                        (click)="removeCourse(i)">
+                    <ion-icon name="remove"></ion-icon>
+                </button>
+            </ion-item>
+            <ion-item class="mygolf-table-row" (click)="appendCourse($event)" *ngIf="gameInfo.courses.length<2">
+                <h3 item-left>{{gameInfo.courses.length+1}}</h3>
+                <h3>Select a course</h3>
+                <button ion-button large item-right clear icon-only color="primary">
+                    <ion-icon name="add"></ion-icon>
+                </button>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-toolbar *ngIf="gameInfo.courses[0]" color="light">
+        <button ion-button color="primary" full (click)="onNextClick()" >Next</button >
+    </ion-toolbar>
+</ion-content>
+<!-- <ion-footer *ngIf="gameInfo.courses[0]" >
+    <ion-toolbar color="light">
+        <button ion-button color="primary" full (click)="onNextClick()" >Next</button >
+    </ion-toolbar>
+</ion-footer> -->

@@ -1,0 +1,12 @@
+{
+  "en": {
+    "CompetitionPlayersPage": {
+      "title": "Players",
+      "colPlayers":"Players",
+      "colHandicap":"Hcp",
+      "colMemberAccNo":"Mem #",
+      "noDataFound":"No players found matching this filter.",
+      "colNationality":"Nat"
+    }
+  }
+}

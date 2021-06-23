@@ -1,0 +1,17 @@
+.ios, .md {
+    competition-filter-page {
+        ion-item-divider {
+            text-align: center;
+            border-bottom: none;
+            background-color: #eee;
+            border-top: 1px solid #dedede;;
+        }
+        .item-ios.item-block, .item-md.item-block {
+            border-bottom: none;
+        }
+        .range-label {
+            width: 100%;
+        }
+    }
+
+}

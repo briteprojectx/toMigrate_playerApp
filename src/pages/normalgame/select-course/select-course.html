@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title center>{{"SelectCourses.title"| translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="select-course-page">
+    <ion-item class="header-panel" style='background-color:#fadb4e;text-align:center;'>
+        <h3 class="scorecard-name" style="font-weight:bold">{{gameInfo.club.clubName}}</h3 >
+  </ion-item >
+    <div padding>
+        <ion-list-header class="list-header" >First Nine</ion-list-header >
+          <ion-item>
+            <ion-label style="display:none !important">First Nine</ion-label>
+          <ion-select [(ngModel)]="gameInfo.courses[0]" style="max-width:100%" placeholder="Select first nine" [selectOptions]="selectFirstNine">
+            <!-- <ion-option value="{{null}}" selected="true" >{{"SelectCourses.NotSelected"|translate}}</ion-option> -->
+            <div *ngFor="let course of clubCourses">
+            <ion-option  [value]="course">{{course.courseName}}</ion-option>
+          </div>
+          </ion-select>
+        </ion-item>
+    </div >
+    <!-- <div *ngIf="gameInfo.courses[0]" >
+        <ion-list-header class="list-header" >Second Nine</ion-list-header >
+        <ion-list [(ngModel)]="gameInfo.courses[1]" radio-group >
+            <ion-item >
+                <ion-label >{{"SelectCourses.NotSelected"|translate}}</ion-label >
+                <ion-radio value="{{null}}" ></ion-radio >
+            </ion-item >
+            <ion-item *ngFor="let course of clubCourses" >
+                <ion-label >{{course.courseName}}</ion-label >
+                <ion-radio [value]="course" ></ion-radio >
+            </ion-item >
+        </ion-list >
+    </div > -->
+    <div *ngIf="gameInfo.courses[0]" padding>
+
+        <ion-list-header class="list-header" >Second Nine</ion-list-header >
+        <!-- <ion-list [(ngModel)]="gameInfo.courses[1]" radio-group > -->
+        <ion-item>
+          <ion-label style="display:none !important">Second Nine</ion-label>
+          <ion-select [(ngModel)]="gameInfo.courses[1]" style="max-width:100%" placeholder="Select second nine" [selectOptions]="selectSecondNine">
+            <ion-option value="{{null}}" selected="true">{{"SelectCourses.NotSelected"|translate}}</ion-option>
+            <div *ngFor="let course of clubCourses">
+
+            <ion-option  [value]="course">{{course.courseName}}</ion-option>
+          </div>
+          </ion-select>
+        </ion-item>
+        <!-- </ion-list > -->
+    </div >
+  </ion-content>
+<ion-footer *ngIf="gameInfo.courses[0]" >
+    <ion-toolbar light>
+        <button ion-button color="primary" full (click)="onNextClick()" >Next</button >
+    </ion-toolbar>
+</ion-footer>

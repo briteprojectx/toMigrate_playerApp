@@ -1,0 +1,181 @@
+competition-list-page {
+    ion-searchbar {
+        border-radius: 10px;
+    }
+    //background-color: #F1F8E9;
+    background-color: $white;
+    .custom-competition {
+        padding-left: 5px;
+    }
+    button {
+        padding: 2px;
+        ion-label {
+            margin: 2px 2px 2px 0;
+        }
+    }
+    .competition-card {
+        margin: 0px 2px;
+        padding: 5px 0px;
+        width: calc(100% - 4px);
+        //border-bottom: solid thin $dark;
+        .competition-info {
+            margin-left: 6px;
+            .competition-name {
+                //padding-left: 5rem;
+                color: $primary;
+                white-space: normal;
+                font-weight: bold;
+            }
+            .competition-date {
+                color: #666
+            }
+            .competition-details {
+                color: #666;
+                font-size: smaller
+            }
+        }
+        .status-info {
+            padding-left: 0;
+            padding-right: 0;
+            .player-registered {
+                color: $primary;
+                font-weight: bold;
+                float: left
+            }
+            .remaining-slots {
+                color: $danger;
+                font-weight: bold;
+                float: left;
+            }
+            .competition-finished {
+                color: $dark;
+                font-weight: bold;
+                float: left;
+            }
+
+            .competition-status {
+                // float: right;
+                font-weight: bold;
+                &.status-completed {
+                    color: #2196F3;
+                }
+                &.status-inprogress {
+                    color: #F44336
+                }
+                &.status-upcoming {
+                    color: $primary;
+                }
+            }
+        }
+
+    }
+
+    //.competition-status {
+    //  padding-left: 5rem;
+    //  color: #28BB5B;
+    //}
+    .competition-image {
+
+        img {
+            width: 90%;
+            height: 90%;
+        }
+    }
+    /*ion-badge {
+      min-height:6.5rem;
+      min-width:6.0rem;
+      border: none;
+      border-radius:0px;
+      background-color: #FFE986;
+      color:#FFF;
+      background-image:none;
+      font-weight: normal;
+      padding: 0px;
+      padding-top: .5rem;
+    }*/
+
+    .player-registered {
+        color: $primary;
+        font-weight: bold;
+    }
+
+    .remaining-slots {
+        color: $danger;
+        font-weight: bold;
+        // font-size: smaller;
+    }
+
+    .competition-finished {
+        color: $dark;
+        // font-size: smaller;
+    }
+
+    .vertical-text {
+        transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform-origin: left top 0;
+        -webkit-transform-origin: left top 0;
+        -ms-transform-origin: left top 0;
+
+        text-transform: uppercase;
+
+        float: left;
+
+    }
+
+    .foot-note {
+        min-height: 27px;
+        max-height: 27px;
+        border: 0px;
+    }
+
+    //.competition-card {
+    //  /*box-shadow: 10px 10px 5px #888888;*/
+    //  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+    //  padding-top: 2px;
+    //  margin-bottom: 5px;
+    //  border-radius: 10px;
+    //}
+
+    .registration-text {
+        color: darkorange; //$darkyellow;
+        // font-size:smaller;
+        font-weight: bold;
+    }
+
+    .status-col {
+        max-width: 30%;
+    }
+    .reg-col {
+        max-width: 40%;
+    }
+
+    .slot-col {
+        max-width: 30%;
+    }
+
+    .mdi-calendar-clock:before {
+        font-size: 2rem;
+    }
+
+    .mdi-account-check:before {
+        font-size: 2rem;
+    }
+    .mdi-calendar-today:before {
+        font-size: 2rem;
+    }
+
+    .mdi-calendar-remove:before {
+        font-size: 2rem;
+    }
+
+    .mdi-calendar-check:before {
+        font-size: 2rem;
+    }
+
+}
+
+.competition-search-toolbar {
+    padding: 0px;
+}

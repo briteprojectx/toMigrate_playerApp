@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-title>Filter by Team</ion-title>
+        <ion-buttons end (click)="close()">
+            <button ion-button icon-only>
+                <i class="fa fa-lg fa-remove"></i>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="has-header">
+    <ion-list radio-group>
+        <!-- <p *ngFor="let team of teamList;#i = index" > -->
+        <!-- <ion-list-header >{{team}}</ion-list-header > -->
+        <ion-item *ngFor="let team of teamList;#i = index">
+            <ion-label>{{team}}</ion-label>
+            <ion-radio [value]="team"></ion-radio>
+        </ion-item>
+        <!-- </p > -->
+
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <button ion-button block color="dark" (click)="close()">Close</button>
+</ion-footer>

@@ -1,0 +1,93 @@
+<ion-header >
+    <ion-navbar >
+        <ion-title >{{"FlightSetup.title"|translate}}</ion-title >
+        <ion-buttons end >
+            <button (click)="onHomeClick()" ion-button icon-only>
+                <ion-icon name="home" ></ion-icon >
+            </button >
+        </ion-buttons >
+    </ion-navbar >
+</ion-header >
+
+
+<ion-content>
+    <ion-list >
+        <ion-item class="page-sub-title align-center">
+            <p class="club-name" >
+                {{gameInfo.club.clubName}}
+            </p >
+            <p class="course-names" style="white-space:normal">
+                <i class="fa fa-flag" aria-hidden="true" ></i >&nbsp;&nbsp;{{courseNames}}
+            </p >
+        </ion-item >
+        <ion-item class="button-panel" >
+            <button ion-button  color="pagetitle" (click)="onGetFlightClick()" >Select Group</button >
+            <button ion-button icon-left color="secondary" *ngIf="canSaveFlight()" (click)="onSaveFlightClick()" >
+                <ion-icon name="person-add" ></ion-icon >
+                Save group
+            </button >
+        </ion-item >
+        <ion-grid class="mygolf-table" nopadding>
+            <!--<ion-row style="font-weight: bold; border-bottom: solid 1px grey">-->
+            <ion-row class="mygolf-table-row">
+                <ion-col width-10>
+                    <ion-avatar class="avatar-left" >
+                        <img src="{{currentPlayer.thumbnail?currentPlayer.thumbnail : currentPlayer.photoUrl}}" onerror="this.src='img/default_user.png'"/>
+                    </ion-avatar >
+                </ion-col>
+                <ion-col width-50 class="add-player">
+                    <button ion-button color="danger" clear class="add-player">
+                        <!--<span color="danger">-->
+                        {{currentPlayer.playerName}}
+                        <!--</span>-->
+
+                    </button>
+                </ion-col>
+                <ion-col width-20 (click)="onPlayerHandicapClick(1)" icon-right>
+                    <button ion-button clear  color="secondary">({{currentPlayer.handicap}})
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                </ion-col>
+                <ion-col width-10></ion-col>
+            </ion-row>
+            <!--<ion-row *ngFor="let slot of slots" style="font-weight: 500; border-bottom: solid 1px grey">-->
+            <ion-row *ngFor="let slot of slots" class="mygolf-table-row">
+                <ion-col width-10>
+                    <ion-avatar class="avatar-left" >
+                        <img src="{{imageUrl(slot)}}"  onerror="this.src='img/default_user.png'"/>
+                    </ion-avatar >
+                </ion-col>
+                <ion-col width-50 class="add-player">
+                    <!--<button ion-button color="primary" clear class="add-player">-->
+                    {{playerInSlot(slot)}}
+                    <!--</button>-->
+                </ion-col>
+                <ion-col width-20 (click)="onPlayerHandicapClick(slot)">
+
+                    <button ion-button *ngIf="slotFilled(slot)" clear style="color:blue" class="add-player" icon-right>
+                        ({{playerHandicap(slot)}})
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                </ion-col>
+                <ion-col width-10>
+                    <button ion-button small color="danger" clear *ngIf="slotFilled(slot)" class="add-player"
+                            (click)="onPlayerDelete(slot)" icon-only>
+                        <i class="fa fa-2x fa-trash" aria-hidden="true" ></i>
+                    </button>
+                    <button ion-button small default clear class="add-player"
+                            *ngIf="!slotFilled(slot) && (slot === 2 || slotFilled(slot-1))"
+                            (click)="onPlayerSelect(slot)" icon-only>
+                        <i class="fa fa-lg fa-user-plus" aria-hidden="true"></i>
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <div style="font-size: x-small;font-weight: bold; color: blue">
+            * Click on handicap to change the handicap value
+        </div>
+        <div >
+            <button ion-button color="primary" full round (click)="onStartGameClick()" >Start Game</button >
+        </div >
+    </ion-list >
+</ion-content >

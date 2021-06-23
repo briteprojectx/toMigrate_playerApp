@@ -1,0 +1,140 @@
+<ion-header >
+    <ion-navbar >
+        <ion-title >{{"FlightSetup.title"|translate}}</ion-title >
+        <ion-buttons end >
+            <button (click)="onHomeClick()" ion-button icon-only>
+                <ion-icon name="home" ></ion-icon >
+            </button >
+        </ion-buttons >
+    </ion-navbar >
+</ion-header >
+
+
+<ion-content>
+    <ion-list >
+        <ion-item class="page-sub-title align-center">
+            <p class="club-name" >
+                {{gameInfo.club.clubName}}
+            </p >
+            <p class="course-names" style="white-space:normal">
+                <i class="fa fa-flag" aria-hidden="true" ></i >&nbsp;&nbsp;{{courseNames}}
+            </p >
+        </ion-item >
+        <ion-item class="button-panel" >
+            <button ion-button icon-left color="primary" (click)="onGetFlightClick()" >
+                <ion-icon name="checkmark-outline"></ion-icon>
+                Select Group
+            </button >
+            <button ion-button icon-left color="secondary" *ngIf="canSaveFlight()" (click)="onSaveFlightClick()" >
+                <ion-icon name="person-add" ></ion-icon >
+                Save group
+            </button >
+        </ion-item >
+        <ion-item>
+                <ion-label>Official Allocated Tee-off Date *</ion-label>
+                <!-- (ionFocus)="setPrevTime()" 
+                (ionBlur)="cancel()"  -->
+
+                <!-- (ionChange)="validDate()"  -->
+                <ion-datetime 
+                
+                displayFormat="YYYY-MM-DD" 
+                [(ngModel)]="myTDate"></ion-datetime>
+              </ion-item>
+        <ion-item>
+                <!-- (ionChange)="validTime()" -->
+                <ion-label>Official Allocated Tee-off Time *</ion-label>
+                <ion-datetime (ionFocus)="setPrevTime()" (ionBlur)="cancel()"
+                 
+                  displayFormat="HH:mm" [(ngModel)]="teeTime"></ion-datetime>
+              </ion-item>
+              <!-- <ion-item>
+                  <button (click)="checkTime()">check time</button>
+              </ion-item>-->
+        <ion-card class="mygolf-table">
+            <ion-card-content>
+                <ion-item class="mygolf-table-row">
+                    <ion-avatar item-left>
+                        <img src="{{currentPlayer.thumbnail?currentPlayer.thumbnail : currentPlayer.photoUrl}}" onerror="this.src='img/default_user.png'"/>
+                    </ion-avatar>
+                    <h3>{{currentPlayer.playerName}}</h3>
+                    <p *ngIf="currentPlayer.courseHandicap && currentPlayer.courseHandicap.rating">
+                        CR : {{currentPlayer.courseHandicap.rating.courseRating}} | 
+                        SR : {{currentPlayer.courseHandicap.rating.slopeRating}} 
+                    </p>
+                    <button (click)="onTeeboxSelect(1)" ion-button [ngClass]="getBtnTbox(currentPlayer.teeOffFrom)"
+                    [color]="getTeeColor(currentPlayer.teeOffFrom)" small clear item-right>
+                    <i class="fa fa-flag fa-fw"></i>
+                    <!-- {{currentPlayer.teeOffFrom}} -->
+                </button>
+                    <button class="btn-handicap" text-wrap ion-button icon-left clear item-right (click)="onPlayerHandicapClick(1)">
+                        <!-- <ion-icon name="build"></ion-icon> -->
+                        <span *ngIf="currentPlayer.courseHandicap && currentPlayer.courseHandicap.handicapSystem">
+                            ({{currentPlayer.courseHandicap.handicapSystem}})&nbsp;</span>
+                            <!-- <br> -->
+                            <span>HCP <b class="hcp-value">{{currentPlayer.handicap}}</b></span>
+                        <!-- <br>
+                        <p *ngIf="currentPlayer.courseHandicap && currentPlayer.courseHandicap.rating">
+                            Course Rating : {{currentPlayer.courseHandicap.rating.courseRating}} | 
+                            Slope Rating : {{currentPlayer.courseHandicap.rating.slopeRating}} 
+                        </p> -->
+                    </button>
+                    <button margin-left margin-right  ion-button color="danger" clear 
+                            icon-only item-right>
+                        <ion-icon name="trash" style="visibility: hidden"></ion-icon>
+                    </button>
+                    
+                </ion-item>
+                <ion-item *ngFor="let slot of slots" class="mygolf-table-row"  >
+                    <ion-avatar item-left (click)="onItemPlayerClick(slot)">
+                        <img src="{{imageUrl(slot)}}"  onerror="this.src='img/default_user.png'"/>
+                    </ion-avatar>
+                    <h3 (click)="onItemPlayerClick(slot)">{{playerInSlot(slot)}}</h3>
+                    <p *ngIf="getPlayerHcpDetails(slot,'ratings')">{{getPlayerHcpDetails(slot,'ratings')}}</p>
+                    <button ion-button *ngIf="slotFilled(slot)" (click)="onTeeboxSelect(slot)" 
+                    [ngClass]="getBtnTbox(playerTee(slot))"
+                    [color]="getTeeColor(playerTee(slot))" small clear item-right>
+                    <i class="fa fa-flag fa-fw"></i>
+                    <!-- {{playerTee(slot)?playerTee(slot):'Blue'}} -->
+                </button>
+                    <button class="btn-handicap" text-wrap ion-button clear item-right *ngIf="slotFilled(slot)"
+                            (click)="onPlayerHandicapClick(slot)">
+                            <!-- icon-left  -->
+                        <!-- <ion-icon name="build"></ion-icon> -->
+                        <span *ngIf="getPlayerHcpDetails(slot)">
+                            ({{getPlayerHcpDetails(slot)}})&nbsp;</span>
+                            <!-- <br> -->
+                            <span>HCP <b class="hcp-value">{{playerHandicap(slot)}}</b></span>
+                        <!-- <p *ngIf="getPlayerHcpDetails(slot,'ratings')">{{getPlayerHcpDetails(slot,'ratings')}}</p> -->
+                    </button>
+                    <button margin-left margin-right ion-button color="danger" clear
+                            *ngIf="slotFilled(slot)"
+                            (click)="onPlayerDelete(slot)" icon-only item-right>
+                        <!-- <ion-icon name="trash"></ion-icon> -->
+                        <i class="fa fa-fw fa-trash"></i>
+                    </button>
+                    <button margin-left margin-right ion-button clear color="dark"
+                            *ngIf="!slotFilled(slot) && (slot === 2 || slotFilled(slot-1))"
+                            (click)="onPlayerSelect(slot)" icon-only item-right>
+                        <!-- <ion-icon name="person-add"></ion-icon> -->
+                        <i class="fa fa-fw fa-user-plus"></i>
+                    </button>
+                    
+                </ion-item>
+            </ion-card-content>
+        </ion-card>
+        <div class="handicap-edit-info">
+            * Click on Tee-off Time, Flag(Tee), Handicap to change the values for this round
+        </div>
+        <div class="handicap-edit-info">
+            ** CR - Course Rating, SR - Slope Rating
+        </div>
+        <div >
+
+        </div >
+    </ion-list >
+    <button ion-button color="primary" block (click)="onStartGameClick()" >Start Game</button >
+</ion-content >
+<!-- <ion-footer color="light">
+    <button ion-button color="primary" block (click)="onStartGameClick()" >Start Game</button >
+</ion-footer> -->

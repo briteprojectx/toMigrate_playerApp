@@ -1,0 +1,104 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons start>
+            <button ion-button icon-only (click)="close()">
+                <ion-icon name="close-circle" color="invert-text"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Competition Details</ion-title>
+    </ion-toolbar>
+</ion-header>
+<!--ion-content class="has-header mygolf-page-background"-->
+<ion-content class = "competition-details player-performance">
+    <ion-list>
+        <ion-item class = "header-panel" style = 'background-color:#fadb4e;text-align:center;'>
+            <h3 class = "scorecard-name" style = "font-weight:bold">{{competition.competitionName}}</h3>
+            <h4>{{competition.clubName}}</h4>
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Competition Type
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.type}}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Club
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.clubName}}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Organizer
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.organizerName}}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Description
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            <div [innerHTML] = "competition.description | safe: 'html'"></div>
+            <!-- {{competition.description}} -->
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Starts
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.startDate|date:"EEEE, d MMMM yyyy" }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Ends
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.endDate|date:"EEEE, d MMMM yyyy" }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Registration Opening Date
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.openDate|date:"EEEE, d MMMM yyyy" }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Registration Closing Date
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.closeDate|date:"EEEE, d MMMM yyyy" }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Scoring Format
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.scoringFormat }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            No. of Rounds
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.totalRounds}} ({{competition.totalHoles}}) holes
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Total Prize
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.totalPrize }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Entry Fee
+        </ion-item-divider>
+        <ion-item class = "item-wrap">
+            {{competition.fee }}
+        </ion-item>
+        <ion-item-divider class = "list-subHeader">
+            Rules
+        </ion-item-divider>
+        <ion-item class="item-wrap">
+            <div [innerHTML] = "competition.rules | safe: 'html'">
+            </div>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<!--<ion-footer>-->
+    <!--<button ion-button block color = "dark" (click) = "close()">-->
+        <!--Close-->
+    <!--</button>-->
+<!--</ion-footer>-->

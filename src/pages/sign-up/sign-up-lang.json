@@ -1,0 +1,31 @@
+{
+  "en":{
+      "SignUpPage":{
+          "email": "Email",
+          "firstname": "First Name",
+          "lastname": "Last Name",
+          "password": "Password",
+          "gender": "Gender",
+          "male": "Male",
+          "female": "Female",
+          "handicap": "Handicap",
+          "authentication": "Authentication",
+          "re-enter-password": "Re-type password",
+          "firstname-required": "* First name is required!",
+          "firstname-maxlength": "* Maximum length of first name is 50!",
+          "lastname-maxlength": "* Maximum length of last name is 50!",
+          "handicap-required": "* Handicap must be required",
+          "password-required": "* Password is required!",
+          "password-minlength": "* Minimum length of the password is 6!",
+          "password-maxlength": "* Maximum length of the password is 10!",
+          "email-required": "* Email is mandatory!",
+          "email-invalid": "* Invalid email entered!",
+          "password-mismatch-title": "Password Mismatch",
+          "password-mismatch-message": "Two passwords do no match",
+          "alert-ok": "OK",
+          "signup-error-title": "Sign up failure"
+
+      }
+  }
+
+}

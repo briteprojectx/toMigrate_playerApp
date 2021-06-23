@@ -1,0 +1,49 @@
+competition-league-lowest-page {
+    .card-ios, .card-md {
+        font-size: $font-size-base*0.8 !important;
+    }
+
+    .mygolf-table-row, .mygolf-table-row-alt {
+        padding-left: 0 !important;
+    }
+
+    .mygolf-table-header {
+        padding-left: 0 !important;
+    }
+
+    .button-teebox {
+        width: 2em;
+        border-radius: 1em;
+    }
+
+    .button-teebox-white {
+        background-color: #30bb5b;
+    }
+
+    
+    .btn-back {
+        background: url(../assets/img/prev.png) no-repeat;
+        background-size: 1.5em;
+        // transform: translate(10px, 10px);
+        transform: translate(12px, 15px);
+    }
+    .btn-next {
+        background: url(../assets/img/prev.png) no-repeat;
+        background-size: 1.5em;
+        transform: scale(-1,1) translate(12px, 15px);
+    }
+
+    .round-considered {
+        background-color: $par-color;
+        // color: white;
+    }
+    .round-not-considered {
+        background-color: $eagle-color;
+        color: white;
+        font-style: italic;
+    }
+
+    .round-absent {
+        background-color: lightgray;
+    }
+}

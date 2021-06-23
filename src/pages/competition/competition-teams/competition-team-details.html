@@ -1,0 +1,100 @@
+<!--
+  Generated template for the CompetitionSponsors page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title>Team Details</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="mygolf-page-background competition-flights">
+
+    <ion-list>
+        <ion-item class="header-panel" style='background-color:#fadb4e;text-align:center;'>
+            <h3 style="font-weight:bold">{{team.teamName}}
+            </h3>
+        </ion-item>
+        <!-- <ion-item>
+            W - Withdrawn, NS - No-Show, C - Cut
+        </ion-item> -->
+        <ion-label padding-left padding-right style="color:red; ">* Legends : W - Withdrawn, NS - No-Show, C - Cut</ion-label>
+        <div>
+            <ion-card>
+                <ion-card-content *ngIf="team.description!='' && team.description" no-padding>
+                    <ion-item>
+                        <ion-thumbnail item-left (click)="onImageClick()">
+                            <img src="{{team.teamLogo?team.teamLogo:'/img/default-user.jpg'}}"
+                                 onerror="this.src='img/default_user.png'"/>
+                        </ion-thumbnail>
+                        <div>
+                            <p>Captain : {{team.captainName}}</p>
+                            <p>Session Time : {{team.teamSessionTime}}</p>
+                        </div>
+                    </ion-item>
+                    <button ion-item *ngIf="team.description != ''"
+                            (click)="openDescription()" style="border-bottom:none">
+                        <p style="
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;">{{ team.description }}</p>
+                        <ion-icon name="ios-arrow-forward" item-right></ion-icon>
+                    </button>
+                </ion-card-content>
+            </ion-card>
+            <ion-card *ngIf="!checkTeamPlayers()" class="mygolf-table">
+                <ion-card-header class="mygolf-table-caption" no-padding>
+                    <ion-row no-padding>
+                        <ion-col>Team Players</ion-col>
+                    </ion-row>
+                </ion-card-header>
+                <ion-card-content style="text-align:center">
+                    There is no player assigned to this team.
+                </ion-card-content>
+            </ion-card>
+            <ion-card *ngIf="checkTeamPlayers()" class="mygolf-table">
+
+                <ion-card-header class="mygolf-table-caption" no-padding>
+                    <ion-row no-padding>
+                        <ion-col>
+                            Team Players
+                        </ion-col>
+                    </ion-row>
+                </ion-card-header>
+
+                <ion-row class="mygolf-table-header flight-member-header flight-subtitle">
+                    <ion-col width-10></ion-col>
+                    <ion-col width-70 class="align-left">{{"CompetitionTeams.playername"|translate}}</ion-col>
+                    <ion-col width-20 class="align-center">Hcp</ion-col>
+                    <!-- {{"CompetitionTeams.handicap"|translate}} -->
+                </ion-row>
+                <ion-row *ngFor="let players of team.teamPlayers; let i = index"
+                        class="mygolf-table-row flight-member item-center">
+                    <ion-col width-10>
+                        <ion-avatar item-left class="rounded no-margin">
+                            <img class="rounded" src="{{players.thumbnailURL?players.thumbnailURL:players.imageURL}}"
+                                 onerror="this.src='img/default_user.png'"/>
+                        </ion-avatar>
+                    </ion-col>
+                    <ion-col width-70 class="vertical-align">
+                        <p [class.logged-in-user]="loggedInUser==players.teamPlayerId">{{players.teamPlayerName}}
+                            <span *ngIf="players.teamPlayerName === team.captainName">(C)</span>
+                        </p>
+                        <p *ngIf="players.status=='W'">&nbsp;(W)</p>
+                        <p *ngIf="players.status=='N'">&nbsp;(NS)</p>
+                        <p *ngIf="players.status=='X'">&nbsp;(C)</p>
+                    </ion-col>
+                    <ion-col width-20 class="vertical-align align-center">
+                        <div>{{players.handicap}}</div></ion-col>
+
+                </ion-row>
+            </ion-card>
+        </div>
+
+    </ion-list>
+</ion-content>
+<ion-footer *ngIf="openedAsModal">
+    <button block dark (click)="close()">Close</button>
+</ion-footer>

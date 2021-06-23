@@ -1,0 +1,16 @@
+{
+  "en":{
+    "CompetitionDetails": {
+      "title": "Competition Details",
+      "sponsor": "Sponsors",
+      "players": "Players",
+      "flights": "Flights",
+      "prizes": "Prizes",
+      "scorecard": "View Scorecard",
+      "leaderboard": "Leaderboard",
+      "clickdetails": "More details",
+      "teams": "Teams",
+      "teamLeaderboard": "Team Leaderboard"
+    }
+  }
+}

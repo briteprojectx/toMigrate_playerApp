@@ -1,0 +1,290 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{"CompetitionDetails.title"|translate}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click) = "goHome()">
+                <ion-icon name = "home"></ion-icon>
+            </button>
+            <!--<button ion-button *ngIf="competition.totalRounds > 1"-->
+            <!--style="box-shadow:none;padding-left:0.5rem;padding-right:0.5rem"-->
+            <!--(click)="openMenu()">R{{currentRound}}-->
+            <!--</button>-->
+            <button ion-button icon-only (click) = "onRefreshClick(null)">
+                <i class = "fa fa-lg fa-refresh"></i>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content class = "mygolf-page-background">
+    <ion-fab top right *ngIf = "competition.totalRounds>1" #fab>
+        <button ion-fab color = "primary">
+            <!--<ion-icon name="camera" ></ion-icon >-->
+            R{{currentRound}}
+        </button>
+        <ion-fab-list side = "bottom">
+            <!-- *ngFor="let roundNo of roundList;let i = index" -->
+            <button *ngIf = "competition.totalRounds >= 1" (click) = "selectedRound(1, fab)" ion-fab
+                    color = "secondary" mini>R1
+            </button>
+            <button *ngIf = "competition.totalRounds >= 2" (click) = "selectedRound(2, fab)" ion-fab
+                    color = "secondary">R2
+            </button>
+            <button *ngIf = "competition.totalRounds >= 3" (click) = "selectedRound(3, fab)" ion-fab
+                    color = "secondary">R3
+            </button>
+            <button *ngIf = "competition.totalRounds >= 4" (click) = "selectedRound(4, fab)" ion-fab
+                    color = "secondary">R4
+            </button>
+        </ion-fab-list>
+    </ion-fab>
+    <ion-refresher (ionRefresh) = "onRefreshClick($event)">
+        <ion-refresher-content
+                pullingIcon = "arrow-down"
+                pullingText = "drag down to reload"
+                refreshingSpinner = "circles"
+                refreshingText = "Refreshing ...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-item class = "header-panel" style = 'background-color:#fadb4e;text-align:center;'>
+        <h3 class = "scorecard-name" style = "font-weight:bold">{{competition.competitionName}}</h3>
+        <h4>{{competition.clubName}}</h4>
+    </ion-item>
+    <ion-card class = "custom-card">
+        <ion-row style = "/*margin-bottom:1.5rem*/">
+            <ion-col width-25>
+                <ion-thumbnail>
+                    <img [src] = "competition.thumbnail?competition.thumbnail:competition.imageUrl"
+                            (click) = "onImageClick()">
+                </ion-thumbnail>
+            </ion-col>
+            <ion-col width-75 style = "position:relative;padding-top:0.75rem;">
+                <p class = "comp-main-info"><i class = "fa fa-hourglass-start fa-fw"></i>
+                    &nbsp;Event Date: <span
+                            style = "color:green;">{{competition.startDate | date:"EEE, d MMM yyyy"}} </span>
+                </p>
+                <p class = "comp-main-info"><i class = "fa fa-hashtag fa-fw" aria-hidden = "true"></i>
+                    &nbsp;Round(s): {{competition.totalRounds}} ({{competition.totalHoles}} holes)
+                </p>
+                <p *ngIf = "competition.scoringFormat" class = "comp-main-info"><i class = "fa fa-wpforms fa-fw"></i>
+                    &nbsp;Scoring Format: {{competition.scoringFormat}}
+                </p>
+                <ion-row no-padding>
+                    <button ion-button round small color = "birdie" class = "mini-buttons"
+                            (click) = "onDescriptionClick()"
+                            style = "font-size:1rem">
+                        Description<!--ion-icon name="more" ></ion-icon -->
+                    </button>
+                    <button ion-button round small color = "birdie" class = "mini-buttons" (click) = "onRulesClick()"
+                            style = "font-size:1rem">
+                        Rules
+                    </button>
+                    <button ion-button round small color = "birdie" class = "mini-buttons" (click) = "onCourseClick()"
+                    style = "font-size:1rem">
+                Courses
+            </button>
+                    <button ion-button round small color = "birdie" class = "mini-buttons"
+                            (click) = "CompetitionDetailsModal()"
+                            style = "font-size:1rem">Full Info
+                    </button>
+                    <!-- <button ion-button round small color = "birdie" class = "mini-buttons"
+                            (click) = "getTestCallAPI()"
+                            style = "font-size:1rem">Test API
+                    </button> -->
+                </ion-row>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class = "comp-reg-dates" style = "max-width:66%">
+                <p class = "comp-main-info">Registration Dates :</p>
+                <p class = "comp-main-info"><i class = "fa fa-hourglass-start fa-fw"></i>
+                    &nbsp;Opens: {{competition.openDate |
+                    date:"EEE, d MMM yyyy"}}</p>
+                <p class = "comp-main-info"><i class = "fa fa-hourglass-end fa-fw"></i>
+                    &nbsp;Closes: {{competition.closeDate | date:"EEE, d MMM yyyy"}}</p>
+            </ion-col>
+            <ion-col no-padding style = "margin-top:auto;text-align:right;max-width:33%">
+                <button ion-button round class = "comp-reg-button" id = "btnRegister"
+                        *ngIf = "checkBtnRegister()"
+                        (click) = "onRegisterClick()">
+                    <i class = "fa fa-lg fa-sign-in comp-reg-button"></i>Register
+                </button>
+                <button ion-button class = "comp-reg-button"
+                        *ngIf = "checkBtnDeRegister()"
+                        color = "dark"
+                        id = "btnDeregister" round
+                        (click) = "onDeregisterClick()">
+                    <i class = "fa fa-lg fa-sign-out comp-reg-button"></i>De-register
+                </button>
+                <!-- <button ion-button class = "comp-reg-button"
+                        *ngIf = "true"
+                        color = "dark"
+                        id = "btnDeregister" round
+                        (click) = "goPayment()">
+                    <i class = "fa fa-lg fa-sign-out comp-reg-button"></i>i-Register
+                </button> -->
+            </ion-col>
+        </ion-row>
+        <ion-row>
+        </ion-row>
+        <ion-list>
+            <ion-item *ngIf = "competition.status == 'Upcoming'" class = "competition-upcoming">
+                <h2 class = "text-inprogress" icon-left>
+                    <i large class = "mdi mdi-calendar-clock"></i>
+                    &nbsp;&nbsp;&nbsp;{{competition.status}}
+                </h2>
+                <p class = "text-inprogress inline-text">
+                    {{countDaysText}}</p>
+                <ion-badge *ngIf = "competition.registered" class = "custom-badge" light item-right>
+                    <i class = "mdi mdi-account-check"></i>
+                </ion-badge>
+            </ion-item>
+            <ion-item *ngIf = "checkRoundCompleted()" class = "competition-completed">
+                <h2 class = "text-inprogress">
+                    <i style = "font-size:large" class = "mdi mdi-calendar-check"></i>
+                    &nbsp;&nbsp;&nbsp;Completed <span
+                        *ngIf = "!details.gameRounds.inProgress && competition.totalRounds > 1"> - Round {{currentRound}}</span>
+                </h2>
+                <ion-badge *ngIf = "competition.registered" class = "custom-badge" item-right>
+                    <i class = "mdi mdi-account-check" color = "white" large></i>
+                </ion-badge>
+            </ion-item>
+            <ion-item *ngIf = "competition.status == 'Cancelled'" class = "competition-cancelled custom-item">
+                <h2 class = "text-inprogress">
+                    <i style = "font-size:large" class = "mdi mdi-calendar-remove"></i>
+                    &nbsp;&nbsp;&nbsp;{{competition.status}}
+                </h2>
+                <ion-badge *ngIf = "competition.registered" class = "custom-badge" light item-right><i
+                        class = "mdi mdi-account-check" light
+                        style = "font-size:24px"></i>
+                </ion-badge>
+            </ion-item>
+            <ion-item *ngIf = "competition.status == 'Not Started'" class = "competition-not-started custom-item">
+                <h2 class = "text-inprogress">
+                    <i style = "font-size:large" class = "mdi mdi-calendar-remove"></i>
+                    &nbsp;&nbsp;&nbsp;Not Started
+                </h2>
+                <ion-badge *ngIf = "competition.registered" class = "custom-badge" light item-right><i
+                        class = "mdi mdi-account-check" light
+                        style = "font-size:24px"></i>
+                </ion-badge>
+            </ion-item>
+            <button *ngIf = "checkRoundInProgress()" ion-item (click) = "onCompetitionScoringClick()"
+                    class = "game-scoring">
+                <h2 class = "text-inprogress">
+                    <i style = "font-size:large" class = "mdi mdi-calendar-today"></i>
+                    &nbsp;&nbsp;&nbsp;<span *ngIf = "gameRound.status == 'InProgress'">In Progress</span><span
+                        *ngIf = "gameRound.status == 'Pending'">Pending Start</span> <span
+                        *ngIf = "!details.gameRounds.inProgress && competition.totalRounds > 1"> - Round {{currentRound}}</span>
+                </h2>
+                <p *ngIf = "scoringRound > 0" class = "text-inprogress inline-text">Click here for
+                    scoring</p>
+                    <p *ngIf = "gameRound.status === 'InProgress' && scoringRound === 0 
+                    && playerIsPlaying && playerIsPlaying.length > 0 && getPlayerInFlight() && getPlayerStatus()!=='Withdrawn'" 
+                    class = "text-inprogress inline-text">
+                        Click here to view scorecard</p>
+                <ion-badge *ngIf = "competition.registered" class = "custom-badge" light item-right><i
+                        class = "mdi mdi-account-check" light
+                        style = "font-size:24px"></i>
+                </ion-badge>
+            </button>
+            <button (click) = "goSponsors()" ion-item>
+                <h2 style = "color:cadetblue">
+                    <i class = "fa fa-institution"></i>&nbsp;&nbsp;&nbsp;{{"CompetitionDetails.sponsor"|translate}}
+                </h2>
+                <ion-badge class = "custom-badge" item-right>{{details.sponsors.length}}</ion-badge>
+            </button>
+            <button (click) = "goPlayers()" ion-item>
+                <h2 style = "color:chocolate">
+                    <ion-icon name = "people"></ion-icon>
+                    &nbsp;&nbsp;&nbsp;{{"CompetitionDetails.players"|translate}}
+                </h2>
+                <ion-badge item-right class = "custom-badge">
+                    {{competition.totalRegistered}}/{{competition.maxPlayers}}
+                </ion-badge>
+            </button>
+            <button (click) = "goTeams()" ion-item *ngIf = "competition.teamEvent">
+                <h2 style = "color:blueviolet">
+                    <ion-icon name = "contacts"></ion-icon>
+                    &nbsp;&nbsp;&nbsp;{{"CompetitionDetails.teams"|translate}}
+                </h2>
+                <ion-badge item-right class = "custom-badge">
+                    <span *ngIf = "compTeams">{{compTeams.totalItems}}</span>
+                    <span *ngIf = "!compTeams">-</span>
+                </ion-badge>
+            </button>
+            <button (click) = "goFlights()" ion-item>
+                <h2 style = "color:olivedrab">
+                    <i class = "mdi mdi-flag-triangle"></i>
+                    &nbsp;&nbsp;&nbsp;{{"CompetitionDetails.flights"|translate}}
+                </h2>
+                <ion-badge class = "custom-badge" item-right>{{flights.length}}</ion-badge>
+            </button>
+            <button (click) = "goPrizes()" ion-item>
+                <h2 style = "color:firebrick">
+                    <ion-icon name = "trophy"></ion-icon>
+                    &nbsp;&nbsp;&nbsp;{{"CompetitionDetails.prizes"|translate}}
+                </h2>
+                <ion-badge class = "custom-badge" item-right>
+                    <!--{{details.prizes.length + details.teamPrizes.length}}-->
+                    {{prizeCount()}}
+                </ion-badge>
+            </button>
+            <button *ngIf = "competition.registered && getPlayerInFlight()" ion-item (click) = "goScorecard()"> 
+                <h2 style = "color:steelblue">
+                    <ion-icon name = "ios-create-outline"></ion-icon>
+                    &nbsp;&nbsp;&nbsp;{{"CompetitionDetails.scorecard"|translate}}
+                </h2>
+                <ion-badge class = "custom-badge" item-right>
+                  <span *ngIf = "details.totalGross">
+                    <!--span *ngIf="!gameRound.grossTotal" >!GR{{details.gameRounds[0].grossTotal}}
+                    </span -->
+                      <span>{{gameRound.grossTotal}}
+                      </span>
+                        <span *ngIf = "competition.totalRounds>1"> ({{details.totalGross}})
+                        </span>
+
+                  </span>
+                </ion-badge>
+            </button> <!-- *ngIf -->
+            <button (click) = "toggleTeamEvent('individual')" ion-item>
+                <h2 style = "color:tomato">
+                    <ion-icon name = "md-grid"></ion-icon>
+                    &nbsp;&nbsp;&nbsp;{{"CompetitionDetails.leaderboard"|translate}}
+                </h2>
+            </button>
+            <button *ngIf="competition.teamEvent" (click) = "toggleTeamEvent('team')" ion-item>
+                <h2 style = "color:seagreen">
+                    <ion-icon name = "md-grid"></ion-icon>
+                    &nbsp;&nbsp;&nbsp;{{"CompetitionDetails.teamLeaderboard"|translate}}
+                </h2>
+            </button>
+            <button *ngIf="isCompetitionEclectic()" (click) = "goLeagueMenu()" ion-item>
+                <h2 style = "color:tomato">
+                    <ion-icon name = "md-grid"></ion-icon>
+                    &nbsp;&nbsp;&nbsp;League Menu
+                </h2>
+            </button>
+            <!-- <button *ngIf="isCompetitionEclectic()" (click) = "goLeagueLeaderboard()" ion-item>
+                <h2 style = "color:tomato">
+                    <ion-icon name = "md-grid"></ion-icon>
+                    &nbsp;&nbsp;&nbsp;League Leaderboard
+                </h2>
+            </button>
+            <button *ngIf="isCompetitionEclectic()" ion-item (click) = "goLeagueScorecard()"> 
+                <h2 style = "color:steelblue">
+                    <ion-icon name = "ios-create-outline"></ion-icon>
+                    &nbsp;&nbsp;&nbsp;League Scorecards
+                </h2>
+                <ion-badge class = "custom-badge" item-right>
+                  <span *ngIf = "details.totalGross">
+                      <span>{{gameRound.grossTotal}}
+                      </span>
+                        <span *ngIf = "competition.totalRounds>1"> ({{details.totalGross}})
+                        </span>
+
+                  </span>
+                </ion-badge>
+            </button> -->
+        </ion-list>
+    </ion-card>
+</ion-content>

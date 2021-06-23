@@ -1,0 +1,24 @@
+{
+  "name": "myGolf2u",
+  "integrations": {
+    "gulp": {},
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "com.brite.mygolf2u-current",
+  "proxies": [
+    {
+      "path": "/v3",
+      "proxyUrl": "https://www.billplz-sandbox.com/api/v3"
+    },
+    {
+      "path": "/ipay88page",
+      "proxyUrl": "https://payment.ipay88.com.my/epayment/entry.asp"
+    },
+    {
+      "path": "/googleRec",
+      "proxyUrl": "https://www.google.com/recaptcha/api2/reload"
+    }
+  ],
+  "id": "com.brite.mygolf2u-current"
+}

@@ -1,0 +1,64 @@
+
+flight-setup-page {
+    .card-md, .card-ios {
+        margin: 2px 2px;
+        width: calc(100% - 4px);
+    }
+    .item-md [item-right], .item-ios [item-right] {
+        //margin: 2px 4px;
+    }
+    .handicap-edit-info{
+        color: $primary;
+        font-size: x-small;
+        font-weight: bold;
+    }
+    .item-ios, .item-md {
+        &.item-block {
+            &.button-panel {
+                text-align: center;
+                //@extend %gradient-item;
+            }
+            &.mygolf-table-row {
+                @extend %gradient-item;
+                height: 60px;
+                &:first-of-type {
+                    h3 {
+                        color: $danger;
+                    }
+                }
+                h3 {
+                    @include truncate();
+                    font-weight: bold;
+                    color: darken($primary, 20%);
+                }
+            }
+        }
+    }
+
+    .button-teebox {
+        width: 2em;
+        border-radius: 1em;
+    }
+
+    .button-teebox-white {
+        background-color: #30bb5b;
+    }
+
+    
+
+    .btn-handicap {
+        margin: 0 !important;
+        height: 4em !important;
+        width: 6em !important;
+        span.button-inner {
+            flex-flow: column;
+        }
+    }
+
+    .hcp-value {
+        color: black;
+        font-size: larger;
+    }
+
+}
+

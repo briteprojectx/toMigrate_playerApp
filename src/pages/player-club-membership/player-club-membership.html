@@ -1,0 +1,30 @@
+<ion-header >
+    <ion-navbar >
+        <ion-title center >Club Membership</ion-title >
+        <ion-buttons end >
+            <button (click)="openAddClubMembership()" >
+                <i class="fa fa-plus fa-1.5x" aria-hidden="true" ></i >
+            </button >
+        </ion-buttons >
+    </ion-navbar >
+</ion-header >
+
+
+<ion-content class="player-club-membership" >
+
+    <ion-list >
+
+        <ion-item *ngFor="let membership of memberships" (click)="clubSelected($event, club)" >
+            <ion-avatar class="avatar-left custom-avatar" >
+                <img src="{{membership.club.clubImage}}" />
+            </ion-avatar >
+            <h3 class="course-name" >{{membership.club.clubName}}</h3 >
+            <p class="course-detail" >{{membership.club.address}}</p >
+            <span class="course-distance" item-right >
+                <p class="course-distance" >{{membership.membershipNumber}}</p >
+            </span >
+        </ion-item >
+
+    </ion-list >
+
+</ion-content >

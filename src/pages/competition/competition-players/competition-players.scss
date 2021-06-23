@@ -1,0 +1,25 @@
+.ios, .md{
+    competition-players-page {
+        ion-card.mygolf-table {
+            margin: 2px;
+            width: calc(100% - 4px);
+            .mygolf-table-row, .mygolf-table-row-alt{
+                min-height: 5rem;
+                max-height: 5rem;
+                ion-col {
+                    *{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        .player-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .player-category {
+            font-size: smaller;
+        }
+    }
+}

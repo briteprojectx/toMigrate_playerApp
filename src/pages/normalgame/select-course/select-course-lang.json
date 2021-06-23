@@ -1,0 +1,11 @@
+{
+  "en":{
+    "SelectCourses": {
+      "title": "Select Courses",
+      "NotSelected": "Not Playing Second Nine",
+      "competitions": "competitions",
+      "displaying": "Displaying",
+      "get-more": "Get More"
+    }
+  }
+}

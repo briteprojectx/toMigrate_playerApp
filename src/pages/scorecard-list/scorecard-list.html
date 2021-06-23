@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button icon-left (click)="onMenuFilterClick()">
+                <ion-icon name="options"></ion-icon>
+                Options
+            </button>
+        </ion-buttons>
+        <ion-title center>Scorecards</ion-title>
+    </ion-navbar>
+    <ion-toolbar color="light">
+        <ion-searchbar focuser #searchBar [(ngModel)]="searchQuery"
+                       debounce="1500"
+                       (ionInput)="onSearchInput()" [showCancelButton]="true">
+
+        </ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher pullMin="200" (ionRefresh)="onRefreshClick($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-down"
+            pullingText="drag down to reload"
+            refreshingSpinner="circles"
+            refreshingText="Refreshing ...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list class="scorecard-list">
+        <ion-list *ngIf="selectedCountry">
+                <button ion-button clear small (click)="onMenuFilterClick()" style="width:100%;font-size: x-small;">
+                        <i>* Filtered by Country : {{selectedCountry.name}}. Tap here to change</i>
+                    </button>
+        </ion-list>
+        <div *ngIf="scorecardList.totalItems>0">
+            <button ion-item *ngFor="let scorecard of scorecardList.scorecards"
+                    (click)="onScorecardClick($event, scorecard)"
+                    class="scorecard-item">
+
+                <p class="played-on">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    {{scorecard.playedOn | date:"MMMM d, yyyy"}}
+                </p>
+                <p *ngIf="scorecard.competition">
+                    <span item-left><i ion-text color="danger" class="fa fa-trophy" aria-hidden="true"></i></span>
+                    <span danger>
+                    {{scorecard.competitionName}} - R{{scorecard.roundNumber}}
+                </span>
+                </p>
+                <p class="club-name">{{scorecard.clubName}}</p>
+                <span item-right class="total-scores">
+                <p class="total-score">{{scorecard.totalScore}}</p>
+                    <!--<p class="front-back" >{{scorecard.frontNineTotal}} | {{scorecard.backNineTotal}}</p >-->
+                <p class="front-back">{{scorecard.playerTotals}}</p>
+            </span>
+                <p class="course-names">
+                    <i class="fa fa-map-marker fa-location" aria-hidden="true"></i>
+                    {{scorecard.courseNames}}
+                </p>
+                <p color="blue" class="flight-members">
+                    <i class="fa fa-users fa-people" aria-hidden="true"></i>{{scorecard.participants}}
+                </p>
+            </button>
+        </div>
+        <div *ngIf="refreshAttempted && scorecardList.totalItems==0" padding style="padding-top:0">
+            <span color="danger">No scorecard found!</span>
+        </div>
+    </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)"
+                         threshold="30%">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading more data..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

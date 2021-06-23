@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar left >
+    <ion-buttons start >
+        <!--<button ion-button (click)="close()" icon-left>-->
+            <!--<ion-icon style="font-size:3.2rem" name="arrow-back" ></ion-icon >-->
+            <!--<div showWhen="ios" >Back</div >-->
+        <!--</button >-->
+        <button ion-button large icon-only (click)="close()">
+            <ion-icon name="close-circle"></ion-icon>
+        </button>
+    </ion-buttons >
+
+    <!--ion-buttons end >
+        <button (click)="click()" >
+            <ion-icon name="close" ></ion-icon > Close
+        </button >
+    </ion-buttons -->
+</ion-toolbar >
+</ion-header>
+
+<ion-content class="has-header mygolf-page-background competition-details" >
+    <ion-card class="custom-card" >
+        <ion-card-content >
+            <img [src]="team.teamLogo" />
+        </ion-card-content >
+    </ion-card >
+</ion-content >
+<button ion-button block color="dark" (click)="close()" >
+    Close
+</button >

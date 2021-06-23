@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns="http://www.w3.org/2000/svg">
+<head>
+  <meta charset="UTF-8">
+  <title>myGolf2u</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+  
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *; img-src 'self' data:; style-src 'self'; font-src 'self';"> -->
+  <meta name="theme-color" content="#4e8ef7">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+     <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyB5mcLxRzOvHogSm820s_UVVyHyzbDx7M0",
+        authDomain: "mygolf2u-current-145510.firebaseapp.com",
+        databaseURL: "https://mygolf2u-current-145510.firebaseio.com",
+        projectId: "mygolf2u-current-145510",
+        storageBucket: "mygolf2u-current-145510.appspot.com",
+        messagingSenderId: "827254401550",
+        appId: "1:827254401550:web:59a1731dd9f3d25761aa5f"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+
+  <!-- cordova.js required for cordova apps -->
+  <script src="cordova.js"></script>
+  <!-- <script type="text/javascript" charset="utf-8" src="../platforms/android/platform_www/cordova.js"></script>   -->
+  <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
+  <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LcJQM0ZAAAAAGVMmPWu6tTK4JzCj_TvNXm4gOIy"></script> -->
+  <link href="build/main.css" rel="stylesheet">
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  window.OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "0ea834a8-98f5-4a7e-b3ae-56d9fca1a0c6",
+      subdomainName:"dev-play-mygol.os.tc",/* The label for your site that you added in Site Setup mylabel.os.tc */
+        notifyButton: {
+          enable: true,
+        },
+    });
+  });
+</script><script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<!-- <script>
+  window.OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "8a9a6dd5-c0ea-4de7-9cc7-c8c713ddd4c0",
+      subdomainName:"cls-play-mygol.os.tc",/* The label for your site that you added in Site Setup mylabel.os.tc */
+        notifyButton: {
+          enable: true,
+        },
+    });
+  });
+</script> -->
+<script defer src="https://friconix.com/cdn/friconix.js"> </script>
+</head>
+<body>
+
+  <!-- Ionic's root component and where the app will load -->
+  <ion-app></ion-app>
+  <script src="http://maps.google.com/maps/api/js?v=3&sensor=false&key=AIzaSyDpbMcldv1v_kgCI_yYQmO737_PbvueKqc"></script>
+  <!-- The polyfills js is generated during the build process -->
+  <script src="build/polyfills.js"></script>
+  <script src="build/intl.complete.js"></script>
+  <!--<script src="build/intl.complete.js"></script>-->
+  <!-- The bundle js is generated during the build process -->
+  <script src="app.lang.js"></script>
+  <script src="build/main.js"></script>
+
+
+
+</body>
+</html>

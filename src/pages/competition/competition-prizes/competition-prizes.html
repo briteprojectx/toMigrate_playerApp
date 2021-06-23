@@ -1,0 +1,136 @@
+<ion-header>
+    <ion-navbar>
+        <button  ion-button menuToggle>
+            <!--ion-icon name="menu" ></ion-icon -->
+        </button>
+        <ion-title>Prizes</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="onHomeClick()">
+                <ion-icon name="home"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="mygolf-page-background">
+    <ion-item class="header-panel" style='background-color:#fadb4e;text-align:center;'>
+        <h3 style="font-weight:bold">{{competition.competitionName}}</h3>
+        <h4>{{competition.clubName}}</h4>
+    </ion-item>
+
+    <div *ngIf="competition.teamEvent && teamPrizes.length > 0">
+        <ion-list>
+            <ion-item-divider>
+                Team Prizes
+            </ion-item-divider>
+            <ion-card *ngFor="let roundPrizes of gameRoundTeamPrizes;let idx=index" class="mygolf-table">
+                <ion-card-header class="custom-header"
+                                 *ngIf="roundPrizes.roundName === 'Overall'">
+                    Overall Prizes
+                </ion-card-header>
+                <ion-card-header class="custom-header"
+                                 *ngIf="roundPrizes.roundName !== 'Overall'">
+                    {{roundPrizes.roundName}} Prizes
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-row class="flight-member-header">
+                        <ion-col width-70>Title</ion-col>
+                        <ion-col width-30>Prize</ion-col>
+                        <ion-col *ngIf="competition.status == 'Completed'" width-40>Winner</ion-col>
+                    </ion-row>
+                    <span *ngFor="let category of roundPrizes.categoryPrizes">
+                    <ion-row class="category-name" *ngIf="category.categoryName !== ''">
+                        <ion-col width-100>
+                            Category: {{category.categoryName}} 
+                            <span *ngIf="categories.length > 0">
+                                {{getHandicapRange(category.categoryName)}}
+                            </span>
+                        </ion-col>
+                    </ion-row>
+                        <ion-row class="category-name" *ngIf="category.categoryName == ''">
+                        <ion-col width-100>
+                            Category: Overall
+                        </ion-col>
+                    </ion-row>
+                  <span *ngFor="let score of category.scoreGroups">
+                    <ion-row class="score-name">
+                      <ion-col width-100>
+                        <span *ngIf="score.scoreType=='G'">Gross</span>
+                        <span *ngIf="score.scoreType=='N'">Net</span>
+                        <span *ngIf="score.scoreType=='X'">N/A</span>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row class="prize-row" *ngFor="let prize of score.prizes">
+                        <ion-col width-60>
+                            {{prize.title}}
+                        </ion-col>
+                        <ion-col>
+                            {{prize.prizeName}}
+                        </ion-col>
+                        <ion-col *ngIf="competition.status == 'Completed'">
+                            {{prize.teamMon?prize.teamMon:prize.teamPos}}
+                        </ion-col>
+                    </ion-row>
+                  </span>
+                </span>
+                </ion-card-content>
+            </ion-card>
+        </ion-list>
+    </div>
+
+    <div *ngIf="prizes.length > 0">
+
+        <ion-list>
+            <ion-item-divider *ngIf="competition.teamEvent">
+                Individual Prizes
+            </ion-item-divider>
+            <ion-card *ngFor="let roundPrizes of gameRoundPrizes;let idx=index" class="mygolf-table">
+                <ion-card-header class="custom-header align-left"
+                                 *ngIf="roundPrizes.roundName === 'Overall'">
+                    Overall Prizes
+                </ion-card-header>
+                <ion-card-header class="custom-header align-left"
+                                 *ngIf="roundPrizes.roundName !== 'Overall'">
+                    {{roundPrizes.roundName}} Prizes
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-row class="flight-member-header">
+                        <ion-col width-40>Title</ion-col>
+                        <ion-col width-20 class="prize-padding-left">Prize</ion-col>
+                        <ion-col *ngIf="competition.status == 'Completed'" width-40>Winner</ion-col>
+                    </ion-row>
+                    <span *ngFor="let category of roundPrizes.categoryPrizes">
+                    <ion-row class="category-name" *ngIf="category.categoryName !== 'Overall'">
+                        <ion-col width-100>
+                            Category: {{category.categoryName}}
+                            <span *ngIf="categories.length > 0">
+                                    {{getHandicapRange(category.categoryName)}}
+                                </span>
+                        </ion-col>
+                    </ion-row>
+                  <span *ngFor="let score of category.scoreGroups">
+                    <ion-row class="score-name">
+                      <ion-col width-100>
+                        <span *ngIf="score.scoreType=='G'">Gross</span>
+                        <span *ngIf="score.scoreType=='N'">Net</span>
+                        <span *ngIf="score.scoreType=='X'">N/A</span>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row class="prize-row" *ngFor="let prize of score.prizes">
+                        <ion-col width-40>
+                            {{prize.title}}
+                        </ion-col>
+                        <ion-col>
+                            {{prize.prizeName}}
+                        </ion-col>
+                        <ion-col *ngIf="competition.status == 'Completed'">
+                            {{prize.playerMon?prize.playerMon:prize.playerPos}}
+                        </ion-col>
+                    </ion-row>
+                  </span>
+                </span>
+                </ion-card-content>
+            </ion-card>
+        </ion-list>
+    </div>
+</ion-content>

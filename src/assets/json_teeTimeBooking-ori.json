@@ -1,0 +1,1170 @@
+[
+    {
+      "id": 0,
+      "clubData": {
+        "id": 0,
+        "name": "string",
+        "registerNo": "string",
+        "tag": "string",
+        "description": "string",
+        "status": "string",
+        "address": {
+          "address1": "string",
+          "address2": "string",
+          "city": "string",
+          "postCode": "string",
+          "state": "string",
+          "countryData": {
+            "id": "string",
+            "name": "string",
+            "iso2Code": "string",
+            "iso3Code": "string",
+            "dialoCode": "string",
+            "currencyCode": "string",
+            "currencyName": "string",
+            "currencySymbol": "string",
+            "sportCode": "string",
+            "flagUrl": "string"
+          },
+          "phone1": "string",
+          "phone2": "string",
+          "fax": "string",
+          "webSite": "string"
+        },
+        "contactPerson": "string",
+        "contactEmail": "string",
+        "clubImage": "string",
+        "latitude": 0,
+        "longitude": 0,
+        "virtualClub": true,
+        "timeZone": {
+          "id": "string",
+          "name": "string",
+          "usesDaylight": true,
+          "offsetMinutesUtc": 0,
+          "offsetSpec": "string"
+        },
+        "courses": [
+          {
+            "id": 0,
+            "name": "string",
+            "type": 0,
+            "par": 0,
+            "rating": 0,
+            "slope": 0,
+            "description": "string",
+            "courseImage": "string",
+            "shortCode": "string",
+            "displayOrder": 0,
+            "holes": [
+              {
+                "id": 0,
+                "holeNo": 0,
+                "par": 0,
+                "indexOut": 0,
+                "indexIn": 0,
+                "latitude": 0,
+                "longitude": 0,
+                "description": "string",
+                "distanceBlack": 0,
+                "distanceBlue": 0,
+                "distanceRed": 0,
+                "distanceWhite": 0,
+                "image": "string"
+              }
+            ],
+            "teeBoxes": [
+              {
+                "id": 0,
+                "name": "string",
+                "image": "string",
+                "description": "string"
+              }
+            ]
+          }
+        ],
+        "organizer": {
+          "id": 0,
+          "registerNo": "string",
+          "name": "string",
+          "shortName": "string",
+          "description": "string",
+          "address": {
+            "address1": "string",
+            "address2": "string",
+            "city": "string",
+            "postCode": "string",
+            "state": "string",
+            "countryData": {
+              "id": "string",
+              "name": "string",
+              "iso2Code": "string",
+              "iso3Code": "string",
+              "dialoCode": "string",
+              "currencyCode": "string",
+              "currencyName": "string",
+              "currencySymbol": "string",
+              "sportCode": "string",
+              "flagUrl": "string"
+            },
+            "phone1": "string",
+            "phone2": "string",
+            "fax": "string",
+            "webSite": "string"
+          },
+          "image": "string",
+          "contactPerson": "string",
+          "contactEmail": "string",
+          "status": "string",
+          "dateJoined": "2020-05-27T04:51:51.565Z",
+          "createdOn": "2020-05-27T04:51:51.565Z",
+          "createdBy": "string",
+          "advertisements": [
+            {
+              "advertisement": {
+                "id": 0,
+                "name": "string",
+                "company": "string",
+                "active": true,
+                "startDate": "2020-05-27T04:51:51.565Z",
+                "endDate": "2020-05-27T04:51:51.565Z",
+                "displayPeriod": 0,
+                "rank": 0,
+                "externalUrl": "string",
+                "image": "string",
+                "useIn": "string",
+                "updateCounter": 0
+              },
+              "startDate": "2020-05-27T04:51:51.565Z",
+              "endDate": "2020-05-27T04:51:51.565Z",
+              "displayPeriod": 0,
+              "rank": 0,
+              "autoInclude": true
+            }
+          ]
+        }
+      },
+      "bookingStatus": "Booked",
+      "buggyRequested": 3,
+      "caddyRequested": 2,
+      "ninesPlayed": 1,
+      "partialConfirm": true,
+      "slotPreferred": {
+        "slotNo": "number",
+        "startCourse": {
+          "id": 0,
+          "name": "string",
+          "type": 0,
+          "par": 0,
+          "rating": 0,
+          "slope": 0,
+          "description": "string",
+          "courseImage": "string",
+          "shortCode": "string",
+          "displayOrder": 0,
+          "holes": [
+            {
+              "id": 0,
+              "holeNo": 0,
+              "par": 0,
+              "indexOut": 0,
+              "indexIn": 0,
+              "latitude": 0,
+              "longitude": 0,
+              "description": "string",
+              "distanceBlack": 0,
+              "distanceBlue": 0,
+              "distanceRed": 0,
+              "distanceWhite": 0,
+              "image": "string"
+            }
+          ],
+          "teeBoxes": [
+            {
+              "id": 0,
+              "name": "string",
+              "image": "string",
+              "description": "string"
+            }
+          ]
+        },
+        "secondCourse": {
+          "id": 0,
+          "name": "string",
+          "type": 0,
+          "par": 0,
+          "rating": 0,
+          "slope": 0,
+          "description": "string",
+          "courseImage": "string",
+          "shortCode": "string",
+          "displayOrder": 0,
+          "holes": [
+            {
+              "id": 0,
+              "holeNo": 0,
+              "par": 0,
+              "indexOut": 0,
+              "indexIn": 0,
+              "latitude": 0,
+              "longitude": 0,
+              "description": "string",
+              "distanceBlack": 0,
+              "distanceBlue": 0,
+              "distanceRed": 0,
+              "distanceWhite": 0,
+              "image": "string"
+            }
+          ],
+          "teeBoxes": [
+            {
+              "id": 0,
+              "name": "string",
+              "image": "string",
+              "description": "string"
+            }
+          ]
+        },
+        "teeOffDate": "2020-05-27",
+        "teeOffTime": {
+          "hour": 0,
+          "minute": 0,
+          "second": 0,
+          "nano": 0
+        },
+        "availableForBooking": true,
+        "maxPlayers": 0,
+        "minPlayers": 0,
+        "waitingListSize": 0,
+        "reasonForBlocking": "string",
+        "allowWalking": "boolean",
+        "pricingPlan": "TeeTimePricingPlan",
+        "pricingPlanPromotional": "TeeTimePricingPlan"
+      },
+      "slotAssigned": {
+        "slotNo": "number",
+        "startCourse": {
+          "name": "Second Nine"
+        },
+        "secondCourse": "ClubCourseData",
+        "teeOffDate": "Date",
+        "teeOffTime": "4:25 PM",
+        "availableForBooking": "boolean",
+        "maxPlayers": "number",
+        "minPlayers": "number",
+        "waitingListSize": "number",
+        "reasonForBlocking": "string",
+        "allowWalking": true,
+      "pricingPlan": {
+        "id": 0,
+        "name": "string",
+        "description": "string",
+        "currency": {
+          "id": "string",
+          "name": "string",
+          "symbol": "string"
+        },
+        "promotional": true,
+        "prices": [
+          {
+            "id": 0,
+            "playerType": {
+              "id": "string",
+              "name": "string",
+              "description": "string",
+              "nationalitySpecific": true
+            },
+            "priceComponent": {
+              "id": "string",
+              "name": "string",
+              "description": "string",
+              "systemSeeded": true,
+              "printSequence": 0,
+              "defaultComponent": true,
+              "componentType": "Green"
+            },
+            "applicableTo": "Booking",
+            "mandatory": true,
+            "price18Hole": 0,
+            "price9Hole": 0,
+            "addToDisplayPrice": true,
+            "packageName": "string"
+          }
+        ],
+        "additionalCharges": [
+          {
+            "id": 0,
+            "name": "string",
+            "amountType": "Absolute",
+            "amount": 0,
+            "applicableComponents": [
+              {
+                "id": "string",
+                "name": "string",
+                "description": "string",
+                "systemSeeded": true,
+                "printSequence": 0,
+                "defaultComponent": true,
+                "componentType": "Green"
+              }
+            ]
+          }
+        ]
+      },
+        "pricingPlanPromotional": {
+          "id": 0,
+          "name": "string",
+          "description": "string",
+          "currency": {
+            "id": "string",
+            "name": "string",
+            "symbol": "string"
+          },
+          "promotional": true,
+          "prices": [
+            {
+              "id": 0,
+              "playerType": {
+                "id": "string",
+                "name": "string",
+                "description": "string",
+                "nationalitySpecific": true
+              },
+              "priceComponent": {
+                "id": "string",
+                "name": "string",
+                "description": "string",
+                "systemSeeded": true,
+                "printSequence": 0,
+                "defaultComponent": true,
+                "componentType": "Green"
+              },
+              "applicableTo": "Booking",
+              "mandatory": true,
+              "price18Hole": 0,
+              "price9Hole": 0,
+              "addToDisplayPrice": true,
+              "packageName": "string"
+            }
+          ],
+          "additionalCharges": [
+            {
+              "id": 0,
+              "name": "string",
+              "amountType": "Absolute",
+              "amount": 0,
+              "applicableComponents": [
+                {
+                  "id": "string",
+                  "name": "string",
+                  "description": "string",
+                  "systemSeeded": true,
+                  "printSequence": 0,
+                  "defaultComponent": true,
+                  "componentType": "Green"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "slotUsed": {
+        "slotNo": 0,
+        "startCourse": {
+          "id": 0,
+          "name": "string",
+          "type": 0,
+          "par": 0,
+          "rating": 0,
+          "slope": 0,
+          "description": "string",
+          "courseImage": "string",
+          "shortCode": "string",
+          "displayOrder": 0,
+          "holes": [
+            {
+              "id": 0,
+              "holeNo": 0,
+              "par": 0,
+              "indexOut": 0,
+              "indexIn": 0,
+              "latitude": 0,
+              "longitude": 0,
+              "description": "string",
+              "distanceBlack": 0,
+              "distanceBlue": 0,
+              "distanceRed": 0,
+              "distanceWhite": 0,
+              "image": "string"
+            }
+          ],
+          "teeBoxes": [
+            {
+              "id": 0,
+              "name": "string",
+              "image": "string",
+              "description": "string"
+            }
+          ]
+        },
+        "secondCourse": {
+          "id": 0,
+          "name": "string",
+          "type": 0,
+          "par": 0,
+          "rating": 0,
+          "slope": 0,
+          "description": "string",
+          "courseImage": "string",
+          "shortCode": "string",
+          "displayOrder": 0,
+          "holes": [
+            {
+              "id": 0,
+              "holeNo": 0,
+              "par": 0,
+              "indexOut": 0,
+              "indexIn": 0,
+              "latitude": 0,
+              "longitude": 0,
+              "description": "string",
+              "distanceBlack": 0,
+              "distanceBlue": 0,
+              "distanceRed": 0,
+              "distanceWhite": 0,
+              "image": "string"
+            }
+          ],
+          "teeBoxes": [
+            {
+              "id": 0,
+              "name": "string",
+              "image": "string",
+              "description": "string"
+            }
+          ]
+        },
+        "teeOffDate": "2020-05-27",
+        "teeOffTime": {
+          "hour": 0,
+          "minute": 0,
+          "second": 0,
+          "nano": 0
+        },
+        "availableForBooking": true,
+        "maxPlayers": 0,
+        "minPlayers": 0,
+        "waitingListSize": 0,
+        "reasonForBlocking": "string",
+        "allowWalking": true,
+        "pricingPlan": {
+          "id": 0,
+          "name": "string",
+          "description": "string",
+          "currency": {
+            "id": "string",
+            "name": "string",
+            "symbol": "string"
+          },
+          "promotional": true,
+          "prices": [
+            {
+              "id": 0,
+              "playerType": {
+                "id": "string",
+                "name": "string",
+                "description": "string",
+                "nationalitySpecific": true
+              },
+              "priceComponent": {
+                "id": "string",
+                "name": "string",
+                "description": "string",
+                "systemSeeded": true,
+                "printSequence": 0,
+                "defaultComponent": true,
+                "componentType": "Green"
+              },
+              "applicableTo": "Booking",
+              "mandatory": true,
+              "price18Hole": 0,
+              "price9Hole": 0,
+              "addToDisplayPrice": true,
+              "packageName": "string"
+            }
+          ],
+          "additionalCharges": [
+            {
+              "id": 0,
+              "name": "string",
+              "amountType": "Absolute",
+              "amount": 0,
+              "applicableComponents": [
+                {
+                  "id": "string",
+                  "name": "string",
+                  "description": "string",
+                  "systemSeeded": true,
+                  "printSequence": 0,
+                  "defaultComponent": true,
+                  "componentType": "Green"
+                }
+              ]
+            }
+          ]
+        },
+        "pricingPlanPromotional": {
+          "id": 0,
+          "name": "string",
+          "description": "string",
+          "currency": {
+            "id": "string",
+            "name": "string",
+            "symbol": "string"
+          },
+          "promotional": true,
+          "prices": [
+            {
+              "id": 0,
+              "playerType": {
+                "id": "string",
+                "name": "string",
+                "description": "string",
+                "nationalitySpecific": true
+              },
+              "priceComponent": {
+                "id": "string",
+                "name": "string",
+                "description": "string",
+                "systemSeeded": true,
+                "printSequence": 0,
+                "defaultComponent": true,
+                "componentType": "Green"
+              },
+              "applicableTo": "Booking",
+              "mandatory": true,
+              "price18Hole": 0,
+              "price9Hole": 0,
+              "addToDisplayPrice": true,
+              "packageName": "string"
+            }
+          ],
+          "additionalCharges": [
+            {
+              "id": 0,
+              "name": "string",
+              "amountType": "Absolute",
+              "amount": 0,
+              "applicableComponents": [
+                {
+                  "id": "string",
+                  "name": "string",
+                  "description": "string",
+                  "systemSeeded": true,
+                  "printSequence": 0,
+                  "defaultComponent": true,
+                  "componentType": "Green"
+                }
+              ]
+            }
+          ]
+        }
+      },
+        "slotNo": 0,
+        "startCourse": {
+          "id": 0,
+          "name": "string",
+          "type": 0,
+          "par": 0,
+          "rating": 0,
+          "slope": 0,
+          "description": "string",
+          "courseImage": "string",
+          "shortCode": "string",
+          "displayOrder": 0,
+          "holes": [
+            {
+              "id": 0,
+              "holeNo": 0,
+              "par": 0,
+              "indexOut": 0,
+              "indexIn": 0,
+              "latitude": 0,
+              "longitude": 0,
+              "description": "string",
+              "distanceBlack": 0,
+              "distanceBlue": 0,
+              "distanceRed": 0,
+              "distanceWhite": 0,
+              "image": "string"
+            }
+          ],
+          "teeBoxes": [
+            {
+              "id": 0,
+              "name": "string",
+              "image": "string",
+              "description": "string"
+            }
+          ]
+        },
+        "secondCourse": {
+          "id": 0,
+          "name": "string",
+          "type": 0,
+          "par": 0,
+          "rating": 0,
+          "slope": 0,
+          "description": "string",
+          "courseImage": "string",
+          "shortCode": "string",
+          "displayOrder": 0,
+          "holes": [
+            {
+              "id": 0,
+              "holeNo": 0,
+              "par": 0,
+              "indexOut": 0,
+              "indexIn": 0,
+              "latitude": 0,
+              "longitude": 0,
+              "description": "string",
+              "distanceBlack": 0,
+              "distanceBlue": 0,
+              "distanceRed": 0,
+              "distanceWhite": 0,
+              "image": "string"
+            }
+          ],
+          "teeBoxes": [
+            {
+              "id": 0,
+              "name": "string",
+              "image": "string",
+              "description": "string"
+            }
+          ]
+        },
+        "teeOffDate": "2020-05-27",
+        "teeOffTime": {
+          "hour": 0,
+          "minute": 0,
+          "second": 0,
+          "nano": 0
+        },
+        "availableForBooking": true,
+        "maxPlayers": 0,
+        "minPlayers": 0,
+        "waitingListSize": 0,
+        "reasonForBlocking": "string",
+        "allowWalking": true,
+        "pricingPlan": {
+          "id": 0,
+          "name": "string",
+          "description": "string",
+          "currency": {
+            "id": "string",
+            "name": "string",
+            "symbol": "string"
+          },
+          "promotional": true,
+          "prices": [
+            {
+              "id": 0,
+              "playerType": {
+                "id": "string",
+                "name": "string",
+                "description": "string",
+                "nationalitySpecific": true
+              },
+              "priceComponent": {
+                "id": "string",
+                "name": "string",
+                "description": "string",
+                "systemSeeded": true,
+                "printSequence": 0,
+                "defaultComponent": true,
+                "componentType": "Green"
+              },
+              "applicableTo": "Booking",
+              "mandatory": true,
+              "price18Hole": 0,
+              "price9Hole": 0,
+              "addToDisplayPrice": true,
+              "packageName": "string"
+            }
+          ],
+          "additionalCharges": [
+            {
+              "id": 0,
+              "name": "string",
+              "amountType": "Absolute",
+              "amount": 0,
+              "applicableComponents": [
+                {
+                  "id": "string",
+                  "name": "string",
+                  "description": "string",
+                  "systemSeeded": true,
+                  "printSequence": 0,
+                  "defaultComponent": true,
+                  "componentType": "Green"
+                }
+              ]
+            }
+          ]
+        },
+        "pricingPlanPromotional": {
+          "id": 0,
+          "name": "string",
+          "description": "string",
+          "currency": {
+            "id": "string",
+            "name": "string",
+            "symbol": "string"
+          },
+          "promotional": true,
+          "prices": [
+            {
+              "id": 0,
+              "playerType": {
+                "id": "string",
+                "name": "string",
+                "description": "string",
+                "nationalitySpecific": true
+              },
+              "priceComponent": {
+                "id": "string",
+                "name": "string",
+                "description": "string",
+                "systemSeeded": true,
+                "printSequence": 0,
+                "defaultComponent": true,
+                "componentType": "Green"
+              },
+              "applicableTo": "Booking",
+              "mandatory": true,
+              "price18Hole": 0,
+              "price9Hole": 0,
+              "addToDisplayPrice": true,
+              "packageName": "string"
+            }
+          ],
+          "additionalCharges": [
+            {
+              "id": 0,
+              "name": "string",
+              "amountType": "Absolute",
+              "amount": 0,
+              "applicableComponents": [
+                {
+                  "id": "string",
+                  "name": "string",
+                  "description": "string",
+                  "systemSeeded": true,
+                  "printSequence": 0,
+                  "defaultComponent": true,
+                  "componentType": "Green"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "bookingReference": 10464,
+      "amountPayable": "number",
+      "depositPayable": "number",
+      "amountPaid": "number",
+      "openForRegistration": "boolean",
+      "bookedByPlayer": {
+        "id": "number",
+        "accountNo": "string",
+        "handicapSystemNo": "string",
+        "golfAssociationNo": "string",
+        "organization": "string",
+        "nickName": "string",
+        "playerName": "string",
+        "firstName": "string",
+        "lastName": "string",
+        "passport": "string",
+        "email": "string",
+        "profile": "string",
+        "handicap": 2,
+        "handicapIndex": "number",
+        "dateJoined": "2020-05-27T04:51:51.566Z",
+        "dateOfBirth": "2020-05-27T04:51:51.566Z",
+        "status": "string",
+        "image": "string",
+        "type": "string",
+        "age": "number",
+        "gender": "string",
+        "complete": "boolean",
+        "color": "string",
+        "deviceToken": "string",
+        "teeBox": {
+          "id": 0,
+          "name": "string",
+          "image": "string",
+          "description": "string"
+        },
+        "address": {
+          "address1": "string",
+          "address2": "string",
+          "city": "string",
+          "postCode": "string",
+          "state": "string",
+          "countryData": {
+            "id": "string",
+            "name": "string",
+            "iso2Code": "string",
+            "iso3Code": "string",
+            "dialoCode": "string",
+            "currencyCode": "string",
+            "currencyName": "string",
+            "currencySymbol": "string",
+            "sportCode": "string",
+            "flagUrl": "string"
+          },
+          "phone1": "string",
+          "phone2": "string",
+          "fax": "string",
+          "webSite": "string"
+        },
+        "nationality": {
+          "id": "string",
+          "name": "string",
+          "iso2Code": "string",
+          "iso3Code": "string",
+          "dialoCode": "string",
+          "currencyCode": "string",
+          "currencyName": "string",
+          "currencySymbol": "string",
+          "sportCode": "string",
+          "flagUrl": "string"
+        }
+      },
+      "bookedByUser": {
+        "id": 0,
+        "name": "string",
+        "userName": "string",
+        "password": "string",
+        "algorithm": "string",
+        "salt": "string",
+        "combineUserName": true,
+        "email": "string",
+        "phone": "string",
+        "active": true,
+        "tokenKey": "string",
+        "roles": [
+          {
+            "role": {
+              "id": "string",
+              "name": "string",
+              "description": "string"
+            },
+            "clubId": 0,
+            "organizerId": 0,
+            "defaultRole": true
+          }
+        ],
+        "authorities": [
+          {
+            "id": "string",
+            "name": "string",
+            "description": "string"
+          }
+        ],
+        "status": "string"
+      },
+      "flight": {
+        "id": 0,
+        "status": "Created",
+        "createdAt": "2020-05-27T04:51:51.566Z",
+        "flightDispachedAt": "2020-05-27T04:51:51.566Z",
+        "playStartedAt": "2020-05-27T04:51:51.566Z",
+        "flightCrossedOverAt": "2020-05-27T04:51:51.566Z",
+        "flightFinishedAt": "2020-05-27T04:51:51.566Z",
+        "caddyMaster": {
+          "id": 0,
+          "name": "string",
+          "userName": "string",
+          "password": "string",
+          "algorithm": "string",
+          "salt": "string",
+          "combineUserName": true,
+          "email": "string",
+          "phone": "string",
+          "active": true,
+          "tokenKey": "string",
+          "roles": [
+            {
+              "role": {
+                "id": "string",
+                "name": "string",
+                "description": "string"
+              },
+              "clubId": 0,
+              "organizerId": 0,
+              "defaultRole": true
+            }
+          ],
+          "authorities": [
+            {
+              "id": "string",
+              "name": "string",
+              "description": "string"
+            }
+          ],
+          "status": "string"
+        },
+        "rainCheckIssued": true
+      },
+      "buggiesAssigned": [
+        {
+          "id": "number",
+          "buggyNo": "string",
+          "name": "string",
+          "properties": "string",
+          "physicalId": "string",
+          "dateStart": "2020-05-27",
+          "maintenanceDate": "2020-05-27",
+          "make": "string",
+          "model": "string",
+          "status": "string",
+          "buggyImage": "string",
+          "buggyQCode": "string",
+          "description": "string",
+          "lastAssigned": "2020-05-27T04:51:51.566Z",
+          "lastCompleted": "2020-05-27T04:51:51.566Z",
+          "availabilityDays": {
+            "additionalProp1": true,
+            "additionalProp2": true,
+            "additionalProp3": true
+          }
+        }
+      ],
+      "bookingPlayers": [
+        {
+          "id": 0,
+          "sequence": 0,
+          "player": {
+            "id": 0,
+            "accountNo": "string",
+            "handicapSystemNo": "string",
+            "golfAssociationNo": "string",
+            "organization": "string",
+            "nickName": "string",
+            "playerName": "string",
+            "firstName": "string",
+            "lastName": "string",
+            "passport": "string",
+            "email": "string",
+            "profile": "string",
+            "handicap": 0,
+            "handicapIndex": 0,
+            "dateJoined": "2020-05-27T04:51:51.566Z",
+            "dateOfBirth": "2020-05-27T04:51:51.566Z",
+            "status": "string",
+            "image": "string",
+            "type": "string",
+            "age": 0,
+            "gender": "string",
+            "complete": true,
+            "color": "string",
+            "deviceToken": "string",
+            "teeBox": {
+              "id": 0,
+              "name": "string",
+              "image": "string",
+              "description": "string"
+            },
+            "address": {
+              "address1": "string",
+              "address2": "string",
+              "city": "string",
+              "postCode": "string",
+              "state": "string",
+              "countryData": {
+                "id": "string",
+                "name": "string",
+                "iso2Code": "string",
+                "iso3Code": "string",
+                "dialoCode": "string",
+                "currencyCode": "string",
+                "currencyName": "string",
+                "currencySymbol": "string",
+                "sportCode": "string",
+                "flagUrl": "string"
+              },
+              "phone1": "string",
+              "phone2": "string",
+              "fax": "string",
+              "webSite": "string"
+            },
+            "nationality": {
+              "id": "string",
+              "name": "string",
+              "iso2Code": "string",
+              "iso3Code": "string",
+              "dialoCode": "string",
+              "currencyCode": "string",
+              "currencyName": "string",
+              "currencySymbol": "string",
+              "sportCode": "string",
+              "flagUrl": "string"
+            }
+          },
+          "playerName": "string",
+          "email": "string",
+          "phone": "string",
+          "gender": "string",
+          "playerContact": "string",
+          "confirmed": true,
+          "playerType": {
+            "id": "string",
+            "name": "string",
+            "description": "string",
+            "nationalitySpecific": true
+          },
+          "walking": true,
+          "pairingNo": 0,
+          "driving": true,
+          "caddyPreferred": {
+            "id": 0,
+            "firstName": "string",
+            "lastName": "string",
+            "nickName": "string",
+            "gender": "string",
+            "staffId": "string",
+            "identificationNo": "string",
+            "dateOfBirth": "2020-05-27",
+            "dateJoined": "2020-05-27",
+            "nationality": {
+              "id": "string",
+              "name": "string",
+              "iso2Code": "string",
+              "iso3Code": "string",
+              "dialoCode": "string",
+              "currencyCode": "string",
+              "currencyName": "string",
+              "currencySymbol": "string",
+              "sportCode": "string",
+              "flagUrl": "string"
+            },
+            "caddyImage": "string",
+            "caddyQcode": "string",
+            "description": "string",
+            "status": "string",
+            "authentication": {
+              "id": 0,
+              "name": "string",
+              "userName": "string",
+              "password": "string",
+              "algorithm": "string",
+              "salt": "string",
+              "combineUserName": true,
+              "email": "string",
+              "phone": "string",
+              "active": true,
+              "tokenKey": "string",
+              "roles": [
+                {
+                  "role": {
+                    "id": "string",
+                    "name": "string",
+                    "description": "string"
+                  },
+                  "clubId": 0,
+                  "organizerId": 0,
+                  "defaultRole": true
+                }
+              ],
+              "authorities": [
+                {
+                  "id": "string",
+                  "name": "string",
+                  "description": "string"
+                }
+              ],
+              "status": "string"
+            },
+            "lastAssigned": "2020-05-27T04:51:51.566Z",
+            "lastCompleted": "2020-05-27T04:51:51.566Z",
+            "availabilityDays": {
+              "additionalProp1": true,
+              "additionalProp2": true,
+              "additionalProp3": true
+            }
+          },
+          "caddyAssigned": {
+            "id": 0,
+            "firstName": "string",
+            "lastName": "string",
+            "nickName": "string",
+            "gender": "string",
+            "staffId": "string",
+            "identificationNo": "string",
+            "dateOfBirth": "2020-05-27",
+            "dateJoined": "2020-05-27",
+            "nationality": {
+              "id": "string",
+              "name": "string",
+              "iso2Code": "string",
+              "iso3Code": "string",
+              "dialoCode": "string",
+              "currencyCode": "string",
+              "currencyName": "string",
+              "currencySymbol": "string",
+              "sportCode": "string",
+              "flagUrl": "string"
+            },
+            "caddyImage": "string",
+            "caddyQcode": "string",
+            "description": "string",
+            "status": "string",
+            "authentication": {
+              "id": 0,
+              "name": "string",
+              "userName": "string",
+              "password": "string",
+              "algorithm": "string",
+              "salt": "string",
+              "combineUserName": true,
+              "email": "string",
+              "phone": "string",
+              "active": true,
+              "tokenKey": "string",
+              "roles": [
+                {
+                  "role": {
+                    "id": "string",
+                    "name": "string",
+                    "description": "string"
+                  },
+                  "clubId": 0,
+                  "organizerId": 0,
+                  "defaultRole": true
+                }
+              ],
+              "authorities": [
+                {
+                  "id": "string",
+                  "name": "string",
+                  "description": "string"
+                }
+              ],
+              "status": "string"
+            },
+            "lastAssigned": "2020-05-27T04:51:51.566Z",
+            "lastCompleted": "2020-05-27T04:51:51.566Z",
+            "availabilityDays": {
+              "additionalProp1": true,
+              "additionalProp2": true,
+              "additionalProp3": true
+            }
+          },
+          "buggyId": 0
+        }
+      ]
+    }
+  ]

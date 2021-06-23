@@ -1,0 +1,508 @@
+<ion-header>
+    <ion-navbar class="mg2u-navbar">
+        <ion-buttons start>
+            <button ion-button icon-only (click)="openMenu()">
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <!-- <img class="mg2u-logo" src="assets/img/myGolf2u.png" /> -->
+        <ion-title center>
+            <img class="mg2u-logo" src="assets/img/mg2u-logo-top.svg" />
+        </ion-title>
+
+        <!-- <ion-title center>{{"PlayerHomePage.title"|translate}}</ion-title> -->
+        <ion-buttons end>
+            <!-- <button modal-select="" [(ngModel)]="countryId" options="selectables" modal-title="Select a number">Select it</button> -->
+            <button ion-button (click)="onChangePreferredOrigin()">
+
+                <img *ngIf="countrySel && countrySel.name" style="max-height: 2em;"
+                    [src]="getFlagUrl(countrySel.flagUrl)" onerror="this.src='img/flag/default_worldwide.png'" />
+                {{(countryId===null || countryId === '')?'ALL':countryId}}
+            </button>
+            <button ion-button icon-left (click)="refreshHome(null)">
+                <i class="fa fa-lg fa-fw fa-refresh" aria-hidden="true"></i>
+                <!-- &nbsp;Reload -->
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content no-padding>
+
+
+
+    <ion-list *ngIf="1">
+        <ion-card no-padding style="width:100%;margin:0;margin-top:1em;box-shadow:none;">
+            <!-- <ion-card-content> -->
+            <ion-row col-12>
+                <ion-col col-3>
+                    <!-- <ion-avatar class="no-margin"  item-end (click)="editPhoto()"> -->
+
+                    <img (click)="editPhoto()" style="margin-left:0" class="player-img-flight left" src="{{playerPhoto$ | async}}"
+                        onerror="this.src='img/default_user.png'">
+                        <!-- <p class="column" style="font-weight:600; white-space: nowrap;text-align: left;">
+                            $C: {{getClubCreditsCurrency()}} {{getClubCredits()}}
+                        </p> -->
+                    <!-- </ion-avatar> -->
+                </ion-col>
+                <ion-col col-9 class="home-player-row" (click)="openProfile()" style="margin:0"> 
+                    <!-- float: left;border-radius: 50%; width:auto -->
+                    <div class="row">
+                        <div class="column" style="text-align: left; width: 100%;">
+                            <p class="home-player-name">
+                                <img style="max-height: 2em;width:auto;"
+                                    [src]="getFlagUrl(((playerHomeInfo$|async)?.player)?.flagUrl)"
+                                    onerror="this.src='img/flag/default_worldwide.png'" />&nbsp;
+                                {{(playerHomeInfo$|async)?.playerName}} (# {{(playerHomeInfo$ | async)?.playerId}})
+                            </p>
+                        </div>
+                        <!-- <div class="column" style="text-align: right; width: 30%">
+                           C$C: {{getClubCreditsCurrency()}} {{totalClubCredits?totalClubCredits:0}}
+                        </div> -->
+                        <!-- M$C : 1234     -->
+                    </div>
+                    <!-- <p class="home-player-name">
+                        <img style="max-height: 2em;width:auto;"
+                            [src]="getFlagUrl(((playerHomeInfo$|async)?.player)?.flagUrl)"
+                            onerror="this.src='img/flag/default_worldwide.png'" />&nbsp;
+                        {{(playerHomeInfo$|async)?.playerName}} (# {{(playerHomeInfo$ | async)?.playerId}})
+                    </p> -->
+                    <!-- <img src="assets/img/new-home-2x.png" style="float: left; max-height: 4em;margin-top:0.5em;"/> -->
+                    
+                    <p>
+                        <i class="fa fa-fw fa-hashtag"></i>
+                        {{getPlayerHcpSysDetail((player$|async)?.defaultHandicapSystem)}} Index :
+                        <span *ngIf="handicapIndex"
+                            class="nhs-idx-info home-txt-color"> 
+                            {{handicapIndex?handicapIndex:"-"}}
+                            <!-- {{getM2uhcp((player$|async)?.defaultHandicapSystem,'hcpIdx')}} -->
+                            <!-- {{((playerHomeInfo$|async)?.player)?.mygolfHandicapIndex  | number: '1.1-1'}} -->
+                        </span>
+                        <!-- <span *ngIf="clubHandicap && getM2uhcp()">| Hcp {{getM2uhcp()}}</span> -->
+                        <span *ngIf="clubHandicap && getM2uhcp((player$|async)?.defaultHandicapSystem)">| Hcp 
+                            <span class="nhs-idx-info home-txt-color">
+                                {{getM2uhcp((player$|async)?.defaultHandicapSystem,'hcpOnly')}}
+                            </span>
+                                {{getM2uhcp((player$|async)?.defaultHandicapSystem,'hcpHome')}}
+                            
+                            <!-- {{getM2uhcp((player$|async)?.defaultHandicapSystem)}} -->
+                        </span>
+                    </p>
+                    <p *ngIf="0 && ((playerHomeInfo$|async)?.player)?.nhsNumber">
+
+                        <i class="fa fa-fw fa-hashtag"></i>
+                        NHS Index :
+                        <span *ngIf="((playerHomeInfo$|async)?.player)?.handicapIndex;else noNHS">
+                            <span
+                                class="nhs-idx-info home-txt-color">{{((playerHomeInfo$|async)?.player)?.handicapIndex | number: '1.1-1'}}</span>
+                            <span *ngIf="((playerHomeInfo$|async)?.player)?.handicapIn != 'Default'">| Hcp</span>
+                            <span class="nhs-idx-info home-txt-color">{{((playerHomeInfo$|async)?.player)?.handicap}}</span>
+                            ({{((playerHomeInfo$|async)?.player)?.handicapIn}})
+                        </span>
+                        <ng-template #noNHS>
+                            Not available
+                        </ng-template>
+                    </p>
+                    <p *ngIf="((playerHomeInfo$|async)?.player)?.nhsNumber && getNhsHcp('hcpOnly')">
+
+                        <i class="fa fa-fw fa-hashtag"></i>
+                        NHS Index :
+                        <span *ngIf="getNhsHcp('hcpOnly');else noNHS">
+                            <span
+                                class="nhs-idx-info home-txt-color">
+                                <span *ngIf="getNhsHcp('hcpIdx'); else noNhsIdx">{{getNhsHcp('hcpIdx') | number: '1.1-1'}}</span>
+                                <ng-template #noNhsIdx>
+                                    -
+                                </ng-template>
+                            </span>
+                            <span>| Hcp</span>
+                            <span class="nhs-idx-info home-txt-color">
+                                {{getNhsHcp('hcpOnly')}}
+                            </span>
+                            {{getNhsHcp('hcpHome')}}
+                        </span>
+                        <ng-template #noNHS1>
+                            Not available
+                        </ng-template>
+                    </p>
+                    <p class="column" style="font-size:1.4rem;font-weight:600; white-space: nowrap;text-align: left;">
+                        <!-- <i style="color:orange" class="fas fa-fw fa-coins"></i> -->
+                        <!-- <i style="color:orange" class="fas fa-fw fa-hand-holding-usd"></i> -->
+                            <!-- width="16" height="16" -->
+                        <!-- <svg style="fill:orange;height:1.5rem;width:auto;" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M 356 -1C 316 -2 278 14 250 43C 250 43 45 247 45 247C 17 275 1 314 1 354C 1 354 0 643 0 643C 0 683 16 722 44 750C 44 750 248 955 248 955C 276 983 315 999 355 999C 355 999 643 1000 643 1000C 683 1000 722 984 750 956C 750 956 955 752 955 752C 983 723 999 685 999 645C 999 645 1000 355 1000 355C 1000 315 984 277 956 249C 956 249 752 43 752 43C 724 15 685 -1 645 -1C 645 -1 356 -1 356 -1M 386 70C 386 70 616 70 616 70C 656 70 694 86 722 115C 722 115 885 278 885 278C 913 306 929 345 929 385C 929 385 928 615 928 615C 928 655 912 693 884 722C 884 722 721 884 721 884C 693 913 654 928 614 928C 614 928 384 928 384 928C 344 928 306 912 278 883C 278 883 115 720 115 720C 87 692 71 654 71 614C 71 614 72 383 72 383C 72 343 88 305 116 277C 116 277 279 114 279 114C 307 86 346 70 386 70C 386 70 386 70 386 70 M 537 200C 537 200 538 214 538 214C 601 221 648 245 677 273C 692 288 692 312 677 327C 662 342 638 342 623 327C 607 310 567 287 500 287C 471 287 441 298 420 314C 399 330 387 350 387 375C 387 400 396 411 418 425C 439 440 474 452 512 464C 549 477 589 490 624 513C 658 536 688 575 688 625C 688 675 662 718 626 745C 601 765 570 778 538 784C 538 784 537 800 537 800C 538 821 521 838 500 838C 479 838 462 821 463 800C 463 800 463 785 463 785C 434 780 409 772 388 762C 359 750 335 734 333 734C 314 724 307 702 316 683C 325 664 348 657 367 666C 382 674 395 684 418 694C 441 704 469 713 500 713C 529 713 559 702 580 686C 601 670 613 650 613 625C 613 600 604 589 582 575C 561 560 526 548 488 536C 451 523 411 510 376 487C 342 464 312 425 312 375C 312 325 338 282 374 255C 400 235 430 222 463 216C 463 216 463 200 463 200C 462 180 478 162 499 162C 520 161 538 178 537 200C 537 200 537 200 537 200"/></svg>
+                        &nbsp; -->
+                        <span style="color:orange">&nbsp;$</span>&nbsp;&nbsp;&nbsp;Club Credit : {{getClubCreditsCurrency()}} 
+                        <b style="color:black; font-weight: bold; font-size: 1.2em;">{{getClubCredits()}}</b>
+                        <!-- <i class="fas fa-fw fa-coins home-txt-color"></i>
+                            <svg style="fill:orange;height:1.5rem;width:auto;" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M 356 -1C 316 -2 278 14 250 43C 250 43 45 247 45 247C 17 275 1 314 1 354C 1 354 0 643 0 643C 0 683 16 722 44 750C 44 750 248 955 248 955C 276 983 315 999 355 999C 355 999 643 1000 643 1000C 683 1000 722 984 750 956C 750 956 955 752 955 752C 983 723 999 685 999 645C 999 645 1000 355 1000 355C 1000 315 984 277 956 249C 956 249 752 43 752 43C 724 15 685 -1 645 -1C 645 -1 356 -1 356 -1M 386 70C 386 70 616 70 616 70C 656 70 694 86 722 115C 722 115 885 278 885 278C 913 306 929 345 929 385C 929 385 928 615 928 615C 928 655 912 693 884 722C 884 722 721 884 721 884C 693 913 654 928 614 928C 614 928 384 928 384 928C 344 928 306 912 278 883C 278 883 115 720 115 720C 87 692 71 654 71 614C 71 614 72 383 72 383C 72 343 88 305 116 277C 116 277 279 114 279 114C 307 86 346 70 386 70C 386 70 386 70 386 70 M 537 200C 537 200 538 214 538 214C 601 221 648 245 677 273C 692 288 692 312 677 327C 662 342 638 342 623 327C 607 310 567 287 500 287C 471 287 441 298 420 314C 399 330 387 350 387 375C 387 400 396 411 418 425C 439 440 474 452 512 464C 549 477 589 490 624 513C 658 536 688 575 688 625C 688 675 662 718 626 745C 601 765 570 778 538 784C 538 784 537 800 537 800C 538 821 521 838 500 838C 479 838 462 821 463 800C 463 800 463 785 463 785C 434 780 409 772 388 762C 359 750 335 734 333 734C 314 724 307 702 316 683C 325 664 348 657 367 666C 382 674 395 684 418 694C 441 704 469 713 500 713C 529 713 559 702 580 686C 601 670 613 650 613 625C 613 600 604 589 582 575C 561 560 526 548 488 536C 451 523 411 510 376 487C 342 464 312 425 312 375C 312 325 338 282 374 255C 400 235 430 222 463 216C 463 216 463 200 463 200C 462 180 478 162 499 162C 520 161 538 178 537 200C 537 200 537 200 537 200"/></svg>
+                            mg2u Cr : {{getClubCreditsCurrency()}} {{getClubCredits()}} -->
+                    </p>
+                    <!-- <p>
+                        {{"PlayerHomePage.newround"|translate}}
+                    </p> -->
+
+                </ion-col>
+            </ion-row>
+            <!-- </ion-card-content> -->
+        </ion-card>
+        <!-- <button ion-button (click)="onChangeLanguage()">Change language</button> -->
+        <ion-row *ngIf="0">
+            <ion-col col-3>
+                <ion-avatar class="no-margin" item-end (click)="editPhoto()">
+
+                    <img class="player-img-flight left" src="{{playerPhoto$ | async}}"
+                        onerror="this.src='img/default_user.png'">
+                </ion-avatar>
+            </ion-col>
+            <ion-col (click)="openProfile()">
+                <!-- <ion-row>
+                                    
+                            </ion-row> -->
+                <ion-row class="home-player-row" align-items-center>
+                    <!-- style="align-items: baseline;" -->
+                    <ion-col class="home-player-index">
+                        <img style="max-height: 2em;float: left;border-radius: 50%;"
+                            [src]="getFlagUrl(((playerHomeInfo$|async)?.player)?.flagUrl)"
+                            onerror="this.src='img/flag/default_worldwide.png'" />&nbsp;
+                        <span class="home-player-name">{{(playerHomeInfo$|async)?.playerName}}</span><br>
+                        <!-- <img src="assets/img/new-home-2x.png" style="float: left; max-height: 4em;margin-top:0.5em;"/> -->
+                        <i class="fa fa-fw fa-hashtag"></i>NHS Index : <span
+                            class="nhs-idx home-txt-color">{{((playerHomeInfo$|async)?.player)?.handicapIndex | number: '1.1-1'}}</span>
+                        <br>
+                        <i class="fas fa-fw fa-home"></i>Club Handicap
+                        ({{((playerHomeInfo$|async)?.player)?.handicapIn}}) : <span
+                            class="nhs-idx home-txt-color">{{((playerHomeInfo$|async)?.player)?.handicap}}</span>
+                    </ion-col>
+                    <!-- <ion-col col-2></ion-col> -->
+                    <!-- <ion-col col-4 class="home-player-other">
+                                        {{((playerHomeInfo$|async)?.player)?.countryId}} 
+                            <img src="assets/img/edit-2x.png" style="max-height:1em"> 
+                            <br><span class="home-txt-color home-joined">{{((playerHomeInfo$|async)?.player)?.dateJoined | date}} </span>
+                                </ion-col> -->
+                </ion-row>
+            </ion-col>
+        </ion-row>
+        <ion-grid style="padding: 0;margin-top: -1em;">
+            <ion-row class="home-row" (click)="onBookingMenuClick()">
+                <ion-col col-12 class="home-booking">
+                    <div class="home-box-inner">
+                        <img class="home-image" *ngIf="!isBookingRegistrationEnabled" 
+                        style="margin-left: 3.1em;
+                        margin-top: 0.5rem;
+                        height: calc(100% - 2.5em);
+                        position: absolute;" src="assets/img/coming-soon-modern.png" />
+                        <!-- assets/img/coming-soon-modern.png -->
+                        <img class="home-image" style="max-height:3.5em;"
+                            src="assets/img/home-icon-booking-registration.svg" />
+                        <!-- <img class="home-image" *ngIf="!isBookingRegistrationEnabled" src="assets/img/comingsoon.png"> -->
+                        
+                            <!-- <span *ngIf="!isBookingRegistrationEnabled">Coming Soon</span> -->
+                            <!-- <a href="https://www.vecteezy.com/free-vector/coming-soon">Coming Soon Vectors by Vecteezy</a> -->
+                            <!-- shop PNG Designed By HepiHepi from <a href="https://pngtree.com/">Pngtree.com</a> -->
+                            <!-- <a href='https://pngtree.com/so/shop'>shop png from pngtree.com</a> -->
+                    </div>
+                    <p class="home-box-title">Booking & Registration
+                        <span class="home-indicator-number" *ngIf="totalActiveBookings && totalActiveBookings > 0">&nbsp;({{totalActiveBookings}})</span>
+                    </p>
+
+                </ion-col>
+            </ion-row>
+            <ion-row class="home-row">
+                <ion-col col-5 class="home-box" (click)="onPlayGolfClick()">
+                    <div [ngClass]="getPlayGolfBorderClass()" [style.border-color]="getPlayGolfBorderClass('style')">
+                        <!-- class="home-box-inner" -->
+                        <img [ngClass]="getPlayGolfImageClass()" src="assets/img/home-icon-play-golf.svg" />
+                        <!-- style="max-height:4.5em"  -->
+                        <!-- [style.filter]="getPlayGolfImageClass('style')"  -->
+                        <!-- class="home-image"  -->
+                    </div>
+                    <!-- <button *ngIf="!(normalGameOn|async) && !(competitionOn|async) && (activeCompsToday|async) !== 1"
+                ion-item class="normal-game" (click)="onNewRoundMenuClick()">
+
+            <span class="mg-ph mg-flag-blue"></span>
+            {{"PlayerHomePage.newround"|translate}}
+        </button>
+        <button *ngIf="normalGameOn|async" ion-item class="game-scoring"
+                (click)="onNormalGameScoringClick()">
+
+            <div style="color: white;white-space: normal"><span class="mg-ph mg-flag-blue"></span>
+                Game in {{currentGameClub|async}} in progress. Click to edit.
+            </div>
+        </button>
+        <button ion-item
+                *ngIf=" (multipleComps | async)"
+                class="game-multiple"
+                (click)="onSelectCompetitionScoring()">
+            <p style="color: white;white-space: normal">Multiple Competitions active. Click here to select</p>
+        </button>
+        <button ion-item
+                *ngIf=" (activeCompsToday | async) === 1 && (normalGameOn|async)"
+                class="game-scoring">
+            <p style="color: white;white-space: normal;cursor: default">Competition {{(singleActiveComp|async)?.competitionName}} is in progress.
+                To start scoring, Click the red banner above and cancel or finish the game in {{currentGameClub|async}}. </p>
+        </button>
+        <button ion-item *ngIf="competitionOn|async" class="game-scoring"
+                (click)="onCompetitionScoringClick()">
+            <p class="competition-name"><i class="fa fa-flag ph-fa" aria-hidden="true"></i>
+                {{(selectedCompetition$|async)?.competitionName}}
+                {{"PlayerHomePage.isInProgress"|translate}}
+            </p>
+            <p class="go-scoring">Tee-off at {{(selectedCompetition$|async)?.startTime}} from hole
+                {{(selectedCompetition$|async)?.startingHole}}. {{"PlayerHomePage.clickHereScoring"|translate}}</p>
+        </button> -->
+
+                    <p *ngIf="!(normalGameOn|async)" class="home-box-title">New Game</p>
+                    <!-- && !(competitionOn|async) && (activeCompsToday|async) !== 1 -->
+                    <!-- (click)="onNewRoundMenuClick()" -->
+                    <p *ngIf="normalGameOn|async" class="home-box-title">Game in progress</p>
+                    <!-- (click)="onNormalGameScoringClick() -->
+                    <p *ngIf=" (multipleComps | async)" style="color: white;white-space: normal" class="home-box-title">
+                        Multi Comps. active</p>
+                    <!-- (click)="onSelectCompetitionScoring()" -->
+                    <!-- <p *ngIf=" (activeCompsToday | async) === 1 && (normalGameOn|async)" class="home-box-title"> -->
+                    <!-- {{(singleActiveComp|async)?.competitionName}}  -->
+                    <!-- Comp. is in play</p> -->
+                    <!-- <p *ngIf="competitionOn|async" class="home-box-title"> 
+                               Comp. is in play
+                        </p> -->
+
+
+
+
+
+
+                </ion-col>
+                <!-- <ion-col col-2>&nbsp;</ion-col> -->
+                <ion-col col-5 class="home-box" (click)="onCompClick()">
+                    <div [ngClass]="getCompBorderClass()" [style.border-color]="getCompBorderClass('style')">
+                        <img [ngClass]="getCompImageClass()" src="assets/img/home-icon-tournament.svg" />
+                    </div>
+                    <p class="home-box-title">Tournaments</p>
+                </ion-col>
+            </ion-row>
+            <ion-row class="home-row">
+                <ion-col col-5 class="home-box" (click)="onHandicapMenuClick()">
+                    <div class="home-box-inner">
+                        <img class="home-image home-img-mg2u-idx" 
+                            src="assets/img/home-icon-mg2u-idx.svg" />
+                            <!-- style="height:70% !important" -->
+                    </div>
+                    <p class="home-txt-color" style="margin-top: -2.8em;font-size: 3rem;">
+                        {{handicapIndex?handicapIndex:"-"}}
+                        <!-- {{((playerHomeInfo$|async)?.player)?.mygolfHandicapIndex  | number: '1.1-1'}} -->
+                        &nbsp;</p>
+                    <!-- <p class="home-box-title" style="margin-top: -2em;font-size: small;"># {{(playerHomeInfo$ | async)?.playerId}}</p> -->
+                    <!-- style="margin-top:1em;line-height:1em;    font-size: medium;" -->
+                    <p class="home-box-title" style="line-height:1.7em;margin-top:0.4em">{{getPlayerHcpSysDetail((player$|async)?.defaultHandicapSystem)}}</p>
+                </ion-col>
+                <!-- <ion-col col-2>&nbsp;</ion-col> -->
+                <ion-col col-5 class="home-box" (click)="onScorecardMenuClick()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-scorecard.svg" />
+                    </div>
+                    <p class="home-box-title">Scorecards
+                        <span class="home-indicator-number" *ngIf="((playerHomeInfo$|async)?.totalScoreCards) && ((playerHomeInfo$|async)?.totalScoreCards) > 0">&nbsp;({{(playerHomeInfo$|async)?.totalScoreCards}})</span>
+                    </p>
+                </ion-col>
+            </ion-row>
+            <ion-row class="home-row">
+                <ion-col col-5 class="home-box" (click)="onFriendMenuClick()">
+                    <!-- (click)="goCaddieMaster()" -->
+                    <div class="home-box-inner">
+                        <!-- style="max-height: 4em;margin-top: 1em;" -->
+                        <img class="home-image" style="width: calc(100% - 2rem);" src="assets/img/home-icon-friends.svg" />
+                    </div>
+                    <p class="home-box-title">Friends
+                        <span class="home-indicator-number" *ngIf="friendCount && friendCount > 0">&nbsp;({{friendCount}})</span></p>
+                </ion-col>
+                <!-- <ion-col col-2>&nbsp;</ion-col> -->
+                <ion-col col-5 class="home-box" (click)="onPerformanceMenuClick()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-performance.svg" />
+                    </div>
+                    <p class="home-box-title">Performance</p>
+                </ion-col>
+                <!-- (click)="goCaddieMarshall()" -->
+            </ion-row>
+            <ion-row class="home-row"
+                *ngIf="((playerHomeInfo$ | async)?.playerId) === 199 || ((playerHomeInfo$ | async)?.player.email) === 'nurizzah1802@gmail.com'  ">
+                <ion-col col-5 class="home-box" (click)="goCaddieMaster()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/club-icon-caddie-master.svg" />
+                    </div>
+                    <p class="home-box-title">Caddie Master</p>
+                </ion-col>
+                <ion-col col-5 class="home-box" (click)="goCaddieMarshall()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/club-icon-course-starter.svg" />
+                    </div>
+                    <p class="home-box-title">Course Starter</p>
+                </ion-col>
+            </ion-row>
+            <ion-row class="home-row" *ngIf="((playerHomeInfo$ | async)?.playerId) === 199 
+                            || ((playerHomeInfo$ | async)?.player.email) === 'nurizzah1802@gmail.com'">
+                <ion-col col-5 class="home-box" (click)="goCaddieList()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/club-icon-caddie.svg" />
+                    </div>
+                    <p class="home-box-title">Caddie</p>
+                </ion-col>
+                <ion-col col-5 class="home-box" (click)="goBuggyList()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/club-icon-buggy.svg" />
+                    </div>
+                    <p class="home-box-title">Buggy</p>
+                </ion-col>
+            </ion-row>
+            <ion-row class="home-row" *ngIf="((playerHomeInfo$ | async)?.playerId) === 199 
+                            || ((playerHomeInfo$ | async)?.player.email) === 'nurizzah1802@gmail.com'">
+                <ion-col col-5 class="home-box" (click)="goBookingChart()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-performance.svg" />
+                    </div>
+                    <p class="home-box-title">Booking Chart</p>
+                </ion-col>
+                <ion-col col-5 class="home-box" (click)="goClubBooking()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-booking-registration.svg" />
+
+                    </div>
+                    <p class="home-box-title">Club Booking</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="home-row" *ngIf="((playerHomeInfo$ | async)?.playerId) === 199 
+                            || ((playerHomeInfo$ | async)?.player.email) === 'nurizzah1802@gmail.com'">
+                <ion-col col-5 class="home-box" (click)="goUserManagement()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-friends.svg" />
+                    </div>
+                    <p class="home-box-title">User Management</p>
+                </ion-col>
+                <ion-col col-5 class="home-box" (click)="goClubBookingList()">
+                    <div class="home-box-inner">
+                        <img class="home-image"
+                            src="assets/img/home-icon-booking-registration.svg" />
+                        
+                    </div>
+                    <p class="home-box-title">All Club Bookings</p>
+                </ion-col>
+            </ion-row>
+            <ion-row class="home-row" *ngIf="((playerHomeInfo$ | async)?.playerId) === 199 
+            || ((playerHomeInfo$ | async)?.player.email) === 'nurizzah1802@gmail.com'">
+                <ion-col col-5 class="home-box" (click)="goMemberManagement()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-friends.svg" />
+                    </div>
+                    <p class="home-box-title">Members</p>
+                </ion-col>
+                <ion-col col-5 class="home-box" (click)="goPlayerVoucher()">
+                    <div class="home-box-inner">
+                        <!-- <img class="home-image" src="assets/img/home-icon-booking-registration.svg" /> -->
+                        <!-- <i class="home-image fa fa-fw fa-tags "></i> -->
+                        <img class="home-image" src="assets/img/fi-xnslxl-label-solid_green.png" />
+
+                    </div>
+                    <p class="home-box-title">Player Voucher</p>
+                </ion-col>
+            </ion-row>
+            <ion-row class="home-row" *ngIf="((playerHomeInfo$ | async)?.playerId) === 199 
+            || ((playerHomeInfo$ | async)?.player.email) === 'nurizzah1802@gmail.com'">
+                <ion-col col-5 class="home-box" (click)="goVoucherManagement()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-booking-registration.svg" />
+
+                    </div>
+                    <p class="home-box-title">Club Voucher</p>
+                </ion-col>
+                <ion-col col-5 class="home-box" (click)="goPrivilegeManagement()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-booking-registration.svg" />
+
+                    </div>
+                    <p class="home-box-title">Manage Approvals</p>
+                </ion-col>
+            </ion-row>
+            <ion-row class="home-row" *ngIf="((playerHomeInfo$ | async)?.playerId) === 199 
+            || ((playerHomeInfo$ | async)?.player.email) === 'nurizzah1802@gmail.com'
+            || ((playerHomeInfo$ | async)?.playerId) === 11 ">
+                <ion-col col-5 class="home-box" (click)="goCaddyScheduleDisplayPage()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-scorecard.svg" />
+
+                    </div>
+                    <p class="home-box-title">Caddy Schedule</p>
+                </ion-col>
+                <ion-col col-5 class="home-box" (click)="goFacilityBookings()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-booking-registration.svg" />
+
+                    </div>
+                    <p class="home-box-title">Facility Booking</p>
+                </ion-col>
+            </ion-row>
+            <ion-row class="home-row" *ngIf="((playerHomeInfo$ | async)?.playerId) === 199 
+            || ((playerHomeInfo$ | async)?.player.email) === 'nurizzah1802@gmail.com'
+            || ((playerHomeInfo$ | async)?.playerId) === 11 "> 
+                <ion-col col-5 class="home-box" (click)="goRefundRedeemHistory()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-scorecard.svg" />
+
+                    </div>
+                    <p class="home-box-title">Refund / Redeem History</p>
+                </ion-col>
+                <!-- <ion-col col-5 class="home-box" (click)="goFacilityBookings()">
+                    <div class="home-box-inner">
+                        <img class="home-image" src="assets/img/home-icon-booking-registration.svg" />
+
+                    </div>
+                    <p class="home-box-title">Facility Booking</p>
+                </ion-col> -->
+            </ion-row>
+        </ion-grid>
+    </ion-list>
+</ion-content>
+
+<ion-footer *ngIf="0" style="background-color: #DDF6D6 !important;">
+    <ion-row style="text-align: center;">
+        <ion-col col-2 (click)="onMyBookingsClick()">
+            <img class="footer-icons" src="assets/img/footer-icon-calendar.png" />
+            <!-- height: 5rem; padding:1rem; -->
+        </ion-col>
+        <ion-col col-2 (click)="onNotificationsClick()">
+            <img class="footer-icons" src="assets/img/footer-icon-notification.png" />
+            <!-- height: 5rem; padding:1rem; -->
+        </ion-col>
+        <ion-col col-4 (click)="onHomeClick()">
+            <img class="footer-icons footer-mg2u-logo" src="assets/img/footer-icon-mg2u.png" />
+        </ion-col>
+        <!-- <ion-col col-4 (click)="onHomeClick()">
+            <img  class="footer-icons mg2u-logo" src="assets/img/footer-icon-mg2u.png" />
+        </ion-col> -->
+        <ion-col col-2 (click)="onFAQClick()">
+            <img class="footer-icons" src="assets/img/icon-question-only.png" />
+            <!-- height: 5rem; padding:1rem; -->
+        </ion-col>
+        <ion-col col-2 (click)="openProfile()">
+            <img class="footer-icons" src="assets/img/footer-icon-player.png" />
+            <!-- height: 5rem; padding:1rem; -->
+        </ion-col>
+    </ion-row>
+
+</ion-footer>
+
+<ion-footer *ngIf="0">
+    <!-- <ion-item>
+                <ion-label>Preferred Origin : 
+                    <img *ngIf="countrySel" style="max-height: 2em;" [src]="getFlagUrl(countrySel.flagUrl)" />
+                </ion-label>
+                <ion-select interface="alert" [(ngModel)]="countryId" (ngModelChange)="countrySelected()">
+                    <ion-option *ngFor="let country of countryList"  [value]="country.id">
+                         {{country.name}}</ion-option>
+                        </ion-select >
+              </ion-item> -->
+    <ad-handler #adhandler [zoom]="true" [transitionDelay]="3000"></ad-handler>
+    <!--<advertisements #ads [zoom]="true"-->
+    <!--[transitionDelay]="3000"-->
+
+    <!--[advertisements]="advertisements"></advertisements>-->
+</ion-footer>

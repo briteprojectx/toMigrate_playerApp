@@ -1,0 +1,36 @@
+<ion-header >
+    <ion-navbar >
+        <ion-title center >Select Club</ion-title >
+    </ion-navbar >
+</ion-header >
+
+
+<ion-content class="player-add-club-membership" >
+
+    <ion-toolbar light >
+        <ion-searchbar [(ngModel)]="searchQuery"
+                       debounce="1000"
+                       (input)="onSearchInput($event)" >
+
+        </ion-searchbar >
+    </ion-toolbar >
+
+    <ion-list >
+
+        <ion-item *ngFor="let club of recentClubs" (click)="clubSelected($event, club)" >
+            <ion-avatar class="avatar-left custom-avatar" >
+                <img src="{{club.clubImage}}" />
+            </ion-avatar >
+            <h2 class="course-name" >{{club.clubName}}</h2 >
+            <p class="course-detail" >{{club.address}}</p >
+        </ion-item >
+        <!--ion-item *ngFor="let club of nearbyClubs"  (click)="clubSelected($event, club)">
+            <ion-avatar class="avatar-left custom-avatar" >
+                <img src="{{club.clubImage}}" />
+            </ion-avatar >
+            <h2 class="course-name" >{{club.clubName}}</h2>
+            <p class="course-detail" >{{club.address}}</p >
+        </ion-item-->
+    </ion-list >
+
+</ion-content >

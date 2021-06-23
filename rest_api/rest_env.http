@@ -1,0 +1,21 @@
+"my-api.env-var": {
+    "$shared": {
+        "partnerUniqueToken": "A_SHARED_TOKEN"
+    },
+    "local": {
+        "host": "https://my-api-local.domain.com/v1",
+        "token": "MY_LOCAL_TOKEN"
+    },
+    "dev": {
+        "host": "https://my-api-dev.domain.com/v1",
+        "token": "MY_DEV_TOKEN"
+    },
+    "staging": {
+        "host": "https://my-api-staging.domain.com/v1",
+        "token": "MY_STAGING_TOKEN"
+    },
+    "production": {
+        "host": "https://my-api.domain.com/v1",
+        "token": "MY_PROD_TOKEN"
+    }
+}

@@ -1,0 +1,31 @@
+{
+  "en":{
+    "CompetitionFilter": {
+      "title": "Competition Filter",
+      "apply-filter": "Apply",
+      "search-type-header": "By default, show me",
+      "search-type-upcoming": "Upcoming",
+      "search-type-all": "All",
+      "search-type-private": "Private Only",
+      "limit-header": "Limit result by:",
+      "only-participating": "Competitions I've registered",
+      "favorites-only": "My Favourite Clubs",
+      "nearby-clubs": "Held in nearby clubs",
+      "max-distance": "Max distance ",
+      "membership-only": "Clubs I'm member of",
+
+      "limit-by-dates": "Limit result by",
+      "last-n-days": "Number of Days",
+      "last-n-weeks": "Number Weeks",
+      "last-n-months": "Number of Months",
+      "last-n-years": "Number of Years",
+
+      "custom-period": "Custom",
+      "none":"None",
+      "length":"No of ",
+      "period":"Period Type",
+      "startDate":"Start Date",
+      "endDate":"End Date"
+    }
+  }
+}

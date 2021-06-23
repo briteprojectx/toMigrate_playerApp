@@ -1,0 +1,25 @@
+<ion-header >
+    <ion-navbar >
+        <ion-title center >Select Competition</ion-title >
+        <ion-buttons end >
+            <button ion-button icon-only (click)="close()">
+                <i style="font-size:2rem;" class="mdi mdi-close" ></i >
+            </button >
+        </ion-buttons >
+    </ion-navbar >
+
+
+</ion-header >
+
+<ion-content class="testing-screen">
+
+    <ion-list >
+        <button ion-item *ngFor="let comp of competitions" (click)="onCompetitionSelected(comp)">
+
+            <h3 class="title" >{{comp.competitionName}}</h3 >
+            <h4 class="sub-title">{{comp.clubName}}</h4>
+
+        </button >
+
+    </ion-list >
+</ion-content >

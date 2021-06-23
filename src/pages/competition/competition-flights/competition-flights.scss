@@ -1,0 +1,17 @@
+competition-flights-page {
+
+    .player-flight {
+        background-color: $gold !important;// $danger !important;
+        color: black !important;// $white;
+    }
+
+    .flight-subtitle {
+        font-weight: bold;
+        @include truncate();
+    }
+
+    .flight-scorer {
+        width: 1px !important;
+    }
+
+}

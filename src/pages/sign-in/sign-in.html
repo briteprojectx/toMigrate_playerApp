@@ -1,0 +1,193 @@
+<!-- <ion-header>
+    <ion-navbar class="mg2u-navbar">
+      &nbsp;
+      </ion-navbar>
+</ion-header> -->
+<ion-content padding class="mygolf-special-page-background">
+    <!-- <div class="sign-in-panel">
+        <form [formGroup] = "credential" (ngSubmit) = "signIn()">
+                <ion-list class="list-sign-in">
+                    <div style="text-align: center;margin-top: -3em;">
+                            <img src="assets/img/mg2u-logo-circle1.svg" />
+                    </div>
+                    <h3 style="text-align: center;color:#62AE4D;font-size:2em;font-weight:bold">
+                        Sign In
+                    </h3>
+                    <ion-item class="signin-textfield">
+                        <ion-label><i class="fa fa-lg fa-user fa-fw"></i></ion-label>
+                        <ion-input type = "email" formControlName = "email" placeholer="Organizer/Club Email"></ion-input>
+                    </ion-item>
+                    <ion-item class="signin-textfield">
+                        <ion-label><i class="fa fa-lg fa-key fa-fw"></i></ion-label>
+                        <ion-input [type]="!showPassword?'password':'text'"
+                                formControlName = "password" placeholder="Password"></ion-input>
+                        <div icon-only ion-button large color="dark" clear item-right
+                                (click)="toggleShowPassword($event)"
+                                style="margin:0px; font-size: 1em;">
+                            <ion-icon *ngIf="showPassword" name="eye" ></ion-icon>
+                            <ion-icon *ngIf="!showPassword" name="eye-off" ></ion-icon>
+                        </div>
+                    </ion-item>
+                    <ion-item  class="signin-textfield"
+                    style="background-color: #C8F6BC;height:3em;margin-left:3.2rem;
+                    border-bottom: solid;
+                    border-bottom-width: 1px;border-color: green;">
+                            <button style="font-size: x-large;text-transform: capitalize;color:#62AE4D" clear ion-button full type = "submit" [disabled] = "!credential.valid">Login</button>
+                    </ion-item>
+                    
+                </ion-list>
+                
+            </form>
+        </div><br><br>
+        <h5 style="color:#62AE4D;text-align: center;border-top: #5B9B4A;border-top-style: solid;margin-left: 2em;margin-right: 2em;">Don't have an account? <b style="text-transform: uppercase;">Register here</b></h5> -->
+
+
+
+    <div *ngIf="showLogin" class="sign-in-panel">
+        <form [formGroup]="authForm" (ngSubmit)="signin()">
+            <ion-list class="custom-list list-sign-in">
+                <!-- <div class="main-logo">
+                </div> -->
+                <div style="text-align: center;margin-top: -35px ;">
+                    <!-- -3em -->
+                    <img src="assets/img/mg2u-logo-circle1.svg" />
+                </div>
+                <h3 style="text-align: center;color:#62AE4D;font-size:2em;font-weight:bold">
+                    Sign In
+                </h3>
+                <ion-item [class.error]="username && !username.valid && username.touched" class="signin-textfield">
+                    <!-- shorter-height -->
+                    <ion-label><i class="fa fa-lg fa-user fa-fw"></i></ion-label>
+                    <ion-input type="email" formControlName="username" clearInput="true"
+                        placeholder="{{'SignIn.username'|translate}}"  autocorrect=“off” autocomplete=“off” spellcheck=“false”></ion-input>
+                </ion-item>
+                <ion-item [class.error]="password1 && !password1.valid && password1.touched" class="signin-textfield ">
+                    <!-- shorter-height -->
+                    <ion-label><i class="fa fa-lg fa-key fa-fw"></i></ion-label>
+                    
+                    <ion-input [type]="!showPassword?'password':'text'" formControlName="password" clearInput="true"
+                    autocorrect=“off” autocomplete=“off” spellcheck=“false”
+                        placeholder="{{'SignIn.password'|translate}}"></ion-input>
+                    <div icon-only ion-button large color="dark" clear item-right (click)="toggleShowPassword($event)"
+                        style="margin:0px">
+                        <ion-icon *ngIf="showPassword" name="eye"></ion-icon>
+                        <ion-icon *ngIf="!showPassword" name="eye-off"></ion-icon>
+                    </div>
+                    <!-- ion-button icon-only  -->
+                </ion-item>
+                
+            <!-- <ion-item class="signin-textfield" style="background-color: #C8F6BC;
+            height:3em;margin-left:3.2rem;
+                        border-bottom: solid;
+                        border-bottom-width: 1px;border-color: green;">
+
+                <button style="font-size: x-large;text-transform: capitalize;color:#62AE4D" clear ion-button full
+                    type="submit" [disabled]="!authForm.valid">Login</button>
+            </ion-item> -->
+            <div class="signin-textfield" style="background-color: #C8F6BC;
+            height:3em;margin-left:3.2rem;
+                        border-bottom: solid;
+                        border-bottom-width: 1px;border-color: green;width: calc(100% - 5rem) !important; display: inline-table;">
+            <button style="font-size: x-large;text-transform: capitalize;color:#62AE4D; " clear ion-button full
+                    type="submit" [disabled]="!authForm.valid">Login</button>
+                    </div>
+            </ion-list>
+            <div *ngIf="password1 && password1.hasError('required') && password1.touched" class="error-box">* Password
+                is required
+            </div>
+
+            <!-- <button ion-button color="primary" round block [disabled]="!authForm.valid">
+                {{"SignIn.login"|translate}}
+            </button> -->
+        </form>
+        <h6 class="hide-on-keyboard-open" style="text-align: center">
+            <a (click)="forgotPassword()">{{"SignIn.forgotpassword"|translate}}</a>
+        </h6>
+        <h6 class="hide-on-keyboard-open" style="text-align: center">
+            <a (click)="signup()">{{"SignIn.signup"|translate}}</a>
+        </h6>
+        <br /><br />
+
+    </div>
+    <div *ngIf="!showLogin && state == 'initializing'" class="signing-in loading">
+        <div style="text-align:center">
+            <img class="ri" src="assets/img/mg2u-circle-512.png" />
+            <!-- assets/img/mg2u-logo-circle.svg -->
+            <h4 class="ti" *ngIf="!serverUnreachable">
+                Please wait while initializing...<br>
+                <button ion-button *ngIf="!retryClicked" (click)="onPageInit(true)">
+                    <i class="fa fa-lg fa-fw fa-refresh" aria-hidden="true"></i>&nbsp;Tap here to retry
+                </button>
+                <br>
+                <ion-label class="force-relog" *ngIf="!retryClicked" (click)="onSignout()">If this persists, click here to re-login</ion-label>
+            </h4>
+            <h4 class="ti" *ngIf="serverUnreachable">
+                Server unreachable. Try again.<br>
+                <button ion-button *ngIf="!retryClicked" (click)="onPageInit(true)">
+                    <i class="fa fa-lg fa-fw fa-refresh" aria-hidden="true"></i>&nbsp;Tap here to retry
+                </button>
+                <br>
+                <ion-label class="force-relog" *ngIf="!retryClicked" (click)="onSignout()">If this persists, click here to re-login</ion-label>
+            </h4>
+        </div>
+    </div>
+    <div *ngIf="!showLogin && state == 'checkingVersion'" class="signing-in loading">
+        <div style="text-align:center">
+            <img class="ri" src="assets/img/mg2u-circle-512.png" />
+            <h4 class="ti">
+                Please wait checking app version...<br>
+                <button ion-button *ngIf="!retryClicked" (click)="onPageInit(true)">
+                    <i class="fa fa-lg fa-fw fa-refresh" aria-hidden="true"></i>&nbsp;Tap here to retry
+                </button>
+                <br>
+                <ion-label class="force-relog" *ngIf="!retryClicked" (click)="onSignout()">If this persists, click here to re-login</ion-label>
+            </h4>
+        </div>
+    </div>
+    <div *ngIf="!showLogin && state == 'signingIn'" class="signing-in loading">
+        <div style="text-align:center">
+            <img class="ri" src="assets/img/mg2u-circle-512.png" />
+            <h4 class="ti"> 
+                Please wait while signing in...<br>
+                <button ion-button *ngIf="!retryClicked" (click)="onPageInit(true)">
+                    <i class="fa fa-lg fa-fw fa-refresh" aria-hidden="true"></i>&nbsp;Tap here to retry
+                </button>
+                <br>
+                <ion-label class="force-relog" *ngIf="!retryClicked" (click)="onSignout()">If this persists, click here to re-login</ion-label>
+            </h4>
+        </div>
+    </div>
+    <div *ngIf="!showLogin && state == 'error'" class="signing-in loading">
+        <!-- *ngIf="!showLogin && state == 'error'" -->
+        <div style="text-align:center">
+            <img class="ri" src="assets/img/mg2u-circle-512.png" />
+            <h4 class="ti" style="left:0px;padding-left:0px">
+                {{initializationError}}
+                <!-- The minimum APP version supported by myGolf2u server is 5. Curent APP version is 4.0. Please update you mygolf2u app to the latest version. -->
+            </h4>
+
+        </div>
+    </div>
+</ion-content>
+<ion-footer *ngIf="!isCordova() && showLogin">
+    <ion-row>
+        <ion-col style="text-align:center;">
+            <a href="https://play.google.com/store/apps/details?id=com.brite.mygolf2u" target="_blank"
+                data-saferedirecturl="https://www.google.com/url?q=https://play.google.com/store/apps/details?id%3Dcom.brite.mygolf2u&amp;source=gmail&amp;ust=1580444318493000&amp;usg=AFQjCNHV70fq7ymmR4ZFINUBBxGUGYED1Q">
+                <img alt="Get it on Google Play"
+                    src="https://ci5.googleusercontent.com/proxy/iodRaVsEAYkieUHVNGACdpt1unV5q10atQcOcwj7hXT4u_LD9E9BwHbSc38QKkdsNkaRrVXTJd2013avwMmQPwDcv_wQaEBjTxo=s0-d-e1-ft#http://mygolf2u.com/briteweb/icon/MGOLF/AndroidNew.icon"
+                    class="CToWUd"
+                    onerror="this.src='assets/img/playStore.png'"> </a>
+        </ion-col>
+        <ion-col style="text-align:center;">
+            <a href="https://itunes.apple.com/app/mygolf2u/id1092380543?mt=8" target="_blank"
+                data-saferedirecturl="https://www.google.com/url?q=https://itunes.apple.com/app/mygolf2u/id1092380543?l%3Dth%26mt%3D8&amp;source=gmail&amp;ust=1580444318493000&amp;usg=AFQjCNECkfEc3kMpYOO8IfTbxz5uIw3Ctw">
+                <img alt="Get it on App Store"
+                    src="https://ci5.googleusercontent.com/proxy/TzjS6u0Im4dx-WW4E0CywQEpKEomlF6KOFCSqaJlbO3ik9FRWIrvebGwWqrFDVjHAse1v6mCVa1jQqiK-trI5cnsEzEKqjZJxw=s0-d-e1-ft#http://mygolf2u.com/briteweb/icon/MGOLF/IphoneNew.icon"
+                    class="CToWUd"
+                    onerror="this.src='assets/img/appStore.png'"> </a>
+
+        </ion-col>
+
+    </ion-row>
+</ion-footer>

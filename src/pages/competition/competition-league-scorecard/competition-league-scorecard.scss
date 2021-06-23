@@ -1,0 +1,128 @@
+competition-league-scorecard-page {
+    .card-ios, .card-md {
+        font-size: $font-size-base*0.8 !important;
+    }
+
+    .mygolf-table-row, .mygolf-table-row-alt {
+        padding-left: 0 !important;
+    }
+
+    .mygolf-table-header {
+        padding-left: 0 !important;
+    }
+
+    .scorecard {
+        border-radius: 5px;
+        border: solid thin darkgrey;
+        //box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 10px 11px -3px rgba(166, 163, 166, 1);
+        margin: 5px 10px;
+        width: calc(100% - 20px);
+        ion-card-content {
+            padding: 0px;
+            line-height: 1.2;
+        }
+        ion-col {
+            font-size: small;
+        }
+        .scorecard-header {
+            background-color: $table-title-background-color !important;
+            padding-top: 0px;
+            padding-bottom: 0;
+            color: $table-title-text-color;
+        }
+
+        .name-col {
+            text-align: left !important;
+            font-size: smaller;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-left: 2px;
+            //min-width: 35%;
+        }
+        .header-col {
+            //min-width: 35%;
+        }
+        .hole-par-row {
+            background-color: $par-color !important;
+            color: black !important;
+        }
+        .hole-index-row {
+            color: white !important;
+            background-color: $dark;
+        }
+        .player-row {
+            background-color: white !important;
+            .player-name {
+                font-size: x-small;
+                padding: 2px 0px 2px 0px
+                //padding-top: 5px;
+            }
+        }
+    }
+
+    
+    .hole-par-row {
+        background-color: $par-color !important;
+        color: black !important;
+        line-height: 1.5em !important;
+    }
+    .hole-index-row {
+        color: white !important;
+        background-color: $dark;
+        line-height: 1.5em !important;
+    }
+    
+    ion-card-content {
+        padding: 0px;
+        line-height: 1.2;
+    }
+
+    .score-par {
+        background-color: $par-color;
+        color: black;
+    }
+    .score-eagle {
+        background-color: $eagle-color;
+        color: white;
+    }
+    .score-birdie {
+        background-color: $birdie-color;
+        color: white;
+    }
+    .score-bogey {
+        //background-color: #FFFFFF;
+        color: black;
+    }
+    .score-albatross {
+
+    }
+    .hole-in-one {
+        color: white;
+        background-color: black;
+    }
+
+    .button-teebox {
+        width: 2em;
+        border-radius: 50%;// 1em;
+    }
+
+    .button-teebox-white {
+        background-color: #30bb5b;
+    }
+
+    
+    .btn-back {
+        background: url(../assets/img/prev.png) no-repeat;
+        background-size: 1.5em;
+        // transform: translate(10px, 10px);
+        transform: translate(12px, 15px);
+    }
+    .btn-next {
+        background: url(../assets/img/prev.png) no-repeat;
+        background-size: 1.5em;
+        transform: scale(-1,1) translate(12px, 15px);
+    }
+    
+}

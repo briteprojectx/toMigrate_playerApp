@@ -1,0 +1,24 @@
+competition-league-leaderboard-page {
+    .card-ios, .card-md {
+        font-size: $font-size-base*0.8 !important;
+    }
+
+    .mygolf-table-row, .mygolf-table-row-alt {
+        padding-left: 0 !important;
+    }
+
+    .mygolf-table-header {
+        padding-left: 0 !important;
+    }
+    .btn-back {
+        background: url(../assets/img/prev.png) no-repeat;
+        background-size: 1.5em;
+        // transform: translate(10px, 10px);
+        transform: translate(12px, 15px);
+    }
+    .btn-next {
+        background: url(../assets/img/prev.png) no-repeat;
+        background-size: 1.5em;
+        transform: scale(-1,1) translate(12px, 15px);
+    }
+}

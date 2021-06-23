@@ -1,0 +1,49 @@
+<ion-header >
+    <ion-navbar >
+        <ion-title center >Scoring Test Setup</ion-title >
+    </ion-navbar >
+</ion-header >
+
+
+<ion-content padding class="testing-screen">
+
+    <ion-list >
+        <ion-item (click)="openCompetition()" >
+            <h3 class="title" >{{competition?competition.competitionName:'Select Competition'}}</h3 >
+            <h4 class="sub-title" *ngIf="competition">{{competition.clubName}}</h4>
+        </ion-item>
+        <ion-item>
+            <ion-label item-left>Delay (Seconds)<span primary padding>{{delayInSeconds}}</span></ion-label>
+            <ion-range min="1" max="20" pin="true" [(ngModel)]="delayInSeconds">
+                <ion-label range-left>1</ion-label>
+                <ion-label range-right>20</ion-label>
+            </ion-range>
+        </ion-item>
+        <ion-item *ngIf="competition">
+            <ion-label>Exclude Scorers</ion-label>
+            <ion-select multiple="true" [(ngModel)]="playersToExclude" (ionChange)="derivePlayers()">
+                <ion-option *ngFor="let player of participants" [value]="player">{{player.playerName}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item *ngIf="playersToScore && playersToScore.length">
+            <ion-label>Scoring for</ion-label>
+            <ion-list >
+                <ion-item *ngFor="let player of playersToScore">
+                    {{player.playerName}}
+                </ion-item>
+            </ion-list>
+        </ion-item>
+
+    </ion-list >
+
+</ion-content >
+<ion-footer>
+    <div class="button-panel" *ngIf="competition">
+        <button ion-button block (click)="startScoring()">Start Scoring
+        </button >
+        <button ion-button round color="danger" (click)="close()"
+                *ngIf="openedAsDialog" >Cancel
+        </button >
+    </div >
+
+</ion-footer>

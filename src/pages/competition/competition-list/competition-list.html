@@ -1,0 +1,153 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title center>Competitions</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="onRefreshClick()" icon-only>
+                <i class="fa fa-fw fa-lg fa-refresh"></i>Reload
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar color="light">
+        <ion-segment [(ngModel)]="tabs" warning>
+
+            <ion-segment-button (click)="setSearchType('upcoming')" value="upcoming">
+                Upcoming
+            </ion-segment-button>
+            <ion-segment-button (click)="setSearchType('all')" value="all">
+                View All
+            </ion-segment-button>
+            <ion-segment-button (click)="setSearchType('private')" value="private">
+                Private
+            </ion-segment-button>
+            <ion-segment-button (click)="onMenuFilterClick()" style="color:white;background-color:gray">
+                Options
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+    <ion-toolbar color="light" class="competition-list">
+        <ion-searchbar [(ngModel)]="searchQuery" debounce="1500"
+                       (ionInput)="onSearchInput($event)" [showCancelButton]="true" color="dark">
+        </ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-refresher pullMin="200" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-down" pullingText="drag down to reload" refreshingSpinner="circles"
+                               refreshingText="Refreshing ...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list *ngIf="selectedCountry">
+            <button ion-button clear small (click)="onMenuFilterClick()" style="width:100%;font-size: x-small;">
+                    <i>* Filtered by Country : {{selectedCountry.name}}. Tap here to change</i>
+                </button>
+        <!-- <ion-item  style="font-size: x-small;"></ion-item> -->
+    </ion-list>
+    
+    <ion-list *ngIf="refreshAttempted && compList.totalItems===0" padding style="padding-top:0">
+        <span color="danger">No competitions found</span>
+    </ion-list>
+    <ion-list *ngIf="compList.totalItems > 0">
+        <button ion-item *ngFor="let competition of compList.competitions" style="padding-left: 2px"
+                (click)="onCompetitionClick(competition)">
+            <ion-card class="competition-card">
+                <!--<ion-card class="competition-card" *virtualItem="let competition" (click)="onCompetitionClick($event, competition)">-->
+                <ion-row class="info-row">
+                    <ion-col col-3 class="image-column">
+                        <ion-avatar item-left *ngIf="competition.thumbnail">
+                            <img [src]="competition.thumbnail" onerror = "this.src='img/default_competition.png'">
+                        </ion-avatar>
+                        <ion-avatar item-left *ngIf="competition.imageUrl && !competition.thumbnail">
+                            <img [src]="competition.imageUrl" onerror = "this.src='img/default_competition.png'">
+                        </ion-avatar>
+                        <ion-avatar item-left *ngIf="!competition.imageUrl && !competition.thumbnail">
+                            <img src="img/default_competition.png" onerror = "this.src='img/default_competition.png'">
+                        </ion-avatar>
+
+                    </ion-col>
+                    <ion-col class="info-column">
+                        <div class="competition-info">
+                            <p class="competition-name">{{competition.competitionName}}</p>
+                            <p class="competition-date">
+                                <i class="fa fa-calendar"></i>
+                                {{competition.startDate | date:"EEE, d MMM yyyy"}}
+                                <span *ngIf="competition.status=='Upcoming'" class="competition-details"
+                                      style="color:#FF4343 !important">({{startDaysText(competition)}})</span>
+                            </p>
+                            <p class="competition-details">
+                            <span color="primary"><i color="danger" class="fa fa-map-marker"></i>
+                                {{competition.clubTag}}
+                            </span>
+                                <span color="blue" *ngIf="competition.scoringFormat">|
+                                <i class="fa fa-wpforms"></i>
+                                {{competition.scoringFormat}}
+                            </span>
+                                <span color="darkpurple" *ngIf="competition.teamEvent">|
+                              <i class="fa fa-fw fa-users"></i>
+                                Team Event
+                              </span>
+                            </p>
+
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="status-row baseline">
+                    <ion-col class="status-info reg-col baseline">
+                        <ion-note *ngIf="competition.registered">
+                            <span icon-left class="player-registered">
+                                <i class="mdi mdi-account-check"></i> {{"CompetitionListPage.registered"|translate}}
+                            </span>
+                        </ion-note>
+                        <ion-note icon-left class="registration-text"
+                                  *ngIf="!competition.registered && !competition.closedForRegistration && competition.status=='Upcoming'">
+                            <i class="fa fa-pencil-square-o"></i> {{regDaysText(competition)}}
+
+                        </ion-note>
+
+                        <ion-note icon-left class="competition-finished"
+                                  *ngIf="!competition.registered && (competition.status=='Completed' || competition.status=='Cancelled')">
+                            {{regDaysText(competition)}}
+                        </ion-note>
+                        <ion-note icon-left class="registration-text" style="color:red !important"
+                                  *ngIf="!competition.registered && (competition.status=='Upcoming') && competition.closedForRegistration">
+                            <i class="fa fa-pencil-square-o"></i> Registration closed
+                        </ion-note>
+                    </ion-col>
+                    <ion-col class="status-info slot-col baseline">
+                        <!--{{competition.totalRegistered}} {{"CompetitionListPage.playerParticipated"|translate}}-->
+                        <!-- <ion-note> -->
+                          <ion-note icon-left
+                            *ngIf="!competition.registered && !competition.closedForRegistration && competition.status=='Upcoming'"
+                            class="remaining-slots">
+  <i class="mdi mdi-account"></i>{{competition.maxPlayers - competition.totalRegistered}}
+{{"CompetitionListPage.slotsLeft"|translate}}</ion-note>
+                            <ion-note icon-left *ngIf="(competition.status=='Completed' || competition.status=='Cancelled')"
+                                  class="competition-finished">
+<i class="fa fa-fw fa-user"></i>
+{{competition.totalRegistered}} {{"CompetitionListPage.playerParticipated"|translate}}</ion-note>
+                            <ion-note icon-left *ngIf="competition.status=='In Progress'" class="competition-finished">
+<i class="fa fa-fw fa-user"></i>
+{{competition.totalRegistered}} {{"CompetitionListPage.playerParticipating"|translate}}</ion-note>
+                        <!-- </ion-note> -->
+                    </ion-col>
+                    <ion-col class="status-info  status-col baseline">
+                        <ion-note icon-left item-right class="competition-status {{getStatusClass(competition)}}">
+                            <i class="{{getStatusIcon(competition)}}"></i>{{competition.status}}
+                        </ion-note>
+                    </ion-col>
+                </ion-row>
+
+            </ion-card>
+        </button>
+    </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)"
+                         threshold="30%">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading more competitions..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

@@ -1,0 +1,64 @@
+// .scorecard {
+//   background-color: #fff !important;
+//   background: url('/img/bg2.png'), url('/img/cover.png') !important;
+//   background-repeat: repeat-x, repeat-x !important;
+//   background-position: left bottom, left top !important;
+//   background-size: 40px, 200px !important;
+// }
+//
+
+competition-league-menu {
+    .custom-header {
+      background-color: $sub-header;
+      color: $white;
+      padding-left: 1rem;
+      padding-right: 0px;
+      font-size: medium;
+      font-weight: bold;
+    }
+
+    .prize-padding-left {
+      padding-left: 2.5rem;
+    }
+  .prize-subtitle {
+      font-weight: bold;
+      @include truncate();
+  }
+    .flight-member-header {
+      background-color: $dark;
+      color: white;
+      font-weight: bolder;
+    }
+
+      .category-name{
+    // color: $white;
+        font-size: smaller;
+        font-weight: bolder;
+        color: $danger;
+        // background-color: $skyblue;
+      }
+      .score-name{
+        font-size: smaller;
+        font-weight:bold;
+        color: $birdie-color;
+        padding-left:1rem;
+      }
+      .prize-row{
+        padding-left:2rem;
+        font-size: smaller;
+      }
+}
+// competition-prizes {
+
+//   ion-card-content {
+//     padding: 0px !important;
+//     background-color: $white;
+//   }
+
+//   .player-flight {
+//     background-color: $danger;
+//     color: $white;
+//   }
+
+
+// }

@@ -1,0 +1,28 @@
+<ion-header >
+    <ion-navbar >
+        <ion-title >Send Feedback</ion-title >
+    </ion-navbar >
+</ion-header >
+
+
+<ion-content padding >
+    <ion-list >
+        <ion-item >
+            <ion-label >Category</ion-label >
+            <ion-select [(ngModel)]="category" >
+                <ion-option *ngFor="let catg of categories"
+                            value="{{catg.id}}" >{{catg.name}}
+                </ion-option >
+            </ion-select >
+        </ion-item >
+
+        <ion-item >
+            <ion-input type="text" placeholder="Subject" [(ngModel)]="subject" ></ion-input >
+        </ion-item >
+
+        <ion-item >
+            <ion-textarea placeholder="Your Message" [(ngModel)]="message" ></ion-textarea >
+        </ion-item >
+        <button ion-button color="primary" block (click)="submitFeedback()" >Submit Feedback</button >
+    </ion-list >
+</ion-content >

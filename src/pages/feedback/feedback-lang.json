@@ -1,0 +1,12 @@
+{
+  "en":{
+    "Feedback": {
+      "title": "myGolf: Feedback",
+      "OK": "OK",
+      "CategoriesListError": "Categories Error",
+      "FeedbackSuccessTitle":"Feedback",
+      "FeedbackErrorTitle": "Error sending feedback",
+      "FeedbackSuccessMessage": "Your feedback was sent successfully"
+    }
+  }
+}
